@@ -274,7 +274,7 @@ class MenuItemsButton extends StatefulWidget {
 }
 
 class _MenuItemsButtonState extends State<MenuItemsButton> {
-  // int selectedQuantity = 0;
+  int selectedQuantity = 0;
 
   void _addSelectedQuantity() {
     setState(() {
@@ -285,12 +285,9 @@ class _MenuItemsButtonState extends State<MenuItemsButton> {
   }
 
   void _subtractSelectedQuantity() {
-    print("reachde in -");
-    print("${widget.selectedQuantity}??????????????????????????");
     if (widget.selectedQuantity > 0) {
       setState(() {
         widget.selectedQuantity -= 1; // Properly decrement the quantity
-        print("${widget.selectedQuantity}<<<<<<<<<<<<<<<<<<<<<<<<");
       });
 
       widget.updateTotalQuantity(-widget.price, widget.itemName, widget.itemId,
