@@ -50,7 +50,9 @@ class _InsiderScreenState extends State<InsiderScreen> {
                   child: Center(
                     child: IconButton(
                         padding: const EdgeInsets.all(0),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/home-screen");
+                        },
                         icon: const Icon(
                           Icons.chevron_left,
                           color: APP_COLORS.searchIconColor,
