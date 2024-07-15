@@ -1,7 +1,10 @@
 import 'package:barfly_user/components/OrderDetails.dart';
+import 'package:barfly_user/screens/AccountDetailsScreen.dart';
 import 'package:barfly_user/screens/EntryScreen.dart';
 import 'package:barfly_user/screens/HomeScreen.dart';
 import 'package:barfly_user/screens/InsiderScreen.dart';
+import 'package:barfly_user/screens/LoungeDetailsScreen.dart';
+import 'package:barfly_user/screens/LoungeList.dart';
 import 'package:barfly_user/screens/MenuItems.dart';
 import 'package:barfly_user/screens/OrderOverview.dart';
 import 'package:flutter/foundation.dart';
@@ -10,7 +13,6 @@ import 'package:flutter/material.dart';
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments as Map<String, dynamic>?;
-    print("${args}      1111111111111111111111111111111111111");
     switch (settings.name) {
       case '/entry-screen':
         return FadeRoute(
@@ -54,6 +56,18 @@ class RouteGenerator {
             currency: currency,
           ),
         );
+      case "/lounge-list-screen":
+        return FadeRoute(page: LoungeList());
+      case "/lounge-details-screen":
+        return FadeRoute(
+            page: LoungeDetailsScreen(
+          loungeName: args!["loungeName"],
+          persons: args["persons"],
+          time: args["time"],
+        ));
+
+      case "/account-details-screen":
+        return FadeRoute(page: AccountDetailsScreen());
     }
     return _errorRoute();
   }

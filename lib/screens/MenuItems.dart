@@ -177,24 +177,24 @@ class _MenuItemsScreenState extends State<MenuItemsScreen> {
                                   : 0,
                               updateTotalQuantity: _updateTotalQuantity,
                             ),
-                            MenuItemsButton(
-                              itemId: "123244",
-                              borderRadius: 20,
-                              itemName:
-                                  "Gin Tonic dskldksa;kdsa ;sdk;sakd;lsakd ;  hjfsaljndlksajldksa kdlsjakldjsakljdkslad jkldksajdklsajkldsa lksjadksajdkl;sajkd",
-                              onPressed: () => {},
-                              imagePath: "ginTonic.png",
-                              currency: "CHF",
-                              minWidth: 264,
-                              minHeight: 376,
-                              price: 18.00,
-                              weightOrVolume: "250ml",
-                              selectedQuantity:
-                                  widget.orderDetails.containsKey("123244")
-                                      ? widget.orderDetails["123244"]!.quantity
-                                      : 0,
-                              updateTotalQuantity: _updateTotalQuantity,
-                            ),
+                            // MenuItemsButton(
+                            //   itemId: "123244",
+                            //   borderRadius: 20,
+                            //   itemName:
+                            //       "Gin Tonic dskldksa;kdsa ;sdk;sakd;lsakd ;  hjfsaljndlksajldksa kdlsjakldjsakljdkslad jkldksajdklsajkldsa lksjadksajdkl;sajkd",
+                            //   onPressed: () => {},
+                            //   imagePath: "ginTonic.png",
+                            //   currency: "CHF",
+                            //   minWidth: 264,
+                            //   minHeight: 376,
+                            //   price: 18.00,
+                            //   weightOrVolume: "250ml",
+                            //   selectedQuantity:
+                            //       widget.orderDetails.containsKey("123244")
+                            //           ? widget.orderDetails["123244"]!.quantity
+                            //           : 0,
+                            //   updateTotalQuantity: _updateTotalQuantity,
+                            // ),
                           ],
                         ),
                       ),

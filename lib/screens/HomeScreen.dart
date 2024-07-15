@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               _selectedIndex == 0 ? Colors.white : Colors.grey),
                       onPressed: () => _onItemTapped(0),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     IconButton(
@@ -144,21 +144,21 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: screenHeight * 0.04577,
                         ),
                   _isSearchActive
-                      ? SizedBox(
+                      ? const SizedBox(
                           height: 0,
                         )
                       : Container(
-                          padding: EdgeInsets.only(left: 16),
+                          padding: const EdgeInsets.only(left: 16),
                           height: screenHeight * 0.0704,
                           width: screenWidth * 0.623,
-                          child: Text(APP_TEXT.Favorites,
+                          child: const Text(APP_TEXT.Favorites,
                               textAlign: TextAlign.left,
-                              style: GoogleFonts.robotoCondensed(
-                                  textStyle: TextStyle(
+                              style: TextStyle(
+                                fontFamily: "Helvetica",
                                 fontSize: 50,
                                 fontWeight: FontWeight.w900,
                                 color: Colors.white,
-                              )))),
+                              ))),
                   SizedBox(
                     height: 13,
                   ),

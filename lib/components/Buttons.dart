@@ -157,12 +157,12 @@ class InsiderButton extends StatelessWidget {
     this.horizontalPadding = 25.0,
     this.buttonBackgroundColor = APP_COLORS.backgroundColor,
     this.gradient = const LinearGradient(
-      colors: [
-        Color.fromARGB(255, 98, 62, 135),
-        Color.fromARGB(255, 71, 33, 136)
-      ],
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
+      colors: [
+        Color.fromARGB(255, 100, 87, 180), // Dark Blue
+        Color.fromARGB(255, 134, 82, 202), // Blue/Purple
+      ],
     ),
   }) : super(key: key);
 
@@ -193,10 +193,15 @@ class InsiderButton extends StatelessWidget {
               children: [
                 Align(
                   alignment: Alignment.topLeft,
-                  child: Image.asset(
-                    imagePath,
-                    width: widthofButton * 0.389,
-                    height: heightofButton * 0.3809,
+                  child: Container(
+                    width: 63,
+                    height: 64,
+                    child: Image.asset(
+                      imagePath,
+                      color: Colors.white,
+                      fit: BoxFit.contain,
+                      scale: 5,
+                    ),
                   ),
                 ),
                 Align(
@@ -496,6 +501,163 @@ class CustomButtonStroked extends StatelessWidget {
                 fontWeight: FontWeight.w300,
 
                 // backgroundColor: Color(0xFF2ac4aa)
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class LoungeListButton extends StatelessWidget {
+  final String loungeName;
+  final String time;
+  final String people;
+  final double fontSize;
+  final VoidCallback onPressed;
+  final Color textColor;
+  final double minWidth;
+  final double maxWidth;
+  final Color buttonBackgroundColor;
+  final double heightofButton;
+  final double widthofButton;
+  final double borderRadius;
+  final FontWeight fontWeight;
+  final double verticalPadding;
+  final double horizontalPadding;
+  final Gradient gradient;
+  final bool isLoading;
+
+  const LoungeListButton({
+    Key? key,
+    required this.loungeName,
+    required this.onPressed,
+    required this.time,
+    required this.people,
+    this.isLoading = true,
+    this.heightofButton = 70,
+    this.widthofButton = 240,
+    this.minWidth = 428,
+    this.maxWidth = 428,
+    this.fontSize = 28,
+    this.textColor = Colors.white,
+    this.borderRadius = 8.0,
+    this.fontWeight = FontWeight.w300,
+    this.verticalPadding = 15.0,
+    this.horizontalPadding = 25.0,
+    this.buttonBackgroundColor = Colors.white,
+    this.gradient = const LinearGradient(
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+      colors: [
+        Color.fromARGB(255, 100, 87, 180), // Dark Blue
+        Color.fromARGB(255, 134, 82, 202), // Blue/Purple
+      ],
+    ),
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minWidth: minWidth,
+        maxWidth: minWidth,
+      ),
+      child: IntrinsicHeight(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: gradient,
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
+          child: ElevatedButton(
+            onPressed: onPressed,
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.zero,
+              backgroundColor: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(borderRadius),
+              ),
+            ),
+            child: Container(
+              width: double.infinity,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 11, horizontal: 15),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        loungeName,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: "Helvetica",
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                          fontSize: 30,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 25),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.person,
+                                  color: Colors.white,
+                                  size: 58,
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  people,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: "Helvetica",
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(width: 70),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.access_time,
+                                  color: Colors.white,
+                                  size: 58,
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  time,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: "Helvetica",
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 11),
+                  ],
+                ),
               ),
             ),
           ),
