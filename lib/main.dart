@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/home-screen',
+        initialRoute: '/personal-data-screen',
         theme: ThemeData(
           primaryColor: APP_COLORS.backgroundColor,
           scaffoldBackgroundColor: APP_COLORS.backgroundColor,

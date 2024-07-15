@@ -33,146 +33,144 @@ class _HomeScreenState extends State<HomeScreen> {
     return PopScope(
         canPop: true,
         child: Scaffold(
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
-            floatingActionButton: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50.0),
-              child: FloatingActionButton(
-                backgroundColor: Colors.blueGrey[800],
-                onPressed: () => _onItemTapped(1),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.local_activity,
-                          color:
-                              _selectedIndex == 0 ? Colors.white : Colors.grey),
-                      onPressed: () => _onItemTapped(0),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.home,
-                          color:
-                              _selectedIndex == 1 ? Colors.white : Colors.grey),
-                      onPressed: () => _onItemTapped(1),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.person,
-                          color:
-                              _selectedIndex == 2 ? Colors.white : Colors.grey),
-                      onPressed: () => _onItemTapped(2),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // floatingActionButtonLocation:
+            //     FloatingActionButtonLocation.centerDocked,
+            // floatingActionButton: Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 50.0),
+            //   child: FloatingActionButton(
+            //     backgroundColor: Colors.blueGrey[800],
+            //     onPressed: () => _onItemTapped(1),
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(12),
+            //     ),
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //       children: [
+            //         IconButton(
+            //           icon: Icon(Icons.local_activity,
+            //               color:
+            //                   _selectedIndex == 0 ? Colors.white : Colors.grey),
+            //           onPressed: () => _onItemTapped(0),
+            //         ),
+            //         SizedBox(
+            //           width: 20,
+            //         ),
+            //         IconButton(
+            //           icon: Icon(Icons.home,
+            //               color:
+            //                   _selectedIndex == 1 ? Colors.white : Colors.grey),
+            //           onPressed: () => _onItemTapped(1),
+            //         ),
+            //         SizedBox(
+            //           width: 20,
+            //         ),
+            //         IconButton(
+            //           icon: Icon(Icons.person,
+            //               color:
+            //                   _selectedIndex == 2 ? Colors.white : Colors.grey),
+            //           onPressed: () => _onItemTapped(2),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             body: Padding(
-              padding: EdgeInsets.only(
-                  left: screenWidth * 0.08142, right: screenWidth * 0.08396),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: screenHeight * 0.04812,
-                  ),
-                  _isSearchActive
-                      ? Container(
-                          margin: const EdgeInsets.only(top: 10, left: 0),
-                          width: screenWidth,
-                          height: screenHeight * 0.03755,
-                          child: TextField(
-                            style: const TextStyle(
-                                fontSize: 12, color: Colors.white),
-                            decoration: InputDecoration(
-                              prefixIcon: IconButton(
-                                icon: const Icon(Icons.search),
-                                onPressed: () {},
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5),
-                              ),
-                              suffixIcon: IconButton(
-                                icon: const Icon(Icons.close),
-                                onPressed: _toggleSearch,
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5),
-                              ),
-                              filled: true,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 0, horizontal: 0),
-                              fillColor: APP_COLORS.searchInputBackgroundColor,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                            ),
-                          ),
-                        )
-                      : GestureDetector(
-                          onTap: _toggleSearch,
-                          child: Container(
-                            width: 32,
-                            height: 32,
-                            margin: EdgeInsets.only(left: 16),
-                            decoration: BoxDecoration(
-                              color: APP_COLORS.searchButtonBackgroundColor,
-                              borderRadius: BorderRadius.circular(
-                                  12.0), // Adjust the radius as needed
-                            ),
-                            child: const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Icon(
-                                Icons.search,
-                                color: APP_COLORS.searchIconColor,
-                                size: 17,
-                              ),
-                            ),
-                          ),
-                        ),
-                  _isSearchActive
-                      ? SizedBox(
-                          height: screenHeight * 0.04577,
-                        )
-                      : SizedBox(
-                          height: screenHeight * 0.04577,
-                        ),
-                  _isSearchActive
-                      ? SizedBox(
-                          height: 0,
-                        )
-                      : Container(
-                          padding: EdgeInsets.only(left: 16),
-                          height: screenHeight * 0.0704,
-                          width: screenWidth * 0.623,
-                          child: Text(APP_TEXT.Favorites,
-                              textAlign: TextAlign.left,
-                              style: GoogleFonts.robotoCondensed(
-                                  textStyle: TextStyle(
-                                fontSize: 50,
-                                fontWeight: FontWeight.w900,
-                                color: Colors.white,
-                              )))),
-                  SizedBox(
-                    height: 13,
-                  ),
-                  FavorotiesButton(
-                    text: "Zurich",
-                    onPressed: () => {},
-                    widthofButton: screenWidth * 0.834,
-                    heightofButton: 0.197 * screenHeight,
-                    borderRadius: 20,
-                    isLoading: _isSearchActive,
-                  )
-                ],
+          padding: EdgeInsets.only(
+              left: screenWidth * 0.08142, right: screenWidth * 0.08396),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: screenHeight * 0.04812,
               ),
-            )));
+              _isSearchActive
+                  ? Container(
+                      margin: const EdgeInsets.only(top: 10, left: 0),
+                      width: screenWidth,
+                      height: screenHeight * 0.03755,
+                      child: TextField(
+                        style:
+                            const TextStyle(fontSize: 12, color: Colors.white),
+                        decoration: InputDecoration(
+                          prefixIcon: IconButton(
+                            icon: const Icon(Icons.search),
+                            onPressed: () {},
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                          ),
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.close),
+                            onPressed: _toggleSearch,
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                          ),
+                          filled: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 0, horizontal: 0),
+                          fillColor: APP_COLORS.searchInputBackgroundColor,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                        ),
+                      ),
+                    )
+                  : GestureDetector(
+                      onTap: _toggleSearch,
+                      child: Container(
+                        width: 32,
+                        height: 32,
+                        margin: EdgeInsets.only(left: 16),
+                        decoration: BoxDecoration(
+                          color: APP_COLORS.searchButtonBackgroundColor,
+                          borderRadius: BorderRadius.circular(
+                              12.0), // Adjust the radius as needed
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.search,
+                            color: APP_COLORS.searchIconColor,
+                            size: 17,
+                          ),
+                        ),
+                      ),
+                    ),
+              _isSearchActive
+                  ? SizedBox(
+                      height: screenHeight * 0.04577,
+                    )
+                  : SizedBox(
+                      height: screenHeight * 0.04577,
+                    ),
+              _isSearchActive
+                  ? SizedBox(
+                      height: 0,
+                    )
+                  : Container(
+                      padding: EdgeInsets.only(left: 16),
+                      height: screenHeight * 0.0704,
+                      width: screenWidth * 0.623,
+                      child: Text(APP_TEXT.Favorites,
+                          textAlign: TextAlign.left,
+                          style: GoogleFonts.robotoCondensed(
+                              textStyle: TextStyle(
+                            fontSize: 50,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.white,
+                          )))),
+              SizedBox(
+                height: 13,
+              ),
+              FavorotiesButton(
+                text: "Zurich",
+                onPressed: () => {},
+                widthofButton: screenWidth * 0.834,
+                heightofButton: 0.197 * screenHeight,
+                borderRadius: 20,
+                isLoading: _isSearchActive,
+              )
+            ],
+          ),
+        )));
   }
 }
 
