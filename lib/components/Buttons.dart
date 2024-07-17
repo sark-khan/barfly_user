@@ -592,7 +592,7 @@ class LoungeListButton extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: "Helvetica",
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w500,
                           color: Colors.white,
                           fontSize: 30,
                         ),
@@ -611,10 +611,14 @@ class LoungeListButton extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.person,
-                                  color: Colors.white,
-                                  size: 58,
+                                Container(
+                                  width: 60,
+                                  height: 60,
+                                  child: Image.asset(
+                                    "person.png",
+                                    color: Colors.white,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                                 SizedBox(height: 4),
                                 Text(
@@ -632,10 +636,14 @@ class LoungeListButton extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.access_time,
-                                  color: Colors.white,
-                                  size: 58,
+                                Container(
+                                  width: 60,
+                                  height: 60,
+                                  child: Image.asset(
+                                    "time.png",
+                                    color: Colors.white,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                                 SizedBox(height: 4),
                                 Text(

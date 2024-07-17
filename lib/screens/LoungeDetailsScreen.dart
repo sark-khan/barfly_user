@@ -220,14 +220,21 @@ class LoungeDetailsScreen extends StatelessWidget {
                               backgroundColor: APP_COLORS
                                   .buttonColor, // Change this to your desired color
                             ),
-                            child: Center(
-                              child: Text(
-                                'Reserve (CHF 599.0) ',
-                                style: TextStyle(
-                                  fontFamily: "Helvetica",
-                                  color: Colors.white,
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w700,
+                            child: const Center(
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: Text(
+                                    'Reserve (CHF 599.0) ',
+                                    style: TextStyle(
+                                      fontFamily: "Helvetica",
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),

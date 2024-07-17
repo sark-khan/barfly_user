@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/account-details-screen',
+        initialRoute: '/pickup-screen',
         theme: ThemeData(
           primaryColor: APP_COLORS.backgroundColor,
           scaffoldBackgroundColor: APP_COLORS.backgroundColor,

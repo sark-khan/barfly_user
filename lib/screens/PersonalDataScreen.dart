@@ -25,7 +25,7 @@ class PersonalDataScreen extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, "/home-screen");
+                        Navigator.pushNamed(context, "/account-details-screen");
                       },
                       child: Container(
                         width: 34,
@@ -40,7 +40,8 @@ class PersonalDataScreen extends StatelessWidget {
                           child: IconButton(
                               padding: const EdgeInsets.all(0),
                               onPressed: () {
-                                Navigator.pushNamed(context, "/home-screen");
+                                Navigator.pushNamed(
+                                    context, "/account-details-screen");
                               },
                               icon: const Icon(
                                 Icons.chevron_left,
@@ -228,24 +229,30 @@ class PersonalDataScreen extends StatelessWidget {
                                             fontWeight: FontWeight.bold,
                                             fontSize: 14)),
                                     WidgetSpan(
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Icon(Icons.delete,
-                                              size: 20, color: Colors.white),
-                                          SizedBox(
-                                              width:
-                                                  4), // Optional: Adds space between icon and text
-                                          Text(
-                                            "Delete Account",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w100,
-                                              fontSize: 10,
-                                              color: Colors
-                                                  .white, // Ensure text color matches icon color
+                                      child: GestureDetector(
+                                        onTap: () => {
+                                          Navigator.pushNamed(
+                                              context, "/delete-screen")
+                                        },
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Icon(Icons.delete,
+                                                size: 20, color: Colors.white),
+                                            SizedBox(
+                                                width:
+                                                    4), // Optional: Adds space between icon and text
+                                            Text(
+                                              "Delete Account",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w100,
+                                                fontSize: 10,
+                                                color: Colors
+                                                    .white, // Ensure text color matches icon color
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     )
                                   ])),
