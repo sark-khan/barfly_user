@@ -1,7 +1,6 @@
 import 'package:barfly_user/appConstants.dart';
 import 'package:barfly_user/commonFunctions.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class DeleteScreen extends StatelessWidget {
   const DeleteScreen({Key? key}) : super(key: key); // add a name key parameter
@@ -24,7 +23,7 @@ class DeleteScreen extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, "/home-screen");
+                        Navigator.pushNamed(context, "/account-details-screen");
                       },
                       child: Container(
                         width: 34,
@@ -39,7 +38,8 @@ class DeleteScreen extends StatelessWidget {
                           child: IconButton(
                               padding: const EdgeInsets.all(0),
                               onPressed: () {
-                                Navigator.pushNamed(context, "/home-screen");
+                                Navigator.pushNamed(
+                                    context, "/account-details-screen");
                               },
                               icon: const Icon(
                                 Icons.chevron_left,

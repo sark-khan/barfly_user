@@ -24,7 +24,7 @@ class TokenScreen extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, "/home-screen");
+                        Navigator.pushNamed(context, "/account-details-screen");
                       },
                       child: Container(
                         width: 34,
@@ -39,7 +39,8 @@ class TokenScreen extends StatelessWidget {
                           child: IconButton(
                               padding: const EdgeInsets.all(0),
                               onPressed: () {
-                                Navigator.pushNamed(context, "/home-screen");
+                                Navigator.pushNamed(
+                                    context, "/account-details-screen");
                               },
                               icon: const Icon(
                                 Icons.chevron_left,

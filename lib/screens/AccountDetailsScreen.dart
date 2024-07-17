@@ -34,35 +34,6 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
               SizedBox(
                 height: screenHeight * 0.14812,
               ),
-              // GestureDetector(
-              //   onTap: () {
-              //     Navigator.pushNamed(context, "/home-screen");
-              //   },
-              //   child: Container(
-              //     width: 34,
-              //     height: 32,
-              //     margin: const EdgeInsets.only(left: 16),
-              //     decoration: BoxDecoration(
-              //       color: APP_COLORS.searchButtonBackgroundColor,
-              //       borderRadius: BorderRadius.circular(
-              //           12.0), // Adjust the radius as needed
-              //     ),
-              //     child: Center(
-              //       child: IconButton(
-              //           padding: const EdgeInsets.all(0),
-              //           onPressed: () {},
-              //           icon: const Icon(
-              //             Icons.chevron_left,
-              //             color: APP_COLORS.searchIconColor,
-              //             size: 30,
-              //           )),
-              //     ),
-              //   ),
-              // ),
-
-              // SizedBox(
-              //   height: screenHeight * 0.0457,
-              // ),
               Container(
                   margin: const EdgeInsets.only(left: 16),
                   child: Text(
@@ -71,7 +42,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                         fontFamily: "Helvetica",
                         color: Colors.white,
                         fontSize: 40,
-                        fontWeight: FontWeight.w700),
+                        fontWeight: FontWeight.w900),
                   )),
               SizedBox(
                 height: 13,

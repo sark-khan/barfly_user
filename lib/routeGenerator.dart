@@ -11,8 +11,8 @@ import 'package:barfly_user/screens/OrderOverview.dart';
 import 'package:barfly_user/screens/PersonalDataScreen.dart';
 import 'package:barfly_user/screens/PersonalScreen.dart';
 import 'package:barfly_user/screens/PickUpScreen.dart';
+import 'package:barfly_user/screens/PickUpOrTakeAway.dart';
 import 'package:barfly_user/screens/TokenScreen.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class RouteGenerator {
@@ -78,19 +78,23 @@ class RouteGenerator {
         );
       case '/personal-data-screen':
         return FadeRoute(
-          page: PersonalDataScreen(),
+          page: const PersonalDataScreen(),
         );
       case '/token-screen':
         return FadeRoute(
-          page: TokenScreen(),
+          page: const TokenScreen(),
         );
       case '/personal-screen':
         return FadeRoute(
-          page: PersonalScreen(),
+          page: const PersonalScreen(),
         );
       case '/delete-screen':
         return FadeRoute(
-          page: DeleteScreen(),
+          page: const DeleteScreen(),
+        );
+      case '/pickup-screen':
+        return FadeRoute(
+          page: PickUp(),
         );
     }
 
