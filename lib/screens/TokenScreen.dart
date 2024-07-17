@@ -76,58 +76,63 @@ class TokenScreen extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    Center(
-                      child: Container(
-                        height: getResponsiveSizedBoxHeight(screenHeight, 496),
-                        width: getResponsiveSizedBoxWidth(screenWidth, 328),
-                        margin: const EdgeInsets.only(left: 0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          gradient: const LinearGradient(
-                            colors: [Color(0xFF623E87), Color(0xFF473F88)],
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Center(
+                          child: Container(
+                            height:
+                                getResponsiveSizedBoxHeight(screenHeight, 496),
+                            width: getResponsiveSizedBoxWidth(screenWidth, 328),
+                            margin: const EdgeInsets.only(left: 0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              gradient: const LinearGradient(
+                                colors: [Color(0xFF623E87), Color(0xFF473F88)],
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 20),
+                              child: RichText(
+                                  text: const TextSpan(
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 40),
+                                      children: [
+                                    TextSpan(
+                                        text: "XTRA ",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 25)),
+                                    TextSpan(
+                                        text: "(60 Tokens)\n",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w100,
+                                            fontSize: 25)),
+                                    TextSpan(
+                                        text: "Kaufleuten ",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 25)),
+                                    TextSpan(
+                                        text: "(55 Tokens)\n",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w100,
+                                            fontSize: 25)),
+                                    TextSpan(
+                                        text: "Jade ",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 25)),
+                                    TextSpan(
+                                        text: "(40 Tokens)",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w100,
+                                            fontSize: 25)),
+                                  ])),
+                            ),
                           ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 20),
-                          child: RichText(
-                              text: const TextSpan(
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 40),
-                                  children: [
-                                TextSpan(
-                                    text: "XTRA ",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 25)),
-                                TextSpan(
-                                    text: "(60 Tokens)\n",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w100,
-                                        fontSize: 25)),
-                                TextSpan(
-                                    text: "Kaufleuten ",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 25)),
-                                TextSpan(
-                                    text: "(55 Tokens)\n",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w100,
-                                        fontSize: 25)),
-                                TextSpan(
-                                    text: "Jade ",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 25)),
-                                TextSpan(
-                                    text: "(40 Tokens)",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w100,
-                                        fontSize: 25)),
-                              ])),
                         ),
                       ),
                     ),

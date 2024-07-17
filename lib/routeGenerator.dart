@@ -10,6 +10,7 @@ import 'package:barfly_user/screens/MenuItems.dart';
 import 'package:barfly_user/screens/OrderOverview.dart';
 import 'package:barfly_user/screens/PersonalDataScreen.dart';
 import 'package:barfly_user/screens/PersonalScreen.dart';
+import 'package:barfly_user/screens/PickUpScreen.dart';
 import 'package:barfly_user/screens/TokenScreen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -71,6 +72,10 @@ class RouteGenerator {
 
       case "/account-details-screen":
         return FadeRoute(page: AccountDetailsScreen());
+      case '/pickup-screen':
+        return FadeRoute(
+          page: PickUpScreen(),
+        );
       case '/personal-data-screen':
         return FadeRoute(
           page: PersonalDataScreen(),

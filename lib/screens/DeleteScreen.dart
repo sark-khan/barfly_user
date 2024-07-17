@@ -76,41 +76,49 @@ class DeleteScreen extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    IntrinsicHeight(
-                      child: Center(
-                        child: Container(
-                          height:
-                              getResponsiveSizedBoxHeight(screenHeight, 472),
-                          width: getResponsiveSizedBoxWidth(screenWidth, 295),
-                          margin: const EdgeInsets.only(left: 0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFF623E87), Color(0xFF473F88)],
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: IntrinsicHeight(
+                          child: Center(
+                            child: Container(
+                              height: getResponsiveSizedBoxHeight(
+                                  screenHeight, 472),
+                              width:
+                                  getResponsiveSizedBoxWidth(screenWidth, 295),
+                              margin: const EdgeInsets.only(left: 0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                gradient: const LinearGradient(
+                                  colors: [
+                                    Color(0xFF623E87),
+                                    Color(0xFF473F88)
+                                  ],
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 20),
+                                child: RichText(
+                                    text: const TextSpan(
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 15),
+                                        children: [
+                                      TextSpan(
+                                          text: "Ohh that’s too bad\n\n",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15)),
+                                      TextSpan(
+                                          text:
+                                              "Ohh that’s too bad This process will permanently delete your „COUNTR“ account. All saved data will be lost and cannot be restored.\n\n",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w100,
+                                              fontSize: 15)),
+                                    ])),
+                              ),
                             ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 20),
-                            child: RichText(
-                                text: const TextSpan(
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 15),
-                                    children: [
-                                  TextSpan(
-                                      text: "Ohh that’s too bad\n\n",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15)),
-                                  TextSpan(
-                                      text:
-                                          "This process will permanently delete your „barfly“ account. All saved data will be lost and cannot be restored.\n\n",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w100,
-                                          fontSize: 15)),
-                                ])),
                           ),
                         ),
                       ),
@@ -118,27 +126,30 @@ class DeleteScreen extends StatelessWidget {
                     const SizedBox(
                       height: 40,
                     ),
-                    Center(
-                      child: Container(
-                        margin: const EdgeInsets.only(bottom: 44.0, top: 22.0),
-                        width: 264,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(
-                                context, "/order-overview-screen");
-                          },
-                          style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(vertical: 16),
-                            backgroundColor: APP_COLORS
-                                .buttonColor, // Change this to your desired color
-                          ),
-                          child: const Text(
-                            'Delete Your Account Now',
-                            style: TextStyle(
-                              fontFamily: "Helvetica",
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
+                    Expanded(
+                      child: Center(
+                        child: Container(
+                          margin:
+                              const EdgeInsets.only(bottom: 44.0, top: 22.0),
+                          width: 264,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, "/order-overview-screen");
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.all(16),
+                              backgroundColor: APP_COLORS
+                                  .buttonColor, // Change this to your desired color
+                            ),
+                            child: const Text(
+                              'Delete Your Account Now',
+                              style: TextStyle(
+                                fontFamily: "Helvetica",
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ),
                         ),
