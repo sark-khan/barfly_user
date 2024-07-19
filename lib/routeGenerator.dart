@@ -13,123 +13,105 @@ import 'package:barfly_user/screens/PersonalScreen.dart';
 import 'package:barfly_user/screens/PickUpOrTakeAway.dart';
 import 'package:barfly_user/screens/TokenScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class RouteGenerator {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
-    final args = settings.arguments as Map<String, dynamic>?;
-    switch (settings.name) {
-      case '/entry-screen':
-        return FadeRoute(
-          page: EntryScreen(),
-        );
+  static final routes = [
+    GetPage(
+        name: '/entry-screen',
+        page: () => EntryScreen(),
+        customTransition: FadeRouteTransition()),
+    GetPage(
+        name: '/home-screen',
+        page: () => HomeScreen(),
+        customTransition: FadeRouteTransition()),
+    GetPage(
+        name: '/insider-screen',
+        page: () => InsiderScreen(),
+        customTransition: FadeRouteTransition()),
+    GetPage(
+        name: '/menu-items-screen',
+        page: () => MenuItemsScreen(
+              orderDetails: Get.arguments['orderDetails'],
+              totalPrice: Get.arguments['totalPrice'],
+              currency: Get.arguments['currency'],
+            ),
+        transition: Transition.fadeIn,
+        customTransition: FadeRouteTransition()),
+    GetPage(
+        name: '/order-overview-screen',
+        page: () => OrderOverViewScreen(
+              orderDetails: Get.arguments['orderDetails'],
+              totalPrice: Get.arguments['totalPrice'],
+              currency: Get.arguments['currency'],
+            ),
+        transition: Transition.fadeIn,
+        customTransition: FadeRouteTransition()),
+    GetPage(
+        name: '/lounge-list-screen',
+        page: () => LoungeList(),
+        customTransition: FadeRouteTransition()),
+    GetPage(
+        name: '/lounge-details-screen',
+        page: () => LoungeDetailsScreen(
+              loungeName: Get.arguments["loungeName"],
+              persons: Get.arguments["persons"],
+              time: Get.arguments["time"],
+            ),
+        transition: Transition.fadeIn,
+        customTransition: FadeRouteTransition()),
+    GetPage(
+        name: '/account-details-screen',
+        page: () => AccountDetailsScreen(),
+        customTransition: FadeRouteTransition()),
+    GetPage(
+        name: '/personal-data-screen',
+        page: () => PersonalDataScreen(),
+        customTransition: FadeRouteTransition()),
+    GetPage(
+        name: '/token-screen',
+        page: () => TokenScreen(),
+        customTransition: FadeRouteTransition()),
+    GetPage(
+        name: '/personal-screen',
+        page: () => PersonalScreen(),
+        customTransition: FadeRouteTransition()),
+    GetPage(
+        name: '/delete-screen',
+        page: () => DeleteScreen(),
+        customTransition: FadeRouteTransition()),
+    GetPage(
+        name: '/pickup-screen',
+        page: () => PickUp(),
+        customTransition: FadeRouteTransition()),
+  ];
 
-      case '/home-screen':
-        return FadeRoute(
-          page: HomeScreen(),
-        );
-      case '/insider-screen':
-        return FadeRoute(
-          page: InsiderScreen(),
-        );
-      case "/menu-items-screen":
-        if (args == null) {
-          return FadeRoute(
-            page: MenuItemsScreen(),
-          );
-        }
-        final orderDetails = args!['orderDetails'] as Map<String, OrderDetails>;
-        final totalPrice = args['totalPrice'] as double;
-        final currency = args['currency'] as String;
-        return FadeRoute(
-          page: MenuItemsScreen(
-            orderDetails: orderDetails,
-            totalPrice: totalPrice,
-            currency: currency,
-          ),
-        );
-
-      case "/order-overview-screen":
-        final orderDetails = args!['orderDetails'] as Map<String, OrderDetails>;
-        final totalPrice = args['totalPrice'] as double;
-        final currency = args['currency'] as String;
-        return FadeRoute(
-          page: OrderOverViewScreen(
-            orderDetails: orderDetails,
-            totalPrice: totalPrice,
-            currency: currency,
-          ),
-        );
-      case "/lounge-list-screen":
-        return FadeRoute(page: LoungeList());
-      case "/lounge-details-screen":
-        return FadeRoute(
-            page: LoungeDetailsScreen(
-          loungeName: args!["loungeName"],
-          persons: args["persons"],
-          time: args["time"],
-        ));
-
-      case "/account-details-screen":
-        return FadeRoute(page: AccountDetailsScreen());
-      case '/personal-data-screen':
-        return FadeRoute(
-          page: const PersonalDataScreen(),
-        );
-      case '/token-screen':
-        return FadeRoute(
-          page: const TokenScreen(),
-        );
-      case '/personal-screen':
-        return FadeRoute(
-          page: const PersonalScreen(),
-        );
-      case '/delete-screen':
-        return FadeRoute(
-          page: const DeleteScreen(),
-        );
-      case '/pickup-screen':
-        return FadeRoute(
-          page: PickUp(),
-        );
-    }
-
-    return _errorRoute();
-  }
-
-  static Route<dynamic> _errorRoute() {
-    return MaterialPageRoute(builder: (_) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text('Error'),
-        ),
-        body: Center(
-          child: Text('ERROR'),
-        ),
-      );
-    });
-  }
+  static final unknownRoute = GetPage(
+    name: '/error',
+    page: () => Scaffold(
+      appBar: AppBar(
+        title: Text('Error'),
+      ),
+      body: Center(
+        child: Text('ERROR'),
+      ),
+    ),
+  );
 }
 
-class FadeRoute extends PageRouteBuilder {
-  final Widget page;
-
-  FadeRoute({required this.page})
-      : super(
-          pageBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-          ) =>
-              page,
-          transitionsBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-            Widget child,
-          ) =>
-              FadeTransition(
-            opacity: animation,
-            child: child,
-          ),
-        );
+class FadeRouteTransition extends CustomTransition {
+  @override
+  Widget buildTransition(
+    BuildContext context,
+    Curve? curve,
+    Alignment? alignment,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    return FadeTransition(
+      opacity: animation,
+      child: child,
+    );
+  }
 }

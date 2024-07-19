@@ -33,8 +33,8 @@ dependencies:
   google_fonts: ^6.2.1
   shimmer:
   get_storage:
-  get:
   marquee: ^2.2.3
+  get: any
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -2,6 +2,7 @@ import 'package:barfly_user/appConstants.dart';
 import 'package:barfly_user/components/Buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
 
 class AccountDetailsScreen extends StatefulWidget {
   @override
@@ -61,8 +62,9 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                           borderRadius: 20,
                           text: "Personal Data",
                           onPressed: () {
-                            Navigator.pushNamed(
-                                context, "/personal-data-screen");
+                            // Navigator.pushNamed(
+                            //     context, "/personal-data-screen");
+                            Get.to('/personal-data-screen');
                           },
                           imagePath: "person.png"),
                       SizedBox(
@@ -74,7 +76,8 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                           borderRadius: 20,
                           text: "Overview Tokens",
                           onPressed: () {
-                            Navigator.pushNamed(context, "/token-screen");
+                            // Navigator.pushNamed(context, "/token-screen");
+                            Get.to('/token-screen');
                           },
                           imagePath: "person.png"),
                     ],
@@ -92,7 +95,8 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                         borderRadius: 20,
                         text: "Data Protection",
                         onPressed: () {
-                          Navigator.pushNamed(context, "/personal-screen");
+                          Get.to('/personal-screen');
+                          // Navigator.pushNamed(context, "/personal-screen");
                         },
                         imagePath: "DataProtection.png",
                       ),
@@ -105,7 +109,8 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                           borderRadius: 20,
                           text: "Payment Options",
                           onPressed: () {
-                            Navigator.pushNamed(context, "/delete-screen");
+                            Get.to('/delete-screen');
+                            // Navigator.pushNamed(context, "/delete-screen");
                           },
                           imagePath: "paymentOptions.png"),
                     ],
