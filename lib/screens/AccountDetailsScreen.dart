@@ -47,70 +47,77 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
               SizedBox(
                 height: 13,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      InsiderButton(
-                          widthofButton: screenWidth * 0.3864,
-                          heightofButton: screenHeight * 0.2171,
-                          borderRadius: 20,
-                          text: "Personal Data",
-                          onPressed: () {
-                            Navigator.pushNamed(
-                                context, "/personal-data-screen");
-                          },
-                          imagePath: "person.png"),
-                      SizedBox(
-                        width: 24,
+              Expanded(
+                child: SingleChildScrollView(
+                  child: IntrinsicHeight(
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Flexible(
+                                child: InsiderButton(
+                                    widthofButton: screenWidth * 0.3867,
+                                    heightofButton: screenHeight * 0.2171,
+                                    borderRadius: 20,
+                                    text: "Personal Data",
+                                    onPressed: () {},
+                                    imagePath: "person.png"),
+                              ),
+                              SizedBox(
+                                width: 24,
+                              ),
+                              Flexible(
+                                child: InsiderButton(
+                                    widthofButton: screenWidth * 0.3867,
+                                    heightofButton: screenHeight * 0.2171,
+                                    borderRadius: 20,
+                                    text: "Overview Tokens",
+                                    onPressed: () {},
+                                    imagePath: "person.png"),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 24,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Flexible(
+                                child: InsiderButton(
+                                  widthofButton: screenWidth * 0.3867,
+                                  heightofButton: screenHeight * 0.2171,
+                                  borderRadius: 20,
+                                  text: "Data Protection",
+                                  onPressed: () {},
+                                  imagePath: "DataProtection.png",
+                                ),
+                              ),
+                              SizedBox(
+                                width: 24,
+                              ),
+                              Flexible(
+                                child: InsiderButton(
+                                    widthofButton: screenWidth * 0.3867,
+                                    heightofButton: screenHeight * 0.2171,
+                                    borderRadius: 20,
+                                    text: "Payment Options",
+                                    onPressed: () {},
+                                    imagePath: "paymentOptions.png"),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                      InsiderButton(
-                          widthofButton: screenWidth * 0.3864,
-                          heightofButton: screenHeight * 0.2171,
-                          borderRadius: 20,
-                          text: "Overview Tokens",
-                          onPressed: () {
-                            Navigator.pushNamed(context, "/token-screen");
-                          },
-                          imagePath: "person.png"),
-                    ],
+                    ),
                   ),
-                  SizedBox(
-                    height: 24,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      InsiderButton(
-                        widthofButton: screenWidth * 0.3865,
-                        heightofButton: screenHeight * 0.2171,
-                        borderRadius: 20,
-                        text: "Data Protection",
-                        onPressed: () {
-                          Navigator.pushNamed(context, "/personal-screen");
-                        },
-                        imagePath: "DataProtection.png",
-                      ),
-                      SizedBox(
-                        width: 24,
-                      ),
-                      InsiderButton(
-                          widthofButton: screenWidth * 0.3865,
-                          heightofButton: screenHeight * 0.2171,
-                          borderRadius: 20,
-                          text: "Payment Options",
-                          onPressed: () {
-                            Navigator.pushNamed(context, "/delete-screen");
-                          },
-                          imagePath: "paymentOptions.png"),
-                    ],
-                  ),
-                ],
+                ),
               )
             ],
           ),

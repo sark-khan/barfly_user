@@ -81,9 +81,11 @@ class DeleteScreen extends StatelessWidget {
                         child: IntrinsicHeight(
                           child: Center(
                             child: Container(
-                              margin:
-                                  const EdgeInsets.only(left: 0, bottom: 30),
-                              // margin: const EdgeInsets.only(left: 0),
+                              height: getResponsiveSizedBoxHeight(
+                                  screenHeight, 472),
+                              width:
+                                  getResponsiveSizedBoxWidth(screenWidth, 295),
+                              margin: const EdgeInsets.only(left: 0),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 gradient: const LinearGradient(
@@ -110,7 +112,7 @@ class DeleteScreen extends StatelessWidget {
                                               fontSize: 15)),
                                       TextSpan(
                                           text:
-                                              "This process will permanently delete your „barfly“ account. All saved data will be lost and cannot be restored.\n\n",
+                                              "Ohh that’s too bad This process will permanently delete your „COUNTR“ account. All saved data will be lost and cannot be restored.\n\n",
                                           style: TextStyle(
                                               fontWeight: FontWeight.w100,
                                               fontSize: 15)),
@@ -124,27 +126,30 @@ class DeleteScreen extends StatelessWidget {
                     const SizedBox(
                       height: 40,
                     ),
-                    Center(
-                      child: Container(
-                        margin: const EdgeInsets.only(bottom: 44.0, top: 22.0),
-                        width: 264,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(
-                                context, "/order-overview-screen");
-                          },
-                          style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(vertical: 16),
-                            backgroundColor: APP_COLORS
-                                .buttonColor, // Change this to your desired color
-                          ),
-                          child: const Text(
-                            'Delete Your Account Now',
-                            style: TextStyle(
-                              fontFamily: "Helvetica",
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
+                    Expanded(
+                      child: Center(
+                        child: Container(
+                          margin:
+                              const EdgeInsets.only(bottom: 44.0, top: 22.0),
+                          width: 264,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, "/order-overview-screen");
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.all(16),
+                              backgroundColor: APP_COLORS
+                                  .buttonColor, // Change this to your desired color
+                            ),
+                            child: const Text(
+                              'Delete Your Account Now',
+                              style: TextStyle(
+                                fontFamily: "Helvetica",
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ),
                         ),
