@@ -32,7 +32,7 @@ class PersonalDataScreen extends StatelessWidget {
                         height: 32,
                         margin: const EdgeInsets.only(left: 16),
                         decoration: BoxDecoration(
-                          color: APP_COLORS.searchButtonBackgroundColor,
+                          color: AppColors.searchButtonBackgroundColor,
                           borderRadius: BorderRadius.circular(
                               12.0), // Adjust the radius as needed
                         ),
@@ -45,7 +45,7 @@ class PersonalDataScreen extends StatelessWidget {
                               },
                               icon: const Icon(
                                 Icons.chevron_left,
-                                color: APP_COLORS.searchIconColor,
+                                color: AppColors.searchIconColor,
                                 size: 30,
                               )),
                         ),

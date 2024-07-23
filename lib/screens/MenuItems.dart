@@ -74,7 +74,7 @@ class _MenuItemsScreenState extends State<MenuItemsScreen> {
                   width: 34,
                   height: 32,
                   decoration: BoxDecoration(
-                    color: APP_COLORS.searchButtonBackgroundColor,
+                    color: AppColors.searchButtonBackgroundColor,
                     borderRadius: BorderRadius.circular(
                         12.0), // Adjust the radius as needed
                   ),
@@ -84,7 +84,7 @@ class _MenuItemsScreenState extends State<MenuItemsScreen> {
                       onPressed: () {},
                       icon: const Icon(
                         Icons.chevron_left,
-                        color: APP_COLORS.searchIconColor,
+                        color: AppColors.searchIconColor,
                         size: 30,
                       ),
                     ),
@@ -219,7 +219,7 @@ class _MenuItemsScreenState extends State<MenuItemsScreen> {
                           },
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(vertical: 16),
-                            backgroundColor: APP_COLORS.buttonColor,
+                            backgroundColor: AppColors.buttonColor,
                           ),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),

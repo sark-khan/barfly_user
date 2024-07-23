@@ -35,7 +35,7 @@ class _PickUpState extends State<PickUp> {
                           width: 34,
                           height: 32,
                           decoration: BoxDecoration(
-                            color: APP_COLORS.searchButtonBackgroundColor,
+                            color: AppColors.searchButtonBackgroundColor,
                             borderRadius: BorderRadius.circular(
                                 12.0), // Adjust the radius as needed
                           ),
@@ -45,7 +45,7 @@ class _PickUpState extends State<PickUp> {
                               onPressed: () {},
                               icon: const Icon(
                                 Icons.chevron_left,
-                                color: APP_COLORS.searchIconColor,
+                                color: AppColors.searchIconColor,
                                 size: 30,
                               ),
                             ),
@@ -209,7 +209,7 @@ class _PickUpState extends State<PickUp> {
                             },
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(vertical: 10),
-                              backgroundColor: APP_COLORS
+                              backgroundColor: AppColors
                                   .buttonColor, // Change this to your desired color
                             ),
                             child: const Center(

@@ -1,3 +1,4 @@
+import 'package:barfly_user/Storage.dart';
 import 'package:flutter/material.dart';
 
 class EntryScreen extends StatefulWidget {
@@ -7,9 +8,24 @@ class EntryScreen extends StatefulWidget {
 
 class _EntryScreenState extends State<EntryScreen> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => navigateToNextPage());
+  }
+
+  void navigateToNextPage() {
+    String token = Storage.getJwtToken();
+    Future.delayed(const Duration(seconds: 1), () {
+      if (token.isEmpty) {
+        Navigator.of(context).pushReplacementNamed("/login-screen");
+      } else {
+        Navigator.pushNamed(context, "/home-screen");
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
     return PopScope(
         canPop: true,
         child: Scaffold(

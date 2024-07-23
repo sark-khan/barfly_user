@@ -31,7 +31,7 @@ class FavorotiesButton extends StatelessWidget {
     this.fontWeight = FontWeight.w300,
     this.verticalPadding = 15.0,
     this.horizontalPadding = 25.0,
-    this.buttonBackgroundColor = APP_COLORS.backgroundColor,
+    this.buttonBackgroundColor = AppColors.backgroundColor,
     this.gradient = const LinearGradient(
       colors: [Color(0xFF623E87), Color(0xFF473F88)],
       begin: Alignment.centerLeft,
@@ -155,7 +155,7 @@ class InsiderButton extends StatelessWidget {
     this.fontWeight = FontWeight.w300,
     this.verticalPadding = 15.0,
     this.horizontalPadding = 25.0,
-    this.buttonBackgroundColor = APP_COLORS.backgroundColor,
+    this.buttonBackgroundColor = AppColors.backgroundColor,
     this.gradient = const LinearGradient(
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
@@ -262,7 +262,7 @@ class MenuItemsButton extends StatefulWidget {
     this.fontWeight = FontWeight.w300,
     this.verticalPadding = 15.0,
     this.horizontalPadding = 25.0,
-    this.buttonBackgroundColor = APP_COLORS.backgroundColor,
+    this.buttonBackgroundColor = AppColors.backgroundColor,
     this.gradient = const LinearGradient(
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
@@ -457,7 +457,7 @@ class CustomButtonStroked extends StatelessWidget {
     this.verticalPadding = 15.0,
     this.horizontalPadding = 25.0,
     this.backgroundColor = Colors.transparent,
-    this.buttonBackgroundColor = APP_COLORS.buttonColor,
+    this.buttonBackgroundColor = AppColors.buttonColor,
     gradient = const LinearGradient(
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
@@ -472,7 +472,7 @@ class CustomButtonStroked extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: heightofButton,
-      width: widthofButton,
+      width: widthofButton > 200 ? 200 : widthofButton,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -489,15 +489,18 @@ class CustomButtonStroked extends StatelessWidget {
           alignment: Alignment.center,
           child: Padding(
             padding: EdgeInsets.zero,
-            child: Text(
-              text,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: fontSize,
-                fontWeight: FontWeight.w300,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                text,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.w300,
 
-                // backgroundColor: Color(0xFF2ac4aa)
+                  // backgroundColor: Color(0xFF2ac4aa)
+                ),
               ),
             ),
           ),

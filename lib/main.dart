@@ -1,12 +1,13 @@
 import 'package:barfly_user/appConstants.dart';
-import 'package:barfly_user/routeGenerator.dart';
+import 'package:barfly_user/route_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get_storage/get_storage.dart';
 // import 'package:get_storage/get_storage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await GetStorage.init();
+  await GetStorage.init();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -20,10 +21,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/pickup-screen',
+        initialRoute: '/entry-screen',
         theme: ThemeData(
-          primaryColor: APP_COLORS.backgroundColor,
-          scaffoldBackgroundColor: APP_COLORS.backgroundColor,
+          primaryColor: AppColors.backgroundColor,
+          scaffoldBackgroundColor: AppColors.backgroundColor,
         ),
         onGenerateRoute: RouteGenerator.generateRoute);
   }

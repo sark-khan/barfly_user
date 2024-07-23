@@ -4,6 +4,7 @@ import 'package:barfly_user/screens/DeleteScreen.dart';
 import 'package:barfly_user/screens/EntryScreen.dart';
 import 'package:barfly_user/screens/HomeScreen.dart';
 import 'package:barfly_user/screens/InsiderScreen.dart';
+import 'package:barfly_user/screens/LoginScreen.dart';
 import 'package:barfly_user/screens/LoungeDetailsScreen.dart';
 import 'package:barfly_user/screens/LoungeList.dart';
 import 'package:barfly_user/screens/MenuItems.dart';
@@ -23,6 +24,10 @@ class RouteGenerator {
         return FadeRoute(
           page: EntryScreen(),
         );
+      case '/login-screen':
+        return FadeRoute(
+          page: LoginScreen(),
+        );
 
       case '/home-screen':
         return FadeRoute(
@@ -38,7 +43,7 @@ class RouteGenerator {
             page: MenuItemsScreen(),
           );
         }
-        final orderDetails = args!['orderDetails'] as Map<String, OrderDetails>;
+        final orderDetails = args['orderDetails'] as Map<String, OrderDetails>;
         final totalPrice = args['totalPrice'] as double;
         final currency = args['currency'] as String;
         return FadeRoute(
@@ -74,7 +79,7 @@ class RouteGenerator {
         return FadeRoute(page: AccountDetailsScreen());
       case '/pickup-screen':
         return FadeRoute(
-          page: PickUpScreen(),
+          page: const PickUpScreen(),
         );
       case '/personal-data-screen':
         return FadeRoute(

@@ -34,7 +34,9 @@ dependencies:
   shimmer:
   get_storage:
   get:
+  fluttertoast: ^8.2.2
   marquee: ^2.2.3
+  dio:
 
 
   # The following adds the Cupertino Icons font to your application.

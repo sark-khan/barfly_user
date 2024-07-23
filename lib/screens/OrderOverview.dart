@@ -49,7 +49,7 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
                         width: 34,
                         height: 32,
                         decoration: BoxDecoration(
-                          color: APP_COLORS.searchButtonBackgroundColor,
+                          color: AppColors.searchButtonBackgroundColor,
                           borderRadius: BorderRadius.circular(
                               12.0), // Adjust the radius as needed
                         ),
@@ -66,7 +66,7 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
                             },
                             icon: const Icon(
                               Icons.chevron_left,
-                              color: APP_COLORS.searchIconColor,
+                              color: AppColors.searchIconColor,
                               size: 30,
                             ),
                           ),
@@ -78,7 +78,7 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
                     ),
                     const Center(
                       child: Text(
-                        APP_TEXT.OrderOverView,
+                        AppText.OrderOverView,
                         style: TextStyle(
                             fontFamily: "Helvetica",
                             fontSize: 30,
@@ -163,7 +163,7 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
                           },
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(vertical: 16),
-                            backgroundColor: APP_COLORS
+                            backgroundColor: AppColors
                                 .buttonColor, // Change this to your desired color
                           ),
                           child: const Text(
