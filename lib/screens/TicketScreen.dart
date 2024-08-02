@@ -50,74 +50,80 @@ class TicketScreen extends StatelessWidget {
 
             Expanded(
               child: SingleChildScrollView(
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFF623E87), Color(0xFF473F88)],
-                      begin: Alignment.centerRight,
-                      end: Alignment.centerLeft,
-                    ),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal:
-                          screenWidth * 0.05, // Responsive horizontal padding
-                      vertical:
-                          screenHeight * 0.02, // Responsive vertical padding
-                    ),
-                    child: IntrinsicHeight(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: IntrinsicHeight(
+                  child: Center(
+                    child: Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        gradient: const LinearGradient(
+                          colors: [Color(0xFF623E87), Color(0xFF473F88)],
+                          begin: Alignment.centerRight,
+                          end: Alignment.centerLeft,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: screenWidth *
+                              0.05, // Responsive horizontal padding
+                          vertical: screenHeight *
+                              0.02, // Responsive vertical padding
+                        ),
+                        child: IntrinsicHeight(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              RichText(
-                                text: TextSpan(
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: getResponsiveFontSize(
-                                          screenWidth, screenHeight, 20)),
-                                  children: [
-                                    TextSpan(
-                                        text: "XTRA",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: getResponsiveFontSize(
-                                                screenWidth,
-                                                screenHeight,
-                                                30))),
-                                  ],
-                                ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: getResponsiveFontSize(
+                                              screenWidth, screenHeight, 20)),
+                                      children: [
+                                        TextSpan(
+                                            text: "XTRA",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: getResponsiveFontSize(
+                                                    screenWidth,
+                                                    screenHeight,
+                                                    30))),
+                                      ],
+                                    ),
+                                  ),
+                                  Text(
+                                    "17.10.2024",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: getResponsiveFontSize(
+                                            screenWidth, screenHeight, 20),
+                                        fontWeight: FontWeight.w100),
+                                  ),
+                                ],
                               ),
+                              SizedBox(
+                                  height: screenHeight *
+                                      0.01), // Space between row and text
                               Text(
-                                "17.10.2024",
+                                "1 active ticket",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: getResponsiveFontSize(
                                         screenWidth, screenHeight, 20),
-                                    fontWeight: FontWeight.w100),
+                                    fontWeight: FontWeight.w100,
+                                    fontStyle: FontStyle.italic),
                               ),
+                              SizedBox(
+                                  height: screenHeight *
+                                      0.02), // Space within gradient container
                             ],
                           ),
-                          SizedBox(
-                              height: screenHeight *
-                                  0.01), // Space between row and text
-                          Text(
-                            "1 active ticket",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: getResponsiveFontSize(
-                                    screenWidth, screenHeight, 20),
-                                fontWeight: FontWeight.w100,
-                                fontStyle: FontStyle.italic),
-                          ),
-                          SizedBox(
-                              height: screenHeight *
-                                  0.02), // Space within gradient container
-                        ],
+                        ),
                       ),
                     ),
                   ),
