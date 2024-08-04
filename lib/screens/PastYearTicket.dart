@@ -119,6 +119,36 @@ class PastYearTicketScreen extends StatelessWidget {
                               borderRadius: 20,
                               isLoading: false,
                             ),
+                          ),
+                          Flexible(
+                            child: TicketButton(
+                              text: "Zurich",
+                              onPressed: () => {},
+                              widthofButton: screenWidth * 0.834,
+                              heightofButton: 0.123 * screenHeight,
+                              borderRadius: 20,
+                              isLoading: false,
+                            ),
+                          ),
+                          Flexible(
+                            child: TicketButton(
+                              text: "Zurich",
+                              onPressed: () => {},
+                              widthofButton: screenWidth * 0.834,
+                              heightofButton: 0.123 * screenHeight,
+                              borderRadius: 20,
+                              isLoading: false,
+                            ),
+                          ),
+                          Flexible(
+                            child: TicketButton(
+                              text: "Zurich",
+                              onPressed: () => {},
+                              widthofButton: screenWidth * 0.834,
+                              heightofButton: 0.123 * screenHeight,
+                              borderRadius: 20,
+                              isLoading: false,
+                            ),
                           )
                         ],
                       ),

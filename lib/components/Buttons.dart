@@ -892,3 +892,129 @@ class TicketYearButton extends StatelessWidget {
     );
   }
 }
+
+class TicketDateButton extends StatelessWidget {
+  final String text1;
+  final String text2;
+  final String text3;
+  final double fontSize;
+  final VoidCallback onPressed;
+  final Color textColor;
+  final Color buttonBackgroundColor;
+  final double heightofButton;
+  final double widthofButton;
+  final double borderRadius;
+  final FontWeight fontWeight;
+  final double verticalPadding;
+  final double horizontalPadding;
+  final Gradient gradient;
+  final bool isLoading;
+
+  const TicketDateButton({
+    Key? key,
+    required this.text1,
+    required this.text2,
+    required this.text3,
+    required this.onPressed,
+    this.isLoading = true,
+    this.heightofButton = 70,
+    this.widthofButton = 240,
+    this.fontSize = 28,
+    this.textColor = Colors.white,
+    this.borderRadius = 8.0,
+    this.fontWeight = FontWeight.w300,
+    this.verticalPadding = 15.0,
+    this.horizontalPadding = 25.0,
+    this.buttonBackgroundColor = AppColors.backgroundColor,
+    this.gradient = const LinearGradient(
+      colors: [Color(0xFF623E87), Color(0xFF473F88)],
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+    ),
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minWidth: 350,
+        maxWidth: 350,
+      ),
+      child: IntrinsicHeight(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: gradient,
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
+          child: ElevatedButton(
+              onPressed: onPressed,
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(2),
+                backgroundColor: Colors.transparent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(borderRadius),
+                ),
+              ),
+              child: isLoading
+                  ? Shimmer.fromColors(
+                      baseColor: Color(0xFF623E87),
+                      highlightColor: Color(0xFF473F88),
+                      child: Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(borderRadius),
+                        ),
+                      ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment
+                            .start, // Aligns all children to the start
+                        children: [
+                          // Column directly for vertical stacking
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                text1,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                text2,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w100,
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          Text(
+                            text3,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w100,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+        ),
+      ),
+    );
+  }
+}
