@@ -1,4 +1,5 @@
 import 'package:barfly_user/appConstants.dart';
+import 'package:barfly_user/commonFunctions.dart';
 import 'package:barfly_user/components/Buttons.dart';
 import 'package:barfly_user/controller/home_controller.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +15,9 @@ class HomeScreen extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return PopScope(
-        canPop: true,
-        child: Scaffold(
-            body: Padding(
+      canPop: true,
+      child: Scaffold(
+        body: Padding(
           padding: EdgeInsets.only(
               left: screenWidth * 0.08142, right: screenWidth * 0.08396),
           child: Column(
@@ -84,34 +85,90 @@ class HomeScreen extends StatelessWidget {
                       height: screenHeight * 0.04577,
                     )),
               Obx(() => controller.isSearchActive.value
-                  ? SizedBox(
+                  ? const SizedBox(
                       height: 0,
                     )
                   : Container(
-                      padding: EdgeInsets.only(left: 16),
-                      child: Text(AppText.Favorites,
+                      padding: const EdgeInsets.only(left: 16),
+                      child: const Text(AppText.Favorites,
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontFamily: "Helvetica",
-                            fontSize: 50,
+                            fontSize: 40,
                             fontWeight: FontWeight.w900,
                             color: Colors.white,
                           )))),
-              SizedBox(
+              const SizedBox(
                 height: 13,
               ),
-              Obx(() => Flexible(
-                    child: FavorotiesButton(
-                      text: "Zurich",
-                      onPressed: () => {},
-                      widthofButton: screenWidth * 0.834,
-                      heightofButton: 0.197 * screenHeight,
-                      borderRadius: 20,
-                      isLoading: controller.isSearchActive.value,
-                    ),
-                  )),
+              Expanded(
+                child: FutureBuilder(
+                  future: controller.fetchEntities(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    } else if (controller.ongoingEvents.isEmpty &&
+                        controller.remainingEvents.isEmpty) {
+                      return Center(child: Text('No data available'));
+                    } else {
+                      return SingleChildScrollView(
+                        child: Wrap(
+                          spacing: 16,
+                          runSpacing: 16,
+                          children: [
+                            ...controller.ongoingEvents.map((entity) {
+                              return FavorotiesButton(
+                                location: entity.city,
+                                entityName: entity.entityName,
+                                status: true,
+                                onPressed: () => {
+                                  Navigator.pushNamed(
+                                      context, "/insider-screen",
+                                      arguments: {"entityId": entity.id})
+                                },
+                                widthofButton: screenWidth > 650
+                                    ? 328
+                                    : screenWidth * 0.834,
+                                heightofButton: getResponsiveSizedBoxHeight(
+                                    screenHeight, 168),
+                                borderRadius: 20,
+                                isLoading: controller.isSearchActive.value,
+                              );
+                            }).toList(),
+                            ...controller.remainingEvents.map((entity) {
+                              return FavorotiesButton(
+                                location: entity.city,
+                                entityName: entity.entityName,
+                                status: false,
+                                onPressed: () => {
+                                  Navigator.pushNamed(
+                                      context, "/insider-screen", arguments: {
+                                    "entityId": entity.id,
+                                    "entityName": entity.entityName
+                                  })
+                                },
+                                widthofButton: screenWidth > 650
+                                    ? 328
+                                    : screenWidth * 0.834,
+                                heightofButton: getResponsiveSizedBoxHeight(
+                                    screenHeight, 168),
+                                borderRadius: 20,
+                                isLoading: controller.isSearchActive.value,
+                              );
+                            }).toList(),
+                          ],
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ),
             ],
           ),
-        )));
+        ),
+      ),
+    );
   }
 }

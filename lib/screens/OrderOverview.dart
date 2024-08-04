@@ -1,17 +1,25 @@
+import 'package:barfly_user/Storage.dart';
 import 'package:barfly_user/appConstants.dart';
 import 'package:barfly_user/commonFunctions.dart';
 import 'package:barfly_user/components/OrderDetails.dart';
+import 'package:barfly_user/return_obj.dart';
+import 'package:barfly_user/services/ApiService.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/utils.dart';
 
 class OrderOverViewScreen extends StatefulWidget {
-  final Map<String, OrderDetails> orderDetails;
+  // final Map<String, OrderDetails> orderDetails;
+  final orderDetails = Storage.getOrderDetails() as Map<String, OrderDetails>;
+  final String menuId;
   final double totalPrice;
   final String currency;
+  final String menuCategoryName;
   OrderOverViewScreen(
-      {required this.orderDetails,
-      required this.totalPrice,
+      {required this.totalPrice,
       required this.currency,
+      required this.menuCategoryName,
+      required this.menuId,
       Key? key})
       : super(key: key);
   @override
@@ -38,12 +46,17 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, "/menu-items-screen",
-                            arguments: {
-                              "orderDetails": widget.orderDetails,
-                              "totalPrice": widget.totalPrice,
-                              "currency": widget.currency
-                            });
+                        print(
+                            "menuId ${widget.menuId} sdsds ${widget.totalPrice} dksjdlskdks ${widget.currency}");
+                        Navigator.pop(context);
+                        // Navigator.pushNamed(context, "/menu-items-screen",
+                        //     arguments: {
+                        //       // "orderDetails": widget.orderDetails,
+                        //       "totalPrice": widget.totalPrice,
+                        //       "menuId": widget.menuId,
+                        //       "currency": widget.currency,
+                        //       "menuCategoryName": widget.menuCategoryName,
+                        //     });
                       },
                       child: Container(
                         width: 34,
@@ -57,12 +70,17 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
                           child: IconButton(
                             padding: const EdgeInsets.all(0),
                             onPressed: () {
-                              Navigator.pushNamed(context, "/menu-items-screen",
-                                  arguments: {
-                                    "orderDetails": widget.orderDetails,
-                                    "totalPrice": widget.totalPrice,
-                                    "currency": widget.currency
-                                  });
+                              print(
+                                  "menuId ${widget.menuId} sdsds ${widget.totalPrice} dksjdlskdks ${widget.currency}");
+                              Navigator.pop(context);
+                              // Navigator.pushNamed(context, "/menu-items-screen",
+                              //     arguments: {
+                              //       // "orderDetails": widget.orderDetails,
+                              //       "menuId": widget.menuId,
+                              //       "menuCategoryName": widget.menuCategoryName,
+                              //       "totalPrice": widget.totalPrice,
+                              //       "currency": widget.currency
+                              //     });
                             },
                             icon: const Icon(
                               Icons.chevron_left,
@@ -157,9 +175,16 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
                         margin: const EdgeInsets.only(bottom: 44.0, top: 22.0),
                         width: 264,
                         child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(
-                                context, "/order-overview-screen");
+                          onPressed: () async {
+                            ReturnObj response = await Apiservice()
+                                .createOrder(widget.orderDetails);
+                            if (response.status) {
+                              Fluttertoast.showToast(
+                                  msg: "Ordered Successfully");
+                              return;
+                            }
+                            Fluttertoast.showToast(msg: response.message);
+                            return;
                           },
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(vertical: 16),

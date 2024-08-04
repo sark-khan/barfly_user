@@ -1,27 +1,49 @@
+import 'package:barfly_user/Storage.dart';
 import 'package:barfly_user/appConstants.dart';
 import 'package:barfly_user/commonFunctions.dart';
 import 'package:barfly_user/components/Buttons.dart';
 import 'package:barfly_user/components/OrderDetails.dart';
+import 'package:barfly_user/controller/menu_items_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MenuItemsScreen extends StatefulWidget {
-  double totalPrice;
-  String currency;
-  Map<String, OrderDetails> orderDetails;
-
+  final String menuId;
+  // double totalPrice;
+  final String currency;
+  // final Map<String, OrderDetails> orderDetails;
+  final String menuCategoryName;
+  Map<String, OrderDetails> orderDetails =
+      Storage.getOrderDetails() as Map<String, OrderDetails>;
+  var totalPrice = Storage.getTotalPrice() as double;
   MenuItemsScreen({
-    this.totalPrice = 0,
-    this.currency = "",
+    required this.menuId,
+    // this.totalPrice = 0,
+    this.currency = "CHF",
     Map<String, OrderDetails>? orderDetails,
-  }) : this.orderDetails = orderDetails ?? <String, OrderDetails>{};
+    required this.menuCategoryName,
+  });
 
   @override
   State createState() => _MenuItemsScreenState();
 }
 
 class _MenuItemsScreenState extends State<MenuItemsScreen> {
+  late MenuItemsController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = Get.put(MenuItemsController(widget.menuId));
+    controller.fetchMenuItems();
+  }
+
   void _updateTotalQuantity(
-      double change, String itemName, String itemId, String weightOrVolume) {
+    double change,
+    String itemName,
+    String itemId,
+    String weightOrVolume,
+  ) {
     setState(() {
       if (widget.orderDetails.containsKey(itemId)) {
         OrderDetails existingValue = widget.orderDetails[itemId]!;
@@ -37,15 +59,20 @@ class _MenuItemsScreenState extends State<MenuItemsScreen> {
         }
       } else {
         OrderDetails orderData = OrderDetails(
-            itemName: itemName,
-            itemId: itemId,
-            quantity: 1,
-            weightOrVolume: weightOrVolume);
+          itemName: itemName,
+          itemId: itemId,
+          quantity: 1,
+          weightOrVolume: weightOrVolume,
+        );
         widget.orderDetails[itemId] = orderData;
       }
 
       widget.totalPrice += change;
       print("${widget.totalPrice}");
+
+      // Store the updated order details and total price
+      Storage.setOrderDetails(widget.orderDetails);
+      Storage.setTotalOrderPrice(widget.totalPrice);
     });
   }
 
@@ -63,25 +90,26 @@ class _MenuItemsScreenState extends State<MenuItemsScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: screenHeight * 0.04812,
-              ),
+              SizedBox(height: screenHeight * 0.04812),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, "/insider-screen");
+                  Get.delete<MenuItemsController>();
+                  Navigator.pop(context);
                 },
                 child: Container(
                   width: 34,
                   height: 32,
                   decoration: BoxDecoration(
                     color: AppColors.searchButtonBackgroundColor,
-                    borderRadius: BorderRadius.circular(
-                        12.0), // Adjust the radius as needed
+                    borderRadius: BorderRadius.circular(12.0),
                   ),
                   child: Center(
                     child: IconButton(
                       padding: const EdgeInsets.all(0),
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.delete<MenuItemsController>();
+                        Navigator.pop(context);
+                      },
                       icon: const Icon(
                         Icons.chevron_left,
                         color: AppColors.searchIconColor,
@@ -91,19 +119,17 @@ class _MenuItemsScreenState extends State<MenuItemsScreen> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: getResponsiveSizedBoxHeight(screenHeight, 59),
-              ),
+              SizedBox(height: getResponsiveSizedBoxHeight(screenHeight, 59)),
               Container(
                 margin: EdgeInsets.only(
                     left: getResponsiveSizedBoxWidth(screenWidth, 32)),
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(
-                    "Alcoholic Drinks",
+                    widget.menuCategoryName,
                     style: TextStyle(
                       fontFamily: "Helvetica",
-                      fontWeight: FontWeight.w100,
+                      fontWeight: FontWeight.w300,
                       color: Colors.white,
                       fontSize:
                           getResponsiveFontSize(screenWidth, screenHeight, 30),
@@ -111,96 +137,50 @@ class _MenuItemsScreenState extends State<MenuItemsScreen> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: getResponsiveSizedBoxHeight(screenHeight, 18),
-              ),
+              SizedBox(height: getResponsiveSizedBoxHeight(screenHeight, 18)),
               Expanded(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.only(bottom: 40),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Center(
-                        child: Wrap(
-                          spacing: 20,
-                          runSpacing: 20,
-                          children: [
-                            MenuItemsButton(
-                              itemId: "1232441112",
-                              borderRadius: 20,
-                              itemName: "Gin Tonic",
-                              onPressed: () => {},
-                              imagePath: "ginTonic.png",
-                              currency: "CHF",
-                              minWidth: 264,
-                              minHeight: 376,
-                              price: 18.00,
-                              selectedQuantity: widget.orderDetails
-                                      .containsKey("1232441112")
-                                  ? widget.orderDetails["1232441112"]!.quantity
-                                  : 0,
-                              weightOrVolume: "250ml",
-                              updateTotalQuantity: _updateTotalQuantity,
+                child: Obx(() {
+                  if (controller.isLoading.value) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (controller.menuItems.isEmpty) {
+                    return Center(child: Text('No data available'));
+                  } else {
+                    return SingleChildScrollView(
+                      padding: const EdgeInsets.only(bottom: 40),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Center(
+                            child: Wrap(
+                              spacing: 20,
+                              runSpacing: 20,
+                              children: controller.menuItems.map((menuItem) {
+                                return MenuItemsButton(
+                                  itemId: menuItem.id,
+                                  borderRadius: 20,
+                                  itemName: menuItem.itemName,
+                                  onPressed: () => {},
+                                  imagePath: menuItem.image,
+                                  currency: menuItem.currency,
+                                  minWidth: 264,
+                                  minHeight: 376,
+                                  price: menuItem.price.toDouble(),
+                                  selectedQuantity: widget.orderDetails
+                                          .containsKey(menuItem.id)
+                                      ? widget
+                                          .orderDetails[menuItem.id]!.quantity
+                                      : 0,
+                                  weightOrVolume: menuItem.quantity,
+                                  updateTotalQuantity: _updateTotalQuantity,
+                                );
+                              }).toList(),
                             ),
-                            MenuItemsButton(
-                              itemId: "1232443333",
-                              borderRadius: 20,
-                              itemName: "Vodka",
-                              onPressed: () => {},
-                              imagePath: "Vodka.png",
-                              currency: "CHF",
-                              minWidth: 264,
-                              minHeight: 376,
-                              price: 18.00,
-                              weightOrVolume: "250ml",
-                              selectedQuantity: widget.orderDetails
-                                      .containsKey("1232443333")
-                                  ? widget.orderDetails["1232443333"]!.quantity
-                                  : 0,
-                              updateTotalQuantity: _updateTotalQuantity,
-                            ),
-                            MenuItemsButton(
-                              itemId: "12324433333333",
-                              borderRadius: 20,
-                              itemName: "Gin Tonic",
-                              onPressed: () => {},
-                              imagePath: "ginTonic.png",
-                              currency: "CHF",
-                              minWidth: 264,
-                              minHeight: 376,
-                              price: 18.00,
-                              weightOrVolume: "250ml",
-                              selectedQuantity: widget.orderDetails
-                                      .containsKey("12324433333333")
-                                  ? widget
-                                      .orderDetails["12324433333333"]!.quantity
-                                  : 0,
-                              updateTotalQuantity: _updateTotalQuantity,
-                            ),
-                            // MenuItemsButton(
-                            //   itemId: "123244",
-                            //   borderRadius: 20,
-                            //   itemName:
-                            //       "Gin Tonic dskldksa;kdsa ;sdk;sakd;lsakd ;  hjfsaljndlksajldksa kdlsjakldjsakljdkslad jkldksajdklsajkldsa lksjadksajdkl;sajkd",
-                            //   onPressed: () => {},
-                            //   imagePath: "ginTonic.png",
-                            //   currency: "CHF",
-                            //   minWidth: 264,
-                            //   minHeight: 376,
-                            //   price: 18.00,
-                            //   weightOrVolume: "250ml",
-                            //   selectedQuantity:
-                            //       widget.orderDetails.containsKey("123244")
-                            //           ? widget.orderDetails["123244"]!.quantity
-                            //           : 0,
-                            //   updateTotalQuantity: _updateTotalQuantity,
-                            // ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
+                    );
+                  }
+                }),
               ),
               widget.totalPrice == 0
                   ? SizedBox()
@@ -212,9 +192,11 @@ class _MenuItemsScreenState extends State<MenuItemsScreen> {
                             Navigator.pushNamed(
                                 context, "/order-overview-screen",
                                 arguments: {
-                                  "orderDetails": widget.orderDetails,
+                                  // "orderDetails": widget.orderDetails,
+                                  "menuId": widget.menuId,
                                   "totalPrice": widget.totalPrice,
-                                  "currency": widget.currency
+                                  "currency": widget.currency,
+                                  "menuCategoryName": widget.menuCategoryName
                                 });
                           },
                           style: ElevatedButton.styleFrom(

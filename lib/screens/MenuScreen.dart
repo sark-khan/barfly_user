@@ -2,19 +2,27 @@ import 'package:barfly_user/Storage.dart';
 import 'package:barfly_user/appConstants.dart';
 import 'package:barfly_user/commonFunctions.dart';
 import 'package:barfly_user/components/Buttons.dart';
-import 'package:barfly_user/controller/counter_controller.dart';
+import 'package:barfly_user/controller/menu_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; // Add this import
 
-class InsiderScreen extends StatelessWidget {
-  final String entityId;
+class Menuscreen extends StatelessWidget {
+  final String counterId;
+  final String counterName;
   final String entityName;
+  final String entityId;
 
-  InsiderScreen({required this.entityId, required this.entityName});
+  Menuscreen(
+      {required this.counterId,
+      required this.counterName,
+      required this.entityId,
+      required this.entityName});
 
   @override
   Widget build(BuildContext context) {
-    final InsiderController controller = Get.put(InsiderController(entityId));
+    print("${counterId} in the menu Screen");
+    final MenuCategoryController controller =
+        Get.put(MenuCategoryController(counterId));
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
@@ -33,9 +41,14 @@ class InsiderScreen extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
+                  Get.delete<MenuCategoryController>();
                   Storage.removeOrderDetails();
                   Storage.removeTotalOrderPrice();
-                  Navigator.pushNamed(context, "/home-screen");
+                  Navigator.pop(context);
+                  // Navigator.pushNamed(context, "/insider-screen", arguments: {
+                  //   "entityId": entityId,
+                  //   "entityName": entityName
+                  // });
                 },
                 child: Container(
                   width: 34,
@@ -48,18 +61,23 @@ class InsiderScreen extends StatelessWidget {
                   ),
                   child: Center(
                     child: IconButton(
-                      padding: const EdgeInsets.all(0),
-                      onPressed: () {
-                        Storage.removeOrderDetails();
-                        Storage.removeTotalOrderPrice();
-                        Navigator.pushNamed(context, "/home-screen");
-                      },
-                      icon: const Icon(
-                        Icons.chevron_left,
-                        color: AppColors.searchIconColor,
-                        size: 30,
-                      ),
-                    ),
+                        padding: const EdgeInsets.all(0),
+                        onPressed: () {
+                          Get.delete<MenuCategoryController>();
+                          Storage.removeOrderDetails();
+                          Storage.removeTotalOrderPrice();
+                          Navigator.pop(context);
+                          // Navigator.pushNamed(context, "/insider-screen",
+                          //     arguments: {
+                          //       "entityId": entityId,
+                          //       "entityName": entityName
+                          //     });
+                        },
+                        icon: const Icon(
+                          Icons.chevron_left,
+                          color: AppColors.searchIconColor,
+                          size: 30,
+                        )),
                   ),
                 ),
               ),
@@ -74,18 +92,16 @@ class InsiderScreen extends StatelessWidget {
                   child: RichText(
                     text: TextSpan(
                       style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Helvetica',
-                        fontSize: getResponsiveFontSize(
-                            screenWidth, screenHeight, 40),
-                      ),
+                          color: Colors.white,
+                          fontFamily: 'Helvetica',
+                          fontSize: getResponsiveFontSize(
+                              screenWidth, screenHeight, 40)),
                       children: [
                         TextSpan(
-                          text: entityName,
+                          text: counterName,
                           style: TextStyle(
-                            fontFamily: "Helvetica",
-                            fontWeight: FontWeight.w800,
-                          ),
+                              fontFamily: "Helvetica",
+                              fontWeight: FontWeight.w800),
                         ),
                       ],
                     ),
@@ -97,13 +113,13 @@ class InsiderScreen extends StatelessWidget {
               ),
               Expanded(
                 child: FutureBuilder(
-                  future: controller.fetchCounters(entityId),
+                  future: controller.fetchMenuCategory(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
+                      return Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
                       return Center(child: Text('Error: ${snapshot.error}'));
-                    } else if (controller.counterLists.isEmpty) {
+                    } else if (controller.menuLists.isEmpty) {
                       return Center(child: Text('No data available'));
                     } else {
                       return SingleChildScrollView(
@@ -112,7 +128,7 @@ class InsiderScreen extends StatelessWidget {
                           spacing: 24,
                           runSpacing: 20,
                           children: [
-                            ...controller.counterLists.map((counter) {
+                            ...controller.menuLists.map((menu) {
                               return InsiderButton(
                                 widthofButton: screenWidth < 393
                                     ? screenWidth * 0.3857
@@ -121,19 +137,17 @@ class InsiderScreen extends StatelessWidget {
                                     ? 168
                                     : screenHeight * 0.2171,
                                 borderRadius: 20,
-                                text: counter.counterName,
+                                text: menu.name,
                                 onPressed: () {
                                   Navigator.pushNamed(
-                                      context, "/menu-category-screen",
+                                      context, "/menu-items-screen",
                                       arguments: {
-                                        "entityId": entityId,
-                                        "entityName": entityName,
-                                        "counterName": counter.counterName,
-                                        "counterId": counter.id
+                                        "menuId": menu.id,
+                                        "menuCategoryName": menu.name
                                       });
                                 },
-                                imagePath: "Icon_Counter.svg",
-                                useSvg: true,
+                                imagePath: "resizedImage.png", // Example path
+                                useSvg: menu.icon.endsWith(".svg"),
                               );
                             }).toList(),
                             InsiderButton(
@@ -146,21 +160,8 @@ class InsiderScreen extends StatelessWidget {
                               borderRadius: 20,
                               text: "Feedback",
                               onPressed: () {},
-                              imagePath: "Feedback.png",
-                              useSvg: false,
-                            ),
-                            InsiderButton(
-                              widthofButton: screenWidth < 393
-                                  ? screenWidth * 0.3857
-                                  : 152,
-                              heightofButton: screenHeight < 852
-                                  ? 168
-                                  : screenHeight * 0.2171,
-                              borderRadius: 20,
-                              text: "Tokens",
-                              onPressed: () {},
-                              imagePath: "Lounge.png",
-                              useSvg: false,
+                              imagePath: "Feedback.png", // Example path
+                              useSvg: false, // Flag to use SVG
                             ),
                           ],
                         ),

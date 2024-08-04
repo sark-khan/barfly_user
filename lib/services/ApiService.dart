@@ -1,8 +1,12 @@
 import 'dart:convert';
 
 import 'package:barfly_user/Storage.dart';
+import 'package:barfly_user/components/OrderDetails.dart';
+import 'package:barfly_user/models/CounterListResponse.dart';
+import 'package:barfly_user/models/MenuCategory.dart';
 import 'package:barfly_user/models/getEntities.dart';
 import 'package:barfly_user/models/login.dart';
+import 'package:barfly_user/models/menu_category_items.dart';
 import 'package:barfly_user/return_obj.dart';
 import 'package:dio/dio.dart';
 
@@ -19,9 +23,8 @@ class Apiservice {
         "emailOrContactNumber": emailOrContactNumber.toLowerCase(),
         "password": password,
       });
-      var dio = Dio();
       var response = await dio.request(
-        '$APIURL/auth/customer-api/login',
+        '$APIURL/api/customer/auth/login',
         options: Options(
           method: 'POST',
           headers: headers,
@@ -51,7 +54,6 @@ class Apiservice {
     try {
       var headers = {'Content-Type': 'application/json'};
       headers['token'] = Storage.getJwtToken();
-      var dio = Dio();
       var response = await dio.request(
         '$APIURL/api/customer/get-entities',
         options: Options(
@@ -67,6 +69,134 @@ class Apiservice {
             message: response.data["message"],
             data: entityResponse.entityEvents);
       }
+      return ReturnObj(message: response.data["message"], status: false);
+    } on DioException catch (e) {
+      print("Error in Login $e");
+      return ReturnObj(status: false, message: e.response!.data["message"]);
+    } catch (error) {
+      print("Error in Login $error");
+      return ReturnObj(status: false, message: "Error in Login $error");
+    }
+  }
+
+  Future<ReturnObj<List<CounterList>>> getCounters(String entityId) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      headers['token'] = Storage.getJwtToken();
+      var data = {"entityId": entityId};
+      var response = await dio.request('$APIURL/api/customer/get-counter-list',
+          options: Options(
+            method: 'GET',
+            headers: headers,
+          ),
+          queryParameters: data);
+
+      if (response.statusCode == 200) {
+        CounterListResponse counterListResponse =
+            CounterListResponse.fromJson(response.data);
+        return ReturnObj<List<CounterList>>(
+            status: true,
+            message: response.data["message"],
+            data: counterListResponse.counterLists);
+      }
+      return ReturnObj(message: response.data["message"], status: false);
+    } on DioException catch (e) {
+      print("Error in Login $e");
+      return ReturnObj(status: false, message: e.response!.data["message"]);
+    } catch (error) {
+      print("Error in Login $error");
+      return ReturnObj(status: false, message: "Error in Login $error");
+    }
+  }
+
+  Future<ReturnObj<List<MenuList>>> getMenuCategory(String counterId) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      headers['token'] = Storage.getJwtToken();
+      var data = {"counterId": counterId};
+      var response =
+          await dio.request('$APIURL/api/customer/get-counter-menu-category',
+              options: Options(
+                method: 'GET',
+                headers: headers,
+              ),
+              queryParameters: data);
+
+      if (response.statusCode == 200) {
+        MenuCategoryResponse menuCategoryResponse =
+            MenuCategoryResponse.fromJson(response.data);
+        return ReturnObj<List<MenuList>>(
+            status: true,
+            message: response.data["message"],
+            data: menuCategoryResponse.menuLists);
+      }
+      return ReturnObj(message: response.data["message"], status: false);
+    } on DioException catch (e) {
+      print("Error in Login $e");
+      return ReturnObj(status: false, message: e.response!.data["message"]);
+    } catch (error) {
+      print("Error in Login $error");
+      return ReturnObj(status: false, message: "Error in Login $error");
+    }
+  }
+
+  Future<ReturnObj<List<MenuItem>>> getMenuCategoryItems(String menuId) async {
+    try {
+      print("reached ion MenuItems");
+      var headers = {'Content-Type': 'application/json'};
+      headers['token'] = Storage.getJwtToken();
+      var data = {"menuCategoryId": menuId};
+      var response =
+          await dio.request('$APIURL/api/customer/get-menu-category-items',
+              options: Options(
+                method: 'GET',
+                headers: headers,
+              ),
+              queryParameters: data);
+
+      if (response.statusCode == 200) {
+        MenuCategoryItem menuCategoryItem =
+            MenuCategoryItem.fromJson(response.data);
+        return ReturnObj<List<MenuItem>>(
+            status: true,
+            message: response.data["message"],
+            data: menuCategoryItem.menuItems);
+      }
+      print("reachde hrerere");
+      return ReturnObj(message: response.data["message"], status: false);
+    } on DioException catch (e) {
+      print("Error in Login $e");
+      return ReturnObj(status: false, message: e.response!.data["message"]);
+    } catch (error) {
+      print("Error in Login $error");
+      return ReturnObj(status: false, message: "Error in Login $error");
+    }
+  }
+
+  Future<ReturnObj> createOrder(Map<String, OrderDetails> orderDetails) async {
+    try {
+      print("reached ion MenuItems");
+      var headers = {'Content-Type': 'application/json'};
+      headers['token'] = Storage.getJwtToken();
+      var data = json.encode({
+        "items": orderDetails.entries
+            .map((entry) => {
+                  "itemId": entry.value.itemId,
+                  "quantity": entry.value.quantity
+                })
+            .toList()
+      });
+      var response = await dio.request('$APIURL/api/orders/create-order',
+          options: Options(
+            method: 'POST',
+            headers: headers,
+          ),
+          data: data);
+
+      if (response.statusCode == 200) {
+        return ReturnObj(status: true, message: response.data["message"]);
+      }
+      print("reachde hrerere");
       return ReturnObj(message: response.data["message"], status: false);
     } on DioException catch (e) {
       print("Error in Login $e");

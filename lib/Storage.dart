@@ -1,3 +1,4 @@
+import 'package:barfly_user/components/OrderDetails.dart';
 import 'package:get_storage/get_storage.dart';
 
 class Storage {
@@ -7,19 +8,56 @@ class Storage {
     box.write('user', us);
   }
 
-  static setOrderDetails(dynamic orderDetails) {
-    box.write("orderDetails", orderDetails);
+  static setOrderDetails(Map<String, OrderDetails> orderDetails) {
+    Map<String, dynamic> jsonOrderDetails = orderDetails.map((key, value) {
+      return MapEntry(key, value.toJson());
+    });
+    box.write("orderDetails", jsonOrderDetails);
   }
+  // static getOrderDetails(dynamic orderDetails) {
+  //   box.write("orderDetails", orderDetails);
+  // }
+
+  static setTotalOrderPrice(double totalPrice) {
+    box.write("totalPrice", totalPrice);
+  }
+
+  static removeTotalOrderPrice() {
+    box.remove("totalPrice");
+  }
+
+  static removeOrderDetails() {
+    box.remove("orderDetails");
+  }
+  //
   // static setLoginDetails(String accountNumberOrEmail, String password) {
   //   box.write('details',
   //       {"accountNumberOrEmail": accountNumberOrEmail, "password": password});
   // }
 
-  static getOrderDetails() {
+  static existsOrderDetails() {
     if (box.hasData("orderDetails")) {
-      return box.read("orderDetails");
+      return true;
     }
     return false;
+  }
+
+  static getOrderDetails() {
+    if (box.hasData("orderDetails")) {
+      var jsonData = box.read("orderDetails") as Map<String, dynamic>;
+      return jsonData.map((key, value) {
+        return MapEntry(key, OrderDetails.fromJson(value));
+      });
+    }
+    Map<String, OrderDetails> orderDetails = {};
+    return orderDetails;
+  }
+
+  static getTotalPrice() {
+    if (box.hasData("totalPrice")) {
+      return box.read("totalPrice");
+    }
+    return 0;
   }
 
   static getUser() {

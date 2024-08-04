@@ -1,10 +1,13 @@
 import 'package:barfly_user/appConstants.dart';
 import 'package:barfly_user/commonFunctions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shimmer/shimmer.dart';
 
 class FavorotiesButton extends StatelessWidget {
-  final String text;
+  final String location;
+  final String entityName;
+  final bool status;
   final double fontSize;
   final VoidCallback onPressed;
   final Color textColor;
@@ -20,132 +23,10 @@ class FavorotiesButton extends StatelessWidget {
 
   const FavorotiesButton({
     Key? key,
-    required this.text,
+    required this.location,
+    required this.entityName,
+    required this.status,
     required this.onPressed,
-    this.isLoading = true,
-    this.heightofButton = 70,
-    this.widthofButton = 240,
-    this.fontSize = 28,
-    this.textColor = Colors.white,
-    this.borderRadius = 8.0,
-    this.fontWeight = FontWeight.w300,
-    this.verticalPadding = 15.0,
-    this.horizontalPadding = 25.0,
-    this.buttonBackgroundColor = AppColors.backgroundColor,
-    this.gradient = const LinearGradient(
-      colors: [Color(0xFF623E87), Color(0xFF473F88)],
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
-    ),
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: widthofButton,
-      height: heightofButton,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          gradient: gradient,
-          borderRadius: BorderRadius.circular(borderRadius),
-        ),
-        child: ElevatedButton(
-          onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.all(0),
-            backgroundColor: Colors.transparent,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(borderRadius),
-            ),
-          ),
-          child: isLoading
-              ? Shimmer.fromColors(
-                  baseColor: Color(0xFF623E87),
-                  highlightColor: Color(0xFF473F88),
-                  child: Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(borderRadius),
-                    ),
-                  ),
-                )
-              : Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.location_on,
-                                size: 24,
-                                color: Colors.black,
-                              ),
-                              SizedBox(width: 5),
-                              Text(
-                                text,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 15),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Text("open",
-                                  style: TextStyle(
-                                      fontSize: 15, color: Colors.white)),
-                              SizedBox(width: 5),
-                              Icon(Icons.circle, color: Colors.green, size: 16),
-                              SizedBox(width: 20),
-                              Icon(Icons.star, color: Colors.black, size: 24),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Text(
-                          "Barrock",
-                          style: TextStyle(color: Colors.white, fontSize: 30),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-        ),
-      ),
-    );
-  }
-}
-
-class InsiderButton extends StatelessWidget {
-  final String text;
-  final double fontSize;
-  final String imagePath;
-  final VoidCallback onPressed;
-  final Color textColor;
-  final Color buttonBackgroundColor;
-  final double heightofButton;
-  final double widthofButton;
-  final double borderRadius;
-  final FontWeight fontWeight;
-  final double verticalPadding;
-  final double horizontalPadding;
-  final Gradient gradient;
-  final bool isLoading;
-
-  const InsiderButton({
-    Key? key,
-    required this.text,
-    required this.onPressed,
-    required this.imagePath,
     this.isLoading = true,
     this.heightofButton = 70,
     this.widthofButton = 240,
@@ -168,6 +49,183 @@ class InsiderButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minWidth: widthofButton,
+        maxWidth: widthofButton,
+        minHeight: heightofButton,
+      ),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: gradient,
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+        child: IntrinsicHeight(
+          child: ElevatedButton(
+            onPressed: onPressed,
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.all(0),
+              backgroundColor: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(borderRadius),
+              ),
+            ),
+            child: isLoading
+                ? Shimmer.fromColors(
+                    baseColor: Color(0xFF623E87),
+                    highlightColor: Color(0xFF473F88),
+                    child: Container(
+                      width: double.infinity,
+                      height: heightofButton,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(borderRadius),
+                      ),
+                    ),
+                  )
+                : Padding(
+                    padding: EdgeInsets.only(
+                        top: 16, left: 16, right: 16, bottom: 5),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          flex: 1,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Flexible(
+                                flex: 1,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.location_on,
+                                      size: 24,
+                                      color: Colors.black,
+                                    ),
+                                    SizedBox(width: 5),
+                                    Expanded(
+                                      child: Text(
+                                        location,
+                                        style: TextStyle(
+                                          fontFamily: "Helvetica",
+                                          fontWeight: FontWeight.w300,
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Flexible(
+                                flex: 1,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Visibility(
+                                      visible: status,
+                                      child: Text(
+                                        "Open",
+                                        style: TextStyle(
+                                          fontFamily: "Helvetica",
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 15,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(width: 5),
+                                    Visibility(
+                                      visible: status,
+                                      child: Icon(Icons.circle,
+                                          color: Colors.green, size: 16),
+                                    ),
+                                    SizedBox(width: 20),
+                                    Icon(Icons.star,
+                                        color: Colors.black, size: 24),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Flexible(
+                          flex: 5,
+                          child: Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text(
+                                entityName,
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 30),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class InsiderButton extends StatelessWidget {
+  final String text;
+  final double fontSize;
+  final String imagePath;
+  final VoidCallback onPressed;
+  final Color textColor;
+  final Color buttonBackgroundColor;
+  final double heightofButton;
+  final double widthofButton;
+  final double borderRadius;
+  final FontWeight fontWeight;
+  final double verticalPadding;
+  final double horizontalPadding;
+  final Gradient gradient;
+  final bool isLoading;
+  final bool useSvg;
+
+  const InsiderButton({
+    Key? key,
+    required this.text,
+    required this.onPressed,
+    required this.imagePath,
+    this.useSvg = false,
+    this.isLoading = true,
+    this.heightofButton = 70,
+    this.widthofButton = 240,
+    this.fontSize = 28,
+    this.textColor = Colors.white,
+    this.borderRadius = 8.0,
+    this.fontWeight = FontWeight.w300,
+    this.verticalPadding = 15.0,
+    this.horizontalPadding = 25.0,
+    this.buttonBackgroundColor = AppColors.backgroundColor,
+    this.gradient = const LinearGradient(
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+      colors: [
+        Color.fromARGB(255, 100, 87, 180), // Dark Blue
+        Color.fromARGB(255, 134, 82, 202), // Blue/Purple
+      ],
+    ),
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    print("$imagePath imsssssssss $useSvg");
     return SizedBox(
       width: widthofButton,
       height: heightofButton,
@@ -194,14 +252,21 @@ class InsiderButton extends StatelessWidget {
                 Align(
                   alignment: Alignment.topLeft,
                   child: Container(
-                    width: 63,
-                    height: 64,
-                    child: Image.asset(
-                      imagePath,
-                      color: Colors.white,
-                      fit: BoxFit.contain,
-                      scale: 5,
-                    ),
+                    width: 66,
+                    height: 66,
+                    child: useSvg
+                        ? SvgPicture.asset(
+                            imagePath,
+                            color: Colors.white,
+                            fit: BoxFit.contain,
+                            // scale: 5,
+                          )
+                        : Image.asset(
+                            imagePath,
+                            color: Colors.white,
+                            fit: BoxFit.contain,
+                            scale: 5,
+                          ),
                   ),
                 ),
                 Align(

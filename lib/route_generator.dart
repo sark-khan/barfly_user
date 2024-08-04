@@ -2,7 +2,8 @@ import 'package:barfly_user/components/OrderDetails.dart';
 import 'package:barfly_user/screens/AccountDetailsScreen.dart';
 import 'package:barfly_user/screens/DeleteScreen.dart';
 import 'package:barfly_user/screens/EntryScreen.dart';
-import 'package:barfly_user/screens/HomeScreen.dart';
+import 'package:barfly_user/screens/MenuScreen.dart';
+import 'package:barfly_user/screens/home_screen.dart';
 import 'package:barfly_user/screens/InsiderScreen.dart';
 import 'package:barfly_user/screens/LoginScreen.dart';
 import 'package:barfly_user/screens/LoungeDetailsScreen.dart';
@@ -35,34 +36,52 @@ class RouteGenerator {
         );
       case '/insider-screen':
         return FadeRoute(
-          page: InsiderScreen(),
+          page: InsiderScreen(
+            entityId: args!["entityId"],
+            entityName: args["entityName"],
+          ),
         );
+      case "/menu-category-screen":
+        return FadeRoute(
+            page: Menuscreen(
+          counterId: args!["counterId"],
+          entityId: args["entityId"],
+          entityName: args["entityName"],
+          counterName: args["counterName"],
+        ));
       case "/menu-items-screen":
-        if (args == null) {
+        print("reached ehrer on menuItems router");
+        final menuId = args!["menuId"] as String;
+        final menuCategoryName = args["menuCategoryName"] as String;
+        final String currency = "CHF";
+        if (args.length < 3) {
           return FadeRoute(
-            page: MenuItemsScreen(),
+            page: MenuItemsScreen(
+              menuId: menuId,
+              menuCategoryName: menuCategoryName,
+              currency: "CHF",
+            ),
           );
         }
-        final orderDetails = args['orderDetails'] as Map<String, OrderDetails>;
-        final totalPrice = args['totalPrice'] as double;
-        final currency = args['currency'] as String;
+
         return FadeRoute(
           page: MenuItemsScreen(
-            orderDetails: orderDetails,
-            totalPrice: totalPrice,
+            menuId: menuId,
             currency: currency,
+            menuCategoryName: menuCategoryName,
           ),
         );
 
       case "/order-overview-screen":
-        final orderDetails = args!['orderDetails'] as Map<String, OrderDetails>;
-        final totalPrice = args['totalPrice'] as double;
+        final totalPrice = args!['totalPrice'] as double;
         final currency = args['currency'] as String;
+        final menuCategoryName = args['menuCategoryName'] as String;
         return FadeRoute(
           page: OrderOverViewScreen(
-            orderDetails: orderDetails,
+            menuId: args['menuId'],
             totalPrice: totalPrice,
             currency: currency,
+            menuCategoryName: menuCategoryName,
           ),
         );
       case "/lounge-list-screen":
@@ -96,10 +115,6 @@ class RouteGenerator {
       case '/delete-screen':
         return FadeRoute(
           page: const DeleteScreen(),
-        );
-      case '/pickup-screen':
-        return FadeRoute(
-          page: PickUp(),
         );
     }
 

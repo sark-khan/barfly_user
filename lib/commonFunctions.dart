@@ -1,3 +1,6 @@
+import 'package:barfly_user/Storage.dart';
+import 'package:jwt_decode/jwt_decode.dart';
+
 double getResponsiveFontSize(
     double screenWidth, double screenHeight, double size) {
   double widthFactor = screenWidth / 393;
@@ -53,3 +56,7 @@ double getResponsiveSizedBoxWidth(double screenWidth, double size) {
         factor; // Large screens, including desktops and larger laptops
   }
 }
+
+// String getUserRole() => Jwt.parseJwt(Storage.getJwtToken())['role'];
+// String getUserName() => Jwt.parseJwt(Storage.getJwtToken())['name'];
+// String getDestination() => Jwt.parseJwt(Storage.getJwtToken())['city']!;
