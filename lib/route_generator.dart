@@ -2,18 +2,22 @@ import 'package:barfly_user/components/OrderDetails.dart';
 import 'package:barfly_user/screens/AccountDetailsScreen.dart';
 import 'package:barfly_user/screens/DeleteScreen.dart';
 import 'package:barfly_user/screens/EntryScreen.dart';
-import 'package:barfly_user/screens/HomeScreen.dart';
 import 'package:barfly_user/screens/InsiderScreen.dart';
 import 'package:barfly_user/screens/LoginScreen.dart';
 import 'package:barfly_user/screens/LoungeDetailsScreen.dart';
 import 'package:barfly_user/screens/LoungeList.dart';
 import 'package:barfly_user/screens/MenuItems.dart';
 import 'package:barfly_user/screens/OrderOverview.dart';
+import 'package:barfly_user/screens/PastTicketNameScreen.dart';
+import 'package:barfly_user/screens/PastTicketScreen.dart';
+import 'package:barfly_user/screens/PastYearTicket.dart';
 import 'package:barfly_user/screens/PersonalDataScreen.dart';
 import 'package:barfly_user/screens/PersonalScreen.dart';
 import 'package:barfly_user/screens/PickUpScreen.dart';
 import 'package:barfly_user/screens/PickUpOrTakeAway.dart';
+import 'package:barfly_user/screens/TicketScreen.dart';
 import 'package:barfly_user/screens/TokenScreen.dart';
+import 'package:barfly_user/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class RouteGenerator {
@@ -80,6 +84,22 @@ class RouteGenerator {
       case '/pickup-screen':
         return FadeRoute(
           page: const PickUpScreen(),
+        );
+      case '/ticket-screen':
+        return FadeRoute(
+          page: const TicketScreen(),
+        );
+      case '/ticket-year-screen':
+        return FadeRoute(
+          page: const PastYearTicketScreen(),
+        );
+      case '/past-ticket-screen':
+        return FadeRoute(
+          page: const PastTicketScreen(),
+        );
+      case '/past-ticket-screen-name':
+        return FadeRoute(
+          page: const PastTicketNameScreen(),
         );
       case '/personal-data-screen':
         return FadeRoute(
