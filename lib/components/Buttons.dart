@@ -1473,11 +1473,11 @@ class TicketQrButton extends StatelessWidget {
                               child: Text(
                                 text1,
                                 style: TextStyle(
-                                  color: Colors.white, // Text color
-                                  fontSize: getResponsiveFontSize(
-                                      screenWidth, screenHeight, 30),
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                    color: Colors.white, // Text color
+                                    fontSize: getResponsiveFontSize(
+                                        screenWidth, screenHeight, 30),
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Helvetica Neue, Medium'),
                               ),
                             ),
                           ),
@@ -1502,11 +1502,11 @@ class TicketQrButton extends StatelessWidget {
                                   child: Text(
                                     text2,
                                     style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: getResponsiveFontSize(
-                                          screenWidth, screenHeight, 35),
-                                      fontWeight: FontWeight.w100,
-                                    ),
+                                        color: Colors.white,
+                                        fontSize: getResponsiveFontSize(
+                                            screenWidth, screenHeight, 35),
+                                        fontWeight: FontWeight.w100,
+                                        fontFamily: 'Helvetica Neue, Regular'),
                                   ),
                                 ),
                                 const SizedBox(
@@ -1516,11 +1516,11 @@ class TicketQrButton extends StatelessWidget {
                                     text3,
                                     softWrap: true,
                                     style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: getResponsiveFontSize(
-                                          screenWidth, screenHeight, 30),
-                                      fontWeight: FontWeight.w100,
-                                    ),
+                                        color: Colors.white,
+                                        fontSize: getResponsiveFontSize(
+                                            screenWidth, screenHeight, 30),
+                                        fontWeight: FontWeight.w100,
+                                        fontFamily: 'Helvetica Neue, Regular'),
                                   ),
                                 ),
                               ],
@@ -1548,11 +1548,11 @@ class TicketQrButton extends StatelessWidget {
                                   child: Text(
                                     text4,
                                     style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: getResponsiveFontSize(
-                                          screenWidth, screenHeight, 35),
-                                      fontWeight: FontWeight.w100,
-                                    ),
+                                        color: Colors.white,
+                                        fontSize: getResponsiveFontSize(
+                                            screenWidth, screenHeight, 35),
+                                        fontWeight: FontWeight.w100,
+                                        fontFamily: 'Helvetica Neue, Regular'),
                                   ),
                                 ),
                                 const SizedBox(
@@ -1562,11 +1562,11 @@ class TicketQrButton extends StatelessWidget {
                                     text5,
                                     softWrap: true,
                                     style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: getResponsiveFontSize(
-                                          screenWidth, screenHeight, 30),
-                                      fontWeight: FontWeight.w100,
-                                    ),
+                                        color: Colors.white,
+                                        fontSize: getResponsiveFontSize(
+                                            screenWidth, screenHeight, 30),
+                                        fontWeight: FontWeight.w100,
+                                        fontFamily: 'Helvetica Neue, Regular'),
                                   ),
                                 ),
                               ],
@@ -1594,11 +1594,11 @@ class TicketQrButton extends StatelessWidget {
                               Text(
                                 text6,
                                 style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: getResponsiveFontSize(
-                                      screenWidth, screenHeight, 20),
-                                  fontWeight: FontWeight.w100,
-                                ),
+                                    color: Colors.white,
+                                    fontSize: getResponsiveFontSize(
+                                        screenWidth, screenHeight, 20),
+                                    fontWeight: FontWeight.w100,
+                                    fontFamily: 'Helvetica Neue, Regular'),
                               ),
                             ],
                           ),
@@ -1755,10 +1755,10 @@ class TicketQrPickupButton extends StatelessWidget {
                               child: Text(
                                 text1,
                                 style: TextStyle(
-                                  color: Colors.white, // Text color
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                    color: Colors.white, // Text color
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Helvetica'),
                               ),
                             ),
                           ),
@@ -1783,10 +1783,10 @@ class TicketQrPickupButton extends StatelessWidget {
                                   child: Text(
                                     text2,
                                     style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.w100,
-                                    ),
+                                        color: Colors.white,
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.w100,
+                                        fontFamily: 'Helvetica'),
                                   ),
                                 ),
                                 const SizedBox(
@@ -1796,10 +1796,10 @@ class TicketQrPickupButton extends StatelessWidget {
                                     text3,
                                     softWrap: true,
                                     style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.w100,
-                                    ),
+                                        color: Colors.white,
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.w100,
+                                        fontFamily: 'Helvetica'),
                                   ),
                                 ),
                               ],

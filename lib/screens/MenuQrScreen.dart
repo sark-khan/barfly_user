@@ -64,17 +64,24 @@ class MenuQrScreen extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: getResponsiveFontSize(
-                                screenWidth, screenHeight, 30)),
+                          color: Colors.white,
+                        ),
                         children: [
                           TextSpan(
                             text: "XTRA ",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Helvetica',
+                                fontSize: getResponsiveFontSize(
+                                    screenWidth, screenHeight, 30)),
                           ),
                           TextSpan(
                             text: "Tickets \n",
-                            style: TextStyle(fontWeight: FontWeight.w100),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w200,
+                                fontFamily: 'Helvetica',
+                                fontSize: getResponsiveFontSize(
+                                    screenWidth, screenHeight, 30)),
                           ),
                         ],
                       ),
@@ -84,10 +91,12 @@ class MenuQrScreen extends StatelessWidget {
                       child: Text(
                         "17.10.2024",
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: getResponsiveFontSize(
-                                screenWidth, screenHeight, 30),
-                            fontWeight: FontWeight.w100),
+                          color: Colors.white,
+                          fontSize: getResponsiveFontSize(
+                              screenWidth, screenHeight, 25),
+                          fontWeight: FontWeight.w100,
+                          fontFamily: 'Helvetica',
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     ),

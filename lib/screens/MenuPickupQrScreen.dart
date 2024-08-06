@@ -69,11 +69,15 @@ class MenuPickupQrScreen extends StatelessWidget {
                         children: [
                           TextSpan(
                             text: "Kaufleuten ",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Helvetica'),
                           ),
                           TextSpan(
                             text: "Tickets \n",
-                            style: TextStyle(fontWeight: FontWeight.w100),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w100,
+                                fontFamily: 'Helvetica'),
                           ),
                         ],
                       ),
@@ -86,7 +90,8 @@ class MenuPickupQrScreen extends StatelessWidget {
                             color: Colors.white,
                             fontSize: getResponsiveFontSize(
                                 screenWidth, screenHeight, 30),
-                            fontWeight: FontWeight.w100),
+                            fontWeight: FontWeight.w100,
+                            fontFamily: 'Helvetica'),
                         textAlign: TextAlign.center,
                       ),
                     ),
