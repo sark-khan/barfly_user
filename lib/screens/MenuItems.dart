@@ -160,7 +160,8 @@ class _MenuItemsScreenState extends State<MenuItemsScreen> {
                                   borderRadius: 20,
                                   itemName: menuItem.itemName,
                                   onPressed: () => {},
-                                  imagePath: menuItem.image,
+                                  imagePath:
+                                      "${menuItem.image.replaceAll(" ", "")}.jpg",
                                   currency: menuItem.currency,
                                   minWidth: 264,
                                   minHeight: 376,

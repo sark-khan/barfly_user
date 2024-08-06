@@ -2,6 +2,9 @@ import 'package:barfly_user/components/OrderDetails.dart';
 import 'package:barfly_user/screens/AccountDetailsScreen.dart';
 import 'package:barfly_user/screens/DeleteScreen.dart';
 import 'package:barfly_user/screens/EntryScreen.dart';
+import 'package:barfly_user/screens/FeedBackScreen.dart';
+import 'package:barfly_user/screens/MenuPickupQrScreen.dart';
+import 'package:barfly_user/screens/MenuQrScreen.dart';
 import 'package:barfly_user/screens/MenuScreen.dart';
 import 'package:barfly_user/screens/home_screen.dart';
 import 'package:barfly_user/screens/InsiderScreen.dart';
@@ -136,6 +139,18 @@ class RouteGenerator {
       case '/delete-screen':
         return FadeRoute(
           page: const DeleteScreen(),
+        );
+      case '/feedback-screen':
+        return FadeRoute(
+          page: const Feedbackscreen(),
+        );
+      case '/qr-screen':
+        return FadeRoute(
+          page: const MenuQrScreen(),
+        );
+      case '/qr-pickup-screen':
+        return FadeRoute(
+          page: const MenuPickupQrScreen(),
         );
     }
 
