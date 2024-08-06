@@ -2,7 +2,10 @@ import 'package:barfly_user/appConstants.dart';
 import 'package:barfly_user/commonFunctions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/utils.dart';
 import 'package:shimmer/shimmer.dart';
+
+double _currentSliderValue = 20;
 
 class FavorotiesButton extends StatelessWidget {
   final String location;
@@ -1075,6 +1078,827 @@ class TicketDateButton extends StatelessWidget {
                               fontWeight: FontWeight.w100,
                             ),
                           ),
+                        ],
+                      ),
+                    )),
+        ),
+      ),
+    );
+  }
+}
+
+class FeedBackButton extends StatefulWidget {
+  final String text;
+  final double fontSize;
+  final VoidCallback onPressed;
+  final Color textColor;
+  final Color buttonBackgroundColor;
+  final double heightofButton;
+  final double widthofButton;
+  final double borderRadius;
+  final FontWeight fontWeight;
+  final double verticalPadding;
+  final double horizontalPadding;
+  final Gradient gradient;
+  final bool isLoading;
+  int selectedValue;
+  final Function(double, String, String, String) updateTotalValue;
+
+  FeedBackButton({
+    Key? key,
+    required this.text,
+    required this.onPressed,
+    this.isLoading = true,
+    this.heightofButton = 70,
+    this.widthofButton = 240,
+    this.fontSize = 28,
+    this.textColor = Colors.white,
+    this.borderRadius = 8.0,
+    this.fontWeight = FontWeight.w300,
+    this.verticalPadding = 15.0,
+    this.horizontalPadding = 25.0,
+    this.buttonBackgroundColor = AppColors.backgroundColor,
+    this.gradient = const LinearGradient(
+      colors: [Color(0xFF623E87), Color(0xFF473F88)],
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+    ),
+    required this.updateTotalValue,
+    this.selectedValue = 0,
+  }) : super(key: key);
+
+  @override
+  _FeedBackButtonState createState() => _FeedBackButtonState();
+}
+
+class _FeedBackButtonState extends State<FeedBackButton> {
+  double _currentSliderValue = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minWidth: 350,
+        maxWidth: 350,
+      ),
+      child: IntrinsicHeight(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: widget.gradient,
+            borderRadius: BorderRadius.circular(widget.borderRadius),
+          ),
+          child: ElevatedButton(
+            onPressed: widget.onPressed,
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.all(2),
+              backgroundColor: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(widget.borderRadius),
+              ),
+            ),
+            child: widget.isLoading
+                ? Shimmer.fromColors(
+                    baseColor: Color(0xFF623E87),
+                    highlightColor: Color(0xFF473F88),
+                    child: Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius:
+                            BorderRadius.circular(widget.borderRadius),
+                      ),
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.text,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: getResponsiveFontSize(
+                                screenWidth, screenHeight, 30),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                '0',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20, // Adjust fontSize as needed
+                                ),
+                              ),
+                            ), // Start label
+                            Expanded(
+                              flex: 5,
+                              child: Slider(
+                                value: _currentSliderValue,
+                                min: 0,
+                                max: 10,
+                                divisions:
+                                    10, // Adjust divisions for finer granularity
+                                label: _currentSliderValue.round().toString(),
+                                onChanged: (double value) {
+                                  setState(() {
+                                    _currentSliderValue = value;
+                                    widget.updateTotalValue(
+                                        _currentSliderValue,
+                                        '', // Pass other parameters as needed
+                                        '',
+                                        '' // Pass other parameters as needed
+                                        );
+                                  });
+                                },
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                '10',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20, // Adjust fontSize as needed
+                                ),
+                              ),
+                            ), // End label
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class FeedBackTextButton extends StatefulWidget {
+  final double fontSize;
+  final VoidCallback onPressed;
+  final Color textColor;
+  final Color buttonBackgroundColor;
+  final double heightofButton;
+  final double widthofButton;
+  final double borderRadius;
+  final FontWeight fontWeight;
+  final double verticalPadding;
+  final double horizontalPadding;
+  final Gradient gradient;
+  final bool isLoading;
+  int selectedValue;
+  final Function(double, String, String) updateTotalValue;
+
+  FeedBackTextButton({
+    Key? key,
+    required this.onPressed,
+    this.isLoading = true,
+    this.heightofButton = 70,
+    this.widthofButton = 240,
+    this.fontSize = 28,
+    this.textColor = Colors.grey,
+    this.borderRadius = 5.0,
+    this.fontWeight = FontWeight.w300,
+    this.verticalPadding = 15.0,
+    this.horizontalPadding = 25.0,
+    this.buttonBackgroundColor = AppColors.backgroundColor,
+    this.gradient = const LinearGradient(
+      colors: [Color(0xFF623E87), Color(0xFF473F88)],
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+    ),
+    required this.updateTotalValue,
+    this.selectedValue = 0,
+  }) : super(key: key);
+
+  @override
+  _FeedBackTextButtonState createState() => _FeedBackTextButtonState();
+}
+
+class _FeedBackTextButtonState extends State<FeedBackTextButton> {
+  double _currentSliderValue = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minWidth: 350,
+        maxWidth: 350,
+      ),
+      child: IntrinsicHeight(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: widget.gradient,
+            borderRadius: BorderRadius.circular(widget.borderRadius),
+          ),
+          child: ElevatedButton(
+            onPressed: widget.onPressed,
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.all(2),
+              backgroundColor: Color(0xFF091952),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(widget.borderRadius),
+              ),
+            ),
+            child: widget.isLoading
+                ? Shimmer.fromColors(
+                    baseColor: Color(0xFF623E87),
+                    highlightColor: Color(0xFF473F88),
+                    child: Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius:
+                            BorderRadius.circular(widget.borderRadius),
+                      ),
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        TextField(
+                          style: const TextStyle(
+                              color: Colors.white), // Set the text color
+                          decoration: const InputDecoration(
+                            hintText: 'Comment...',
+                            hintStyle: TextStyle(
+                                color: Color(0xFF292C4C)), // Set the hint color
+                          ),
+                          onChanged: (text) {
+                            widget.updateTotalValue(
+                                _currentSliderValue, 'Param1', 'Param2');
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TicketQrButton extends StatelessWidget {
+  final String text1;
+  final String text2;
+  final String text3;
+  final String text4;
+  final String text5;
+  final String text6;
+  final String imagePath;
+  final double fontSize;
+  final VoidCallback onPressed;
+  final Color textColor;
+  final Color buttonBackgroundColor;
+  final double heightofButton;
+  final double widthofButton;
+  final double borderRadius;
+  final FontWeight fontWeight;
+  final double verticalPadding;
+  final double horizontalPadding;
+  final Gradient gradient;
+  final bool isLoading;
+
+  const TicketQrButton({
+    Key? key,
+    required this.text1,
+    required this.text2,
+    required this.text3,
+    required this.text4,
+    required this.text5,
+    required this.text6,
+    required this.onPressed,
+    required this.imagePath,
+    this.isLoading = true,
+    this.heightofButton = 70,
+    this.widthofButton = 240,
+    this.fontSize = 28,
+    this.textColor = Colors.white,
+    this.borderRadius = 8.0,
+    this.fontWeight = FontWeight.w300,
+    this.verticalPadding = 15.0,
+    this.horizontalPadding = 25.0,
+    this.buttonBackgroundColor = AppColors.backgroundColor,
+    this.gradient = const LinearGradient(
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+      colors: [
+        Color.fromARGB(255, 100, 87, 180), // Dark Blue
+        Color.fromARGB(255, 134, 82, 202), // Blue/Purple
+      ],
+    ),
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minWidth: 350,
+        maxWidth: 350,
+      ),
+      child: IntrinsicHeight(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: gradient,
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
+          child: ElevatedButton(
+              onPressed: onPressed,
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(2),
+                backgroundColor: Colors.transparent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(borderRadius),
+                ),
+              ),
+              child: isLoading
+                  ? Shimmer.fromColors(
+                      baseColor: Color(0xFF623E87),
+                      highlightColor: Color(0xFF473F88),
+                      child: Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(borderRadius),
+                        ),
+                      ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.only(
+                        top: 20.0, // Padding on the top side
+                        bottom: 80.0, // Padding on the bottom side
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment
+                            .center, // Aligns all children to the start
+                        children: [
+                          // Column directly for vertical stacking
+                          SizedBox(height: screenHeight * 0.02),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 30.0),
+                            child: Container(
+                              padding: EdgeInsets.all(
+                                  5.0), // Adjust padding as needed
+                              decoration: BoxDecoration(
+                                color: Color(
+                                    0xFFD800FF), // Background color of the box
+                                borderRadius: BorderRadius.circular(
+                                    8.0), // Rounded corners, adjust radius as needed
+                                border: Border.all(
+                                  color: Color(0xFFD800FF), // Border color
+                                  width: 2.0, // Border width
+                                ),
+                              ),
+                              child: Text(
+                                text1,
+                                style: TextStyle(
+                                  color: Colors.white, // Text color
+                                  fontSize: getResponsiveFontSize(
+                                      screenWidth, screenHeight, 30),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: screenHeight * 0.02),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 30.0),
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(
+                                      3.0), // Adjust padding as needed
+                                  decoration: BoxDecoration(
+                                    color: Colors
+                                        .transparent, // Background color of the box
+                                    borderRadius: BorderRadius.circular(
+                                        8.0), // Rounded corners
+                                    border: Border.all(
+                                      color: Colors.white, // Border color
+                                      width: 2.0, // Border width
+                                    ),
+                                  ),
+                                  child: Text(
+                                    text2,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: getResponsiveFontSize(
+                                          screenWidth, screenHeight, 35),
+                                      fontWeight: FontWeight.w100,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                    width: 8), // Space between text2 and text3
+                                Flexible(
+                                  child: Text(
+                                    text3,
+                                    softWrap: true,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: getResponsiveFontSize(
+                                          screenWidth, screenHeight, 30),
+                                      fontWeight: FontWeight.w100,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          SizedBox(height: screenHeight * 0.02),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 30.0),
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(
+                                      3.0), // Adjust padding as needed
+                                  decoration: BoxDecoration(
+                                    color: Colors
+                                        .transparent, // Background color of the box
+                                    borderRadius: BorderRadius.circular(
+                                        8.0), // Rounded corners
+                                    border: Border.all(
+                                      color: Colors.white, // Border color
+                                      width: 2.0, // Border width
+                                    ),
+                                  ),
+                                  child: Text(
+                                    text4,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: getResponsiveFontSize(
+                                          screenWidth, screenHeight, 35),
+                                      fontWeight: FontWeight.w100,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                    width: 8), // Space between text2 and text3
+                                Flexible(
+                                  child: Text(
+                                    text5,
+                                    softWrap: true,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: getResponsiveFontSize(
+                                          screenWidth, screenHeight, 30),
+                                      fontWeight: FontWeight.w100,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: screenHeight * 0.02),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment
+                                .center, // Center the Row content horizontally
+                            crossAxisAlignment: CrossAxisAlignment
+                                .center, // Center the Row content vertically
+                            children: [
+                              // Yellow dot
+                              Container(
+                                width: 20,
+                                height: 20,
+                                decoration: const BoxDecoration(
+                                  color: Colors.yellow,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                              const SizedBox(
+                                  width: 8), // Space between the dot and text
+                              // Text widget
+                              Text(
+                                text6,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: getResponsiveFontSize(
+                                      screenWidth, screenHeight, 20),
+                                  fontWeight: FontWeight.w100,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: screenHeight * 0.02),
+                          Center(
+                            child: Container(
+                              width: 150,
+                              height: 150,
+                              decoration: BoxDecoration(
+                                color: Colors.white, // Background color
+                                border: Border.all(
+                                  color: Colors.white, // Border color
+                                  width: 2, // Border width
+                                ),
+                              ),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Container(
+                                  width: 150,
+                                  height: 150,
+                                  child: Image.asset(
+                                    imagePath,
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          SizedBox(height: screenHeight * 0.02),
+                        ],
+                      ),
+                    )),
+        ),
+      ),
+    );
+  }
+}
+
+class TicketQrPickupButton extends StatelessWidget {
+  final String text1;
+  final String text2;
+  final String text3;
+  final String text4;
+  final String imagePath;
+  final bool isVisible;
+  final double fontSize;
+  final VoidCallback onPressed;
+  final Color textColor;
+  final Color buttonBackgroundColor;
+  final double heightofButton;
+  final double widthofButton;
+  final double borderRadius;
+  final FontWeight fontWeight;
+  final double verticalPadding;
+  final double horizontalPadding;
+  final Gradient gradient;
+  final bool isLoading;
+
+  const TicketQrPickupButton({
+    Key? key,
+    required this.text1,
+    required this.text2,
+    required this.text3,
+    required this.text4,
+    required this.onPressed,
+    required this.imagePath,
+    this.isVisible = false,
+    this.isLoading = true,
+    this.heightofButton = 70,
+    this.widthofButton = 240,
+    this.fontSize = 28,
+    this.textColor = Colors.white,
+    this.borderRadius = 8.0,
+    this.fontWeight = FontWeight.w300,
+    this.verticalPadding = 15.0,
+    this.horizontalPadding = 25.0,
+    this.buttonBackgroundColor = AppColors.backgroundColor,
+    this.gradient = const LinearGradient(
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+      colors: [
+        Color.fromARGB(255, 100, 87, 180), // Dark Blue
+        Color.fromARGB(255, 134, 82, 202), // Blue/Purple
+      ],
+    ),
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minWidth: 350,
+        maxWidth: 350,
+      ),
+      child: IntrinsicHeight(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: gradient,
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
+          child: ElevatedButton(
+              onPressed: onPressed,
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(2),
+                backgroundColor: Colors.transparent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(borderRadius),
+                ),
+              ),
+              child: isLoading
+                  ? Shimmer.fromColors(
+                      baseColor: Color(0xFF623E87),
+                      highlightColor: Color(0xFF473F88),
+                      child: Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(borderRadius),
+                        ),
+                      ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.only(
+                        top: 20.0, // Padding on the top side
+                        bottom: 80.0, // Padding on the bottom side
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment
+                            .center, // Aligns all children to the start
+                        children: [
+                          // Column directly for vertical stacking
+                          SizedBox(height: screenHeight * 0.02),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 30.0),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 2), // Adjust padding as needed
+                              decoration: BoxDecoration(
+                                color: Color(
+                                    0xFFD800FF), // Background color of the box
+                                borderRadius: BorderRadius.circular(
+                                    8.0), // Rounded corners, adjust radius as needed
+                                border: Border.all(
+                                  color: Color(0xFFD800FF), // Border color
+                                  width: 2.0, // Border width
+                                ),
+                              ),
+                              child: Text(
+                                text1,
+                                style: TextStyle(
+                                  color: Colors.white, // Text color
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: screenHeight * 0.02),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 30.0),
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(
+                                      2.0), // Adjust padding as needed
+                                  decoration: BoxDecoration(
+                                    color: Colors
+                                        .transparent, // Background color of the box
+                                    borderRadius: BorderRadius.circular(
+                                        8.0), // Rounded corners
+                                    border: Border.all(
+                                      color: Colors.white, // Border color
+                                      width: 2.0, // Border width
+                                    ),
+                                  ),
+                                  child: Text(
+                                    text2,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w100,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                    width: 8), // Space between text2 and text3
+                                Flexible(
+                                  child: Text(
+                                    text3,
+                                    softWrap: true,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w100,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          SizedBox(height: screenHeight * 0.02),
+                          Center(
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Container(
+                                  width: 150,
+                                  height: 150,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white, // Background color
+                                    border: Border.all(
+                                      color: Colors.white, // Border color
+                                      width: 2, // Border width
+                                    ),
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Image.asset(
+                                      imagePath,
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                                if (isVisible) // Conditional check to include the button
+                                  Center(
+                                    child: ElevatedButton(
+                                      onPressed: () {},
+                                      style: ElevatedButton.styleFrom(
+                                        fixedSize: Size(193, 60),
+                                        padding: EdgeInsets.symmetric(
+                                          vertical: screenHeight *
+                                              0.02, // Responsive padding
+                                        ),
+                                        backgroundColor:
+                                            Color.fromARGB(255, 59, 198, 233),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          side: BorderSide(
+                                            color: Color.fromARGB(
+                                                255, 63, 173, 247),
+                                            width: 2,
+                                          ),
+                                        ),
+                                      ),
+                                      child: const Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          // mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              child: Text(
+                                                'Picked Up!',
+                                                style: TextStyle(
+                                                  fontFamily: "Helvetica",
+                                                  color: Colors.white,
+                                                  fontSize: 23,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(width: 10),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
+
+                          SizedBox(height: screenHeight * 0.02),
+                          Center(
+                            child: Expanded(
+                              child: Text(
+                                'Picked up at ${text4}',
+                                softWrap: true,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w100,
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          SizedBox(height: screenHeight * 0.02)
                         ],
                       ),
                     )),

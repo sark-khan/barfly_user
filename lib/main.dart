@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/ticket-screen',
+        initialRoute: '/qr-screen',
         theme: ThemeData(
           primaryColor: AppColors.backgroundColor,
           scaffoldBackgroundColor: AppColors.backgroundColor,
