@@ -159,10 +159,15 @@ class InsiderScreen extends StatelessWidget {
                                     ? 168
                                     : screenHeight * 0.2171,
                                 borderRadius: 20,
-                                text: "Tokens",
-                                onPressed: () {},
+                                text: "Lounge",
                                 imagePath: "Lounge.png",
                                 useSvg: false,
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    "/lounge-list-screen",
+                                  );
+                                },
                               ),
                             ],
                           ),
