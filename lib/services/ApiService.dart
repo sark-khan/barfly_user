@@ -5,6 +5,8 @@ import 'package:barfly_user/components/OrderDetails.dart';
 import 'package:barfly_user/models/CounterListResponse.dart';
 import 'package:barfly_user/models/MenuCategory.dart';
 import 'package:barfly_user/models/getEntities.dart';
+import 'package:barfly_user/models/getLiveOrders.dart';
+import 'package:barfly_user/models/getPreviousOrderResponse.dart';
 import 'package:barfly_user/models/login.dart';
 import 'package:barfly_user/models/menu_category_items.dart';
 import 'package:barfly_user/return_obj.dart';
@@ -175,7 +177,6 @@ class Apiservice {
 
   Future<ReturnObj> createOrder(Map<String, OrderDetails> orderDetails) async {
     try {
-      print("reached ion MenuItems");
       var headers = {'Content-Type': 'application/json'};
       headers['token'] = Storage.getJwtToken();
       var data = json.encode({
@@ -195,6 +196,69 @@ class Apiservice {
 
       if (response.statusCode == 200) {
         return ReturnObj(status: true, message: response.data["message"]);
+      }
+      print("reachde hrerere");
+      return ReturnObj(message: response.data["message"], status: false);
+    } on DioException catch (e) {
+      print("Error in Login $e");
+      return ReturnObj(status: false, message: e.response!.data["message"]);
+    } catch (error) {
+      print("Error in Login $error");
+      return ReturnObj(status: false, message: "Error in Login $error");
+    }
+  }
+
+  Future<ReturnObj<List<LiveOrder>>> getLiveOrders() async {
+    try {
+      print("reached ion MenuItems");
+      var headers = {'Content-Type': 'application/json'};
+      headers['token'] = Storage.getJwtToken();
+      var response = await dio.request(
+        '$APIURL/api/orders/get-live-orders-user',
+        options: Options(
+          method: 'GET',
+          headers: headers,
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        LiveOrdersResponse liveOrdersResponse =
+            LiveOrdersResponse.fromJson(response.data);
+        return ReturnObj<List<LiveOrder>>(
+            status: true,
+            message: response.data["message"],
+            data: liveOrdersResponse.liveOrders);
+      }
+      print("reachde hrerere");
+      return ReturnObj(message: response.data["message"], status: false);
+    } on DioException catch (e) {
+      print("Error in Login $e");
+      return ReturnObj(status: false, message: e.response!.data["message"]);
+    } catch (error) {
+      print("Error in Login $error");
+      return ReturnObj(status: false, message: "Error in Login $error");
+    }
+  }
+
+  Future<ReturnObj<List<PreviosuOrdersList>>> getPreviousOrderList() async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      headers['token'] = Storage.getJwtToken();
+      var response = await dio.request(
+        '$APIURL/api/orders/get-users-orders-group-by-years',
+        options: Options(
+          method: 'GET',
+          headers: headers,
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        PreviousOrderResponse previosuOrdersResponse =
+            PreviousOrderResponse.fromJson(response.data);
+        return ReturnObj<List<PreviosuOrdersList>>(
+            status: true,
+            message: response.data["message"],
+            data: previosuOrdersResponse.previosuOrdersList);
       }
       print("reachde hrerere");
       return ReturnObj(message: response.data["message"], status: false);

@@ -1,6 +1,7 @@
 import 'package:barfly_user/appConstants.dart';
 import 'package:barfly_user/commonFunctions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -771,9 +772,12 @@ class TicketButton extends StatelessWidget {
     this.horizontalPadding = 25.0,
     this.buttonBackgroundColor = AppColors.backgroundColor,
     this.gradient = const LinearGradient(
-      colors: [Color(0xFF623E87), Color(0xFF473F88)],
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
+      colors: [
+        Color.fromARGB(255, 100, 87, 180), // Dark Blue
+        Color.fromARGB(255, 134, 82, 202), // Blue/Purple
+      ],
     ),
   }) : super(key: key);
 
@@ -879,9 +883,12 @@ class TicketYearButton extends StatelessWidget {
     this.horizontalPadding = 25.0,
     this.buttonBackgroundColor = AppColors.backgroundColor,
     this.gradient = const LinearGradient(
-      colors: [Color(0xFF623E87), Color(0xFF473F88)],
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
+      colors: [
+        Color.fromARGB(255, 100, 87, 180), // Dark Blue
+        Color.fromARGB(255, 134, 82, 202), // Blue/Purple
+      ],
     ),
   }) : super(key: key);
 
@@ -903,55 +910,42 @@ class TicketYearButton extends StatelessWidget {
           child: ElevatedButton(
               onPressed: onPressed,
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(2),
+                padding: EdgeInsets.zero,
                 backgroundColor: Colors.transparent,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(borderRadius),
                 ),
               ),
-              child: isLoading
-                  ? Shimmer.fromColors(
-                      baseColor: Color(0xFF623E87),
-                      highlightColor: Color(0xFF473F88),
-                      child: Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(borderRadius),
-                        ),
+              child: Container(
+                width: widthofButton,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment
+                        .start, // Aligns all children to the start
+                    children: [
+                      // Column directly for vertical stacking
+                      Text(
+                        text1,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'Helvetica'),
                       ),
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment
-                            .start, // Aligns all children to the start
-                        children: [
-                          // Column directly for vertical stacking
-                          Text(
-                            text1,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: getResponsiveFontSize(
-                                  screenWidth, screenHeight, 30),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            text2,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: getResponsiveFontSize(
-                                  screenWidth, screenHeight, 30),
-                              fontWeight: FontWeight.w100,
-                            ),
-                          ),
-                        ],
+                      Text(
+                        text2,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w200,
+                            fontFamily: 'Helvetica'),
                       ),
-                    )),
+                    ],
+                  ),
+                ),
+              )),
         ),
       ),
     );
@@ -992,9 +986,12 @@ class TicketDateButton extends StatelessWidget {
     this.horizontalPadding = 25.0,
     this.buttonBackgroundColor = AppColors.backgroundColor,
     this.gradient = const LinearGradient(
-      colors: [Color(0xFF623E87), Color(0xFF473F88)],
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
+      colors: [
+        Color.fromARGB(255, 100, 87, 180), // Dark Blue
+        Color.fromARGB(255, 134, 82, 202), // Blue/Purple
+      ],
     ),
   }) : super(key: key);
 
@@ -1016,7 +1013,7 @@ class TicketDateButton extends StatelessWidget {
           child: ElevatedButton(
               onPressed: onPressed,
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(2),
+                padding: EdgeInsets.all(10),
                 backgroundColor: Colors.transparent,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(borderRadius),
@@ -1040,39 +1037,47 @@ class TicketDateButton extends StatelessWidget {
                           vertical: 10, horizontal: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment
-                            .start, // Aligns all children to the start
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          // Column directly for vertical stacking
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                text1,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  text1,
+                                  maxLines: null,
+                                  style: const TextStyle(
+                                    fontFamily: "Helvetica",
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  softWrap: true,
                                 ),
                               ),
-                              Text(
-                                text2,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w100,
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  text2,
+                                  style: const TextStyle(
+                                    fontFamily: "Helvetica",
+                                    color: Colors.white,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w200,
+                                  ),
+                                  softWrap: true,
                                 ),
                               ),
                             ],
                           ),
-
                           Text(
                             text3,
                             style: TextStyle(
+                              fontFamily: "Helvetica",
                               color: Colors.white,
                               fontSize: 20,
-                              fontWeight: FontWeight.w100,
+                              fontWeight: FontWeight.w200,
                             ),
                           ),
                         ],

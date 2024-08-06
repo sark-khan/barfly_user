@@ -2,11 +2,27 @@ import 'package:barfly_user/appConstants.dart';
 import 'package:barfly_user/commonFunctions.dart';
 import 'package:barfly_user/components/Buttons.dart';
 import 'package:barfly_user/components/Search.dart';
+import 'package:barfly_user/models/getPreviousOrderResponse.dart';
+import 'package:barfly_user/return_obj.dart';
+import 'package:barfly_user/services/ApiService.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class PastTicketScreen extends StatelessWidget {
+class PastTicketScreen extends StatefulWidget {
   const PastTicketScreen({Key? key}) : super(key: key);
+
+  @override
+  _PastTicketScreenState createState() => _PastTicketScreenState();
+}
+
+class _PastTicketScreenState extends State<PastTicketScreen> {
+  late Future<ReturnObj<List<PreviosuOrdersList>>> futurePreviousOrders;
+
+  @override
+  void initState() {
+    super.initState();
+    futurePreviousOrders = Apiservice().getPreviousOrderList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +90,7 @@ class PastTicketScreen extends StatelessWidget {
                           getResponsiveFontSize(screenWidth, screenHeight, 30)),
                   children: [
                     const TextSpan(
-                      text: "Past  ",
+                      text: "Past ",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -105,77 +121,61 @@ class PastTicketScreen extends StatelessWidget {
             ),
             SizedBox(height: screenHeight * 0.02),
             Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.only(bottom: 40),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Wrap(
-                        spacing: 20,
-                        runSpacing: 20,
+              child: FutureBuilder<ReturnObj<List<PreviosuOrdersList>>>(
+                future: futurePreviousOrders,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (!snapshot.hasData ||
+                      !snapshot.data!.status ||
+                      snapshot.data!.data == null ||
+                      snapshot.data!.data!.isEmpty) {
+                    return const Center(
+                        child: Text('No previous orders available'));
+                  } else {
+                    final ordersList = snapshot.data!.data!;
+                    return SingleChildScrollView(
+                      padding: const EdgeInsets.only(bottom: 40),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Flexible(
-                            child: TicketYearButton(
-                              text1: "Club Chandigarh",
-                              text2: '2024',
-                              onPressed: () => {},
-                              widthofButton: screenWidth * 0.834,
-                              heightofButton: 0.123 * screenHeight,
-                              borderRadius: 20,
-                              isLoading: false,
-                            ),
-                          ),
-                          Flexible(
-                            child: TicketYearButton(
-                              text1: "Club Chandigarh",
-                              text2: '2024',
-                              onPressed: () => {},
-                              widthofButton: screenWidth * 0.834,
-                              heightofButton: 0.123 * screenHeight,
-                              borderRadius: 20,
-                              isLoading: false,
-                            ),
-                          ),
-                          Flexible(
-                            child: TicketYearButton(
-                              text1: "Club Chandigarh",
-                              text2: '2024',
-                              onPressed: () => {},
-                              widthofButton: screenWidth * 0.834,
-                              heightofButton: 0.123 * screenHeight,
-                              borderRadius: 20,
-                              isLoading: false,
-                            ),
-                          ),
-                          Flexible(
-                            child: TicketYearButton(
-                              text1: "Club Chandigarh",
-                              text2: '2024',
-                              onPressed: () => {},
-                              widthofButton: screenWidth * 0.834,
-                              heightofButton: 0.123 * screenHeight,
-                              borderRadius: 20,
-                              isLoading: false,
-                            ),
-                          ),
-                          Flexible(
-                            child: TicketYearButton(
-                              text1: "Club Chandigarh",
-                              text2: '2024',
-                              onPressed: () => {},
-                              widthofButton: screenWidth * 0.834,
-                              heightofButton: 0.123 * screenHeight,
-                              borderRadius: 20,
-                              isLoading: false,
+                          Center(
+                            child: Wrap(
+                              spacing: 20,
+                              runSpacing: 20,
+                              children: ordersList.expand((order) {
+                                return order.entities.map((entity) {
+                                  final entityName =
+                                      entity.entityDetails.entityName;
+                                  final orderDate = entity.orders.isNotEmpty
+                                      ? entity.orders.first.id.substring(0, 4)
+                                      : 'N/A';
+
+                                  return Flexible(
+                                    child: TicketYearButton(
+                                      text1: entityName,
+                                      text2: orderDate,
+                                      onPressed: () {
+                                        // Handle button press
+                                      },
+                                      widthofButton: screenWidth * 0.834,
+                                      heightofButton: 0.123 * screenHeight,
+                                      borderRadius: 20,
+                                      isLoading: false,
+                                    ),
+                                  );
+                                });
+                              }).toList(),
                             ),
                           ),
                         ],
                       ),
-                    ),
-                  ],
-                ),
+                    );
+                  }
+                },
               ),
             ),
           ],

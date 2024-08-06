@@ -2,8 +2,11 @@ import 'package:barfly_user/appConstants.dart';
 import 'package:barfly_user/commonFunctions.dart';
 import 'package:barfly_user/components/Buttons.dart';
 import 'package:barfly_user/components/Search.dart';
+import 'package:barfly_user/models/getPreviousOrderResponse.dart';
+// import 'package:barfly_user/models/previous_order_model.dart'; // Import your model
+import 'package:barfly_user/return_obj.dart'; // Import your return object class
+import 'package:barfly_user/services/ApiService.dart'; // Import your API service
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class PastYearTicketScreen extends StatelessWidget {
   const PastYearTicketScreen({Key? key}) : super(key: key);
@@ -16,7 +19,7 @@ class PastYearTicketScreen extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: screenWidth * 0.05, // Responsive horizontal padding
+          horizontal: screenWidth * 0.05,
         ),
         child: Column(
           children: [
@@ -25,7 +28,7 @@ class PastYearTicketScreen extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, "/account-details-screen");
+                    Navigator.pop(context);
                   },
                   child: Container(
                     width: 34,
@@ -39,8 +42,7 @@ class PastYearTicketScreen extends StatelessWidget {
                       child: IconButton(
                         padding: const EdgeInsets.all(0),
                         onPressed: () {
-                          Navigator.pushNamed(
-                              context, "/account-details-screen");
+                          Navigator.pop(context);
                         },
                         icon: const Icon(
                           Icons.chevron_left,
@@ -65,8 +67,7 @@ class PastYearTicketScreen extends StatelessWidget {
             SizedBox(height: 40),
             Center(
               child: RichText(
-                textAlign:
-                    TextAlign.center, // Center the text in the RichText widget
+                textAlign: TextAlign.center,
                 text: TextSpan(
                   style: TextStyle(
                     color: Colors.white,
@@ -90,71 +91,48 @@ class PastYearTicketScreen extends StatelessWidget {
             ),
             SizedBox(height: screenHeight * 0.02),
             Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.only(bottom: 40),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
+              child: FutureBuilder<ReturnObj<List<PreviosuOrdersList>>>(
+                future: Apiservice()
+                    .getPreviousOrderList(), // Fetch the years from your API
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (!snapshot.hasData || !snapshot.data!.status) {
+                    return Center(
+                        child: Text(
+                            snapshot.data?.message ?? 'No data available.'));
+                  }
+
+                  final previousOrdersList = snapshot.data!.data!;
+
+                  return SingleChildScrollView(
+                    padding: const EdgeInsets.only(bottom: 40),
+                    child: Center(
                       child: Wrap(
                         spacing: 20,
                         runSpacing: 20,
-                        children: [
-                          Flexible(
+                        children: previousOrdersList.map((orderList) {
+                          return Flexible(
                             child: TicketButton(
-                              text: "Zurich",
-                              onPressed: () => {},
+                              text: orderList.id.toString(), // Display the year
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, "/past-ticket-screen");
+                                // Navigate to another screen or perform an action for the year
+                              },
                               widthofButton: screenWidth * 0.834,
                               heightofButton: 0.123 * screenHeight,
                               borderRadius: 20,
                               isLoading: false,
                             ),
-                          ),
-                          Flexible(
-                            child: TicketButton(
-                              text: "Zurich",
-                              onPressed: () => {},
-                              widthofButton: screenWidth * 0.834,
-                              heightofButton: 0.123 * screenHeight,
-                              borderRadius: 20,
-                              isLoading: false,
-                            ),
-                          ),
-                          Flexible(
-                            child: TicketButton(
-                              text: "Zurich",
-                              onPressed: () => {},
-                              widthofButton: screenWidth * 0.834,
-                              heightofButton: 0.123 * screenHeight,
-                              borderRadius: 20,
-                              isLoading: false,
-                            ),
-                          ),
-                          Flexible(
-                            child: TicketButton(
-                              text: "Zurich",
-                              onPressed: () => {},
-                              widthofButton: screenWidth * 0.834,
-                              heightofButton: 0.123 * screenHeight,
-                              borderRadius: 20,
-                              isLoading: false,
-                            ),
-                          ),
-                          Flexible(
-                            child: TicketButton(
-                              text: "Zurich",
-                              onPressed: () => {},
-                              widthofButton: screenWidth * 0.834,
-                              heightofButton: 0.123 * screenHeight,
-                              borderRadius: 20,
-                              isLoading: false,
-                            ),
-                          )
-                        ],
+                          );
+                        }).toList(),
                       ),
                     ),
-                  ],
-                ),
+                  );
+                },
               ),
             ),
           ],

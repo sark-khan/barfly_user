@@ -129,7 +129,7 @@ class RouteGenerator {
         return FadeRoute(
           page: const TokenScreen(),
         );
-      case '/personal-screen':
+      case '/data-protection-screen':
         return FadeRoute(
           page: const PersonalScreen(),
         );
