@@ -1076,7 +1076,7 @@ class TicketDateButton extends StatelessWidget {
                           ),
                           Text(
                             text3,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: "Helvetica",
                               color: Colors.white,
                               fontSize: 20,
@@ -1186,54 +1186,61 @@ class _FeedBackButtonState extends State<FeedBackButton> {
                       children: [
                         Text(
                           widget.text,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: getResponsiveFontSize(
-                                screenWidth, screenHeight, 30),
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Helvetica'),
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Expanded(
-                              child: Text(
-                                '0',
-                                style: TextStyle(
+                            const Text(
+                              '1',
+                              style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 20, // Adjust fontSize as needed
-                                ),
-                              ),
+                                  fontSize: 20,
+                                  fontFamily:
+                                      'Helvetica' // Adjust fontSize as needed
+                                  ),
                             ), // Start label
                             Expanded(
-                              flex: 5,
-                              child: Slider(
-                                value: _currentSliderValue,
-                                min: 0,
-                                max: 10,
-                                divisions:
-                                    10, // Adjust divisions for finer granularity
-                                label: _currentSliderValue.round().toString(),
-                                onChanged: (double value) {
-                                  setState(() {
-                                    _currentSliderValue = value;
-                                    widget.updateTotalValue(
-                                        _currentSliderValue,
-                                        '', // Pass other parameters as needed
-                                        '',
-                                        '' // Pass other parameters as needed
-                                        );
-                                  });
-                                },
-                              ),
-                            ),
-                            Expanded(
-                              child: Text(
-                                '10',
-                                style: TextStyle(
+                                flex: 5,
+                                child: SliderTheme(
+                                  data: const SliderThemeData(
+                                    thumbColor: Colors.white,
+                                    activeTrackColor: Colors.white,
+                                  ),
+                                  child: Slider(
+                                    value: _currentSliderValue,
+                                    min: 0,
+                                    max: 10,
+                                    divisions:
+                                        10, // Adjust divisions for finer granularity
+                                    label:
+                                        _currentSliderValue.round().toString(),
+                                    onChanged: (double value) {
+                                      setState(() {
+                                        _currentSliderValue = value;
+                                        widget.updateTotalValue(
+                                            _currentSliderValue,
+                                            '', // Pass other parameters as needed
+                                            '',
+                                            '' // Pass other parameters as needed
+                                            );
+                                      });
+                                    },
+                                  ),
+                                )),
+                            const Text(
+                              '10',
+                              style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 20, // Adjust fontSize as needed
-                                ),
-                              ),
+                                  fontSize: 20,
+                                  fontFamily:
+                                      'Helvetica' // Adjust fontSize as needed
+                                  ),
                             ), // End label
                           ],
                         ),
@@ -1277,9 +1284,13 @@ class FeedBackTextButton extends StatefulWidget {
     this.horizontalPadding = 25.0,
     this.buttonBackgroundColor = AppColors.backgroundColor,
     this.gradient = const LinearGradient(
-      colors: [Color(0xFF623E87), Color(0xFF473F88)],
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
+      colors: [
+        // Dark Blue
+        Color(0xFF473F88),
+        Color(0xFF623E87), // Blue/Purple
+      ],
     ),
     required this.updateTotalValue,
     this.selectedValue = 0,
@@ -1308,52 +1319,61 @@ class _FeedBackTextButtonState extends State<FeedBackTextButton> {
             borderRadius: BorderRadius.circular(widget.borderRadius),
           ),
           child: ElevatedButton(
-            onPressed: widget.onPressed,
-            style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.all(2),
-              backgroundColor: Color(0xFF091952),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(widget.borderRadius),
+              onPressed: widget.onPressed,
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(2),
+                backgroundColor: Color(0xFF091952),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(widget.borderRadius),
+                ),
               ),
-            ),
-            child: widget.isLoading
-                ? Shimmer.fromColors(
-                    baseColor: Color(0xFF623E87),
-                    highlightColor: Color(0xFF473F88),
-                    child: Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius:
-                            BorderRadius.circular(widget.borderRadius),
+              child: widget.isLoading
+                  ? Shimmer.fromColors(
+                      baseColor: Color(0xFF623E87),
+                      highlightColor: Color(0xFF473F88),
+                      child: Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius:
+                              BorderRadius.circular(widget.borderRadius),
+                        ),
                       ),
-                    ),
-                  )
-                : Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        TextField(
-                          style: const TextStyle(
-                              color: Colors.white), // Set the text color
-                          decoration: const InputDecoration(
-                            hintText: 'Comment...',
-                            hintStyle: TextStyle(
-                                color: Color(0xFF292C4C)), // Set the hint color
-                          ),
-                          onChanged: (text) {
-                            widget.updateTotalValue(
-                                _currentSliderValue, 'Param1', 'Param2');
-                          },
-                        )
-                      ],
-                    ),
-                  ),
-          ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 96,
+                            child: TextField(
+                              maxLines: null,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Helvetica' // Set the text color
+                                  ),
+                              decoration: const InputDecoration(
+                                hintText: 'Comment...',
+                                hintStyle: TextStyle(
+                                    color: Color(0xFF2F58A6),
+                                    fontFamily:
+                                        'Helvetica' // Set the hint color
+                                    ),
+                                border:
+                                    InputBorder.none, // Remove the underline
+                              ),
+                              onChanged: (text) {
+                                widget.updateTotalValue(
+                                    _currentSliderValue, 'Param1', 'Param2');
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+                    )),
         ),
       ),
     );
@@ -1748,7 +1768,7 @@ class TicketQrPickupButton extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 30.0),
                                   child: Container(
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         horizontal: 20,
                                         vertical:
                                             2), // Adjust padding as needed
@@ -1765,7 +1785,7 @@ class TicketQrPickupButton extends StatelessWidget {
                                     ),
                                     child: Text(
                                       text1,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.white, // Text color
                                           fontSize: 30,
                                           fontWeight: FontWeight.bold,
@@ -1796,7 +1816,7 @@ class TicketQrPickupButton extends StatelessWidget {
                                         ),
                                         child: Text(
                                           text2,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 30,
                                               fontWeight: FontWeight.w100,
@@ -1810,7 +1830,7 @@ class TicketQrPickupButton extends StatelessWidget {
                                         child: Text(
                                           text3,
                                           softWrap: true,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 30,
                                               fontWeight: FontWeight.w100,
@@ -1847,7 +1867,7 @@ class TicketQrPickupButton extends StatelessWidget {
                                     child: Text(
                                       'Picked up at ${text4}',
                                       softWrap: true,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 20,
                                         fontWeight: FontWeight.w100,
@@ -1860,47 +1880,47 @@ class TicketQrPickupButton extends StatelessWidget {
                           ),
                         ),
                         // Button placed on top of the translucent content
-                        Center(
-                          child: Positioned(
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                fixedSize: Size(193, 70),
-                                padding: EdgeInsets.symmetric(
-                                  vertical:
-                                      screenHeight * 0.02, // Responsive padding
-                                ),
-                                backgroundColor: Color.fromARGB(
-                                    255, 59, 198, 233), // Fully opaque
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                  side: const BorderSide(
-                                    color: Color.fromARGB(255, 243, 244, 245),
-                                    width: 2,
-                                  ),
+                        Positioned(
+                          top: 210,
+                          left: 72,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              fixedSize: Size(193, 70),
+                              padding: EdgeInsets.symmetric(
+                                vertical:
+                                    screenHeight * 0.02, // Responsive padding
+                              ),
+                              backgroundColor: Color.fromARGB(
+                                  255, 59, 198, 233), // Fully opaque
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                side: const BorderSide(
+                                  color: Color.fromARGB(255, 243, 244, 245),
+                                  width: 2,
                                 ),
                               ),
-                              child: const Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: const Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      child: Text(
-                                        'Picked Up!',
-                                        style: TextStyle(
-                                          fontFamily: "Helvetica",
-                                          color: Colors.white,
-                                          fontSize: 55,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                            ),
+                            child: const Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      'Picked Up!',
+                                      style: TextStyle(
+                                        fontFamily: "Helvetica",
+                                        color: Colors.white,
+                                        fontSize: 55,
+                                        fontWeight: FontWeight.w500,
                                       ),
                                     ),
-                                    SizedBox(width: 10),
-                                  ],
-                                ),
+                                  ),
+                                  SizedBox(width: 10),
+                                ],
                               ),
                             ),
                           ),
