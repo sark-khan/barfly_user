@@ -14,10 +14,10 @@ class Feedbackscreen extends StatelessWidget {
 
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: screenWidth * 0.05, // Responsive horizontal padding
-        ),
+        padding: EdgeInsets.all(35.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: screenHeight * 0.08),
             Row(
@@ -53,7 +53,8 @@ class Feedbackscreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: 40),
-            Center(
+            Container(
+              margin: const EdgeInsets.only(left: 30),
               child: RichText(
                 text: TextSpan(
                   style: TextStyle(
@@ -62,11 +63,10 @@ class Feedbackscreen extends StatelessWidget {
                         getResponsiveFontSize(screenWidth, screenHeight, 40),
                   ),
                   children: [
-                    const TextSpan(
-                      text: "Feedback  ",
+                    TextSpan(
+                      text: "Feedback",
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                          fontWeight: FontWeight.bold, fontFamily: 'Helvetica'),
                     ),
                   ],
                 ),
@@ -78,6 +78,7 @@ class Feedbackscreen extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 40),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Center(
                       child: Wrap(
@@ -193,7 +194,42 @@ class Feedbackscreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: screenHeight * 0.05),
+            SizedBox(height: screenHeight * 0.02),
+            Center(
+              child: Container(
+                height: 80,
+                width: 350,
+                decoration: BoxDecoration(
+                  color: const Color(
+                      0xFF34396F), // Background color of the text field container
+                  borderRadius: BorderRadius.circular(20.0), // Rounded corners
+                  border: Border.all(
+                    color: Color(0xFF34396F), // Border color
+                    width: 2.0, // Border width
+                  ),
+                ),
+                child: const TextField(
+                  maxLines: null,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontFamily: 'Helvetica',
+                    color: Colors.white, // Set the text color
+                  ),
+                  decoration: const InputDecoration(
+                    hintText: 'General Feedback?',
+                    hintStyle: TextStyle(
+                      fontFamily: 'Helvetica',
+                      color: Colors.white, // Set the hint color
+                    ),
+                    border: InputBorder.none, // Remove the underline
+                    contentPadding: EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 12.0), // Padding inside the text field
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: screenHeight * 0.02),
             Center(
               child: SizedBox(
                 width: screenWidth * 0.5, // Adjust width as needed
@@ -203,30 +239,36 @@ class Feedbackscreen extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(
                           vertical: screenHeight * 0.02), // Responsive padding
-                      backgroundColor: Color.fromARGB(255, 59, 198, 233),
+                      backgroundColor: Color(0xFF35D1D1),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        side: BorderSide(
-                            color: Color.fromARGB(255, 63, 173, 247), width: 2),
+                        borderRadius: BorderRadius.circular(50),
+                        side: const BorderSide(
+                            color: Color(0xFF35D1D1), width: 2),
                       ),
                     ),
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: FittedBox(
                         fit: BoxFit.scaleDown,
                         child: Row(
-                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
-                              'Send Feedback!',
-                              style: TextStyle(
-                                fontFamily: "Helvetica",
-                                color: Colors.white,
-                                fontSize: 23,
-                                fontWeight: FontWeight.w500,
+                            Container(
+                              height: 40,
+                              width: 300,
+                              child: const Center(
+                                child: Text(
+                                  'Send Feedback!',
+                                  style: TextStyle(
+                                    fontFamily: "Helvetica",
+                                    color: Colors.white,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
                               ),
                             ),
-                            SizedBox(width: 10),
                           ],
                         ),
                       ),
