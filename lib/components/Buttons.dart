@@ -1076,7 +1076,7 @@ class TicketDateButton extends StatelessWidget {
                           ),
                           Text(
                             text3,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: "Helvetica",
                               color: Colors.white,
                               fontSize: 20,
@@ -1186,54 +1186,61 @@ class _FeedBackButtonState extends State<FeedBackButton> {
                       children: [
                         Text(
                           widget.text,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: getResponsiveFontSize(
-                                screenWidth, screenHeight, 30),
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Helvetica'),
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Expanded(
-                              child: Text(
-                                '0',
-                                style: TextStyle(
+                            const Text(
+                              '1',
+                              style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 20, // Adjust fontSize as needed
-                                ),
-                              ),
+                                  fontSize: 20,
+                                  fontFamily:
+                                      'Helvetica' // Adjust fontSize as needed
+                                  ),
                             ), // Start label
                             Expanded(
-                              flex: 5,
-                              child: Slider(
-                                value: _currentSliderValue,
-                                min: 0,
-                                max: 10,
-                                divisions:
-                                    10, // Adjust divisions for finer granularity
-                                label: _currentSliderValue.round().toString(),
-                                onChanged: (double value) {
-                                  setState(() {
-                                    _currentSliderValue = value;
-                                    widget.updateTotalValue(
-                                        _currentSliderValue,
-                                        '', // Pass other parameters as needed
-                                        '',
-                                        '' // Pass other parameters as needed
-                                        );
-                                  });
-                                },
-                              ),
-                            ),
-                            Expanded(
-                              child: Text(
-                                '10',
-                                style: TextStyle(
+                                flex: 5,
+                                child: SliderTheme(
+                                  data: const SliderThemeData(
+                                    thumbColor: Colors.white,
+                                    activeTrackColor: Colors.white,
+                                  ),
+                                  child: Slider(
+                                    value: _currentSliderValue,
+                                    min: 0,
+                                    max: 10,
+                                    divisions:
+                                        10, // Adjust divisions for finer granularity
+                                    label:
+                                        _currentSliderValue.round().toString(),
+                                    onChanged: (double value) {
+                                      setState(() {
+                                        _currentSliderValue = value;
+                                        widget.updateTotalValue(
+                                            _currentSliderValue,
+                                            '', // Pass other parameters as needed
+                                            '',
+                                            '' // Pass other parameters as needed
+                                            );
+                                      });
+                                    },
+                                  ),
+                                )),
+                            const Text(
+                              '10',
+                              style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 20, // Adjust fontSize as needed
-                                ),
-                              ),
+                                  fontSize: 20,
+                                  fontFamily:
+                                      'Helvetica' // Adjust fontSize as needed
+                                  ),
                             ), // End label
                           ],
                         ),
@@ -1277,9 +1284,13 @@ class FeedBackTextButton extends StatefulWidget {
     this.horizontalPadding = 25.0,
     this.buttonBackgroundColor = AppColors.backgroundColor,
     this.gradient = const LinearGradient(
-      colors: [Color(0xFF623E87), Color(0xFF473F88)],
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
+      colors: [
+        // Dark Blue
+        Color(0xFF473F88),
+        Color(0xFF623E87), // Blue/Purple
+      ],
     ),
     required this.updateTotalValue,
     this.selectedValue = 0,
@@ -1308,52 +1319,61 @@ class _FeedBackTextButtonState extends State<FeedBackTextButton> {
             borderRadius: BorderRadius.circular(widget.borderRadius),
           ),
           child: ElevatedButton(
-            onPressed: widget.onPressed,
-            style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.all(2),
-              backgroundColor: Color(0xFF091952),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(widget.borderRadius),
+              onPressed: widget.onPressed,
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(2),
+                backgroundColor: Color(0xFF091952),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(widget.borderRadius),
+                ),
               ),
-            ),
-            child: widget.isLoading
-                ? Shimmer.fromColors(
-                    baseColor: Color(0xFF623E87),
-                    highlightColor: Color(0xFF473F88),
-                    child: Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius:
-                            BorderRadius.circular(widget.borderRadius),
+              child: widget.isLoading
+                  ? Shimmer.fromColors(
+                      baseColor: Color(0xFF623E87),
+                      highlightColor: Color(0xFF473F88),
+                      child: Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius:
+                              BorderRadius.circular(widget.borderRadius),
+                        ),
                       ),
-                    ),
-                  )
-                : Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        TextField(
-                          style: const TextStyle(
-                              color: Colors.white), // Set the text color
-                          decoration: const InputDecoration(
-                            hintText: 'Comment...',
-                            hintStyle: TextStyle(
-                                color: Color(0xFF292C4C)), // Set the hint color
-                          ),
-                          onChanged: (text) {
-                            widget.updateTotalValue(
-                                _currentSliderValue, 'Param1', 'Param2');
-                          },
-                        )
-                      ],
-                    ),
-                  ),
-          ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 96,
+                            child: TextField(
+                              maxLines: null,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Helvetica' // Set the text color
+                                  ),
+                              decoration: const InputDecoration(
+                                hintText: 'Comment...',
+                                hintStyle: TextStyle(
+                                    color: Color(0xFF2F58A6),
+                                    fontFamily:
+                                        'Helvetica' // Set the hint color
+                                    ),
+                                border:
+                                    InputBorder.none, // Remove the underline
+                              ),
+                              onChanged: (text) {
+                                widget.updateTotalValue(
+                                    _currentSliderValue, 'Param1', 'Param2');
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+                    )),
         ),
       ),
     );
@@ -1729,183 +1749,183 @@ class TicketQrPickupButton extends StatelessWidget {
                         ),
                       ),
                     )
-                  : Padding(
-                      padding: const EdgeInsets.only(
-                        top: 20.0, // Padding on the top side
-                        bottom: 80.0, // Padding on the bottom side
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment
-                            .center, // Aligns all children to the start
-                        children: [
-                          // Column directly for vertical stacking
-                          SizedBox(height: screenHeight * 0.02),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 30.0),
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                  vertical: 2), // Adjust padding as needed
-                              decoration: BoxDecoration(
-                                color: Color(
-                                    0xFFD800FF), // Background color of the box
-                                borderRadius: BorderRadius.circular(
-                                    8.0), // Rounded corners, adjust radius as needed
-                                border: Border.all(
-                                  color: Color(0xFFD800FF), // Border color
-                                  width: 2.0, // Border width
-                                ),
-                              ),
-                              child: Text(
-                                text1,
-                                style: TextStyle(
-                                    color: Colors.white, // Text color
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Helvetica'),
-                              ),
+                  : Stack(
+                      children: [
+                        // Translucent content
+                        Opacity(
+                          opacity: 0.5,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              top: 20.0, // Padding on the top side
+                              bottom: 80.0, // Padding on the bottom side
                             ),
-                          ),
-                          SizedBox(height: screenHeight * 0.02),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 30.0),
-                            child: Row(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment
+                                  .center, // Aligns all children to the start
                               children: [
-                                Container(
-                                  padding: EdgeInsets.all(
-                                      2.0), // Adjust padding as needed
-                                  decoration: BoxDecoration(
-                                    color: Colors
-                                        .transparent, // Background color of the box
-                                    borderRadius: BorderRadius.circular(
-                                        8.0), // Rounded corners
-                                    border: Border.all(
-                                      color: Colors.white, // Border color
-                                      width: 2.0, // Border width
+                                SizedBox(height: screenHeight * 0.02),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 30.0),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20,
+                                        vertical:
+                                            2), // Adjust padding as needed
+                                    decoration: BoxDecoration(
+                                      color: Color(
+                                          0xFFD800FF), // Background color of the box
+                                      borderRadius: BorderRadius.circular(
+                                          8.0), // Rounded corners, adjust radius as needed
+                                      border: Border.all(
+                                        color:
+                                            Color(0xFFD800FF), // Border color
+                                        width: 2.0, // Border width
+                                      ),
                                     ),
-                                  ),
-                                  child: Text(
-                                    text2,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.w100,
-                                        fontFamily: 'Helvetica'),
-                                  ),
-                                ),
-                                const SizedBox(
-                                    width: 8), // Space between text2 and text3
-                                Flexible(
-                                  child: Text(
-                                    text3,
-                                    softWrap: true,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.w100,
-                                        fontFamily: 'Helvetica'),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          SizedBox(height: screenHeight * 0.02),
-                          Center(
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Container(
-                                  width: 150,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white, // Background color
-                                    border: Border.all(
-                                      color: Colors.white, // Border color
-                                      width: 2, // Border width
-                                    ),
-                                  ),
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Image.asset(
-                                      imagePath,
-                                      fit: BoxFit.contain,
+                                    child: Text(
+                                      text1,
+                                      style: const TextStyle(
+                                          color: Colors.white, // Text color
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Helvetica'),
                                     ),
                                   ),
                                 ),
-                                if (isVisible) // Conditional check to include the button
-                                  Center(
-                                    child: ElevatedButton(
-                                      onPressed: () {},
-                                      style: ElevatedButton.styleFrom(
-                                        fixedSize: Size(193, 60),
-                                        padding: EdgeInsets.symmetric(
-                                          vertical: screenHeight *
-                                              0.02, // Responsive padding
-                                        ),
-                                        backgroundColor:
-                                            Color.fromARGB(255, 59, 198, 233),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          side: BorderSide(
-                                            color: Color.fromARGB(
-                                                255, 63, 173, 247),
-                                            width: 2,
+                                SizedBox(height: screenHeight * 0.02),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 30.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.all(
+                                            2.0), // Adjust padding as needed
+                                        decoration: BoxDecoration(
+                                          color: Colors
+                                              .transparent, // Background color of the box
+                                          borderRadius: BorderRadius.circular(
+                                              8.0), // Rounded corners
+                                          border: Border.all(
+                                            color: Colors.white, // Border color
+                                            width: 2.0, // Border width
                                           ),
                                         ),
-                                      ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 10),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          // mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            FittedBox(
-                                              fit: BoxFit.scaleDown,
-                                              child: Text(
-                                                'Picked Up!',
-                                                style: TextStyle(
-                                                  fontFamily: "Helvetica",
-                                                  color: Colors.white,
-                                                  fontSize: 23,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(width: 10),
-                                          ],
+                                        child: Text(
+                                          text2,
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.w100,
+                                              fontFamily: 'Helvetica'),
                                         ),
+                                      ),
+                                      const SizedBox(
+                                          width:
+                                              8), // Space between text2 and text3
+                                      Flexible(
+                                        child: Text(
+                                          text3,
+                                          softWrap: true,
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.w100,
+                                              fontFamily: 'Helvetica'),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: screenHeight * 0.02),
+                                Center(
+                                  child: Container(
+                                    width: 150,
+                                    height: 150,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white, // Background color
+                                      border: Border.all(
+                                        color: Colors.white, // Border color
+                                        width: 2, // Border width
+                                      ),
+                                    ),
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Image.asset(
+                                        imagePath,
+                                        fit: BoxFit.contain,
                                       ),
                                     ),
                                   ),
+                                ),
+                                SizedBox(height: screenHeight * 0.02),
+                                Center(
+                                  child: Expanded(
+                                    child: Text(
+                                      'Picked up at ${text4}',
+                                      softWrap: true,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w100,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
-
-                          SizedBox(height: screenHeight * 0.02),
-                          Center(
-                            child: Expanded(
-                              child: Text(
-                                'Picked up at ${text4}',
-                                softWrap: true,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w100,
+                        ),
+                        // Button placed on top of the translucent content
+                        Positioned(
+                          top: 215,
+                          left: 72,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              fixedSize: Size(193, 70),
+                              padding: EdgeInsets.symmetric(
+                                vertical:
+                                    screenHeight * 0.02, // Responsive padding
+                              ),
+                              backgroundColor: Color.fromARGB(
+                                  255, 59, 198, 233), // Fully opaque
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                side: const BorderSide(
+                                  color: Color.fromARGB(255, 243, 244, 245),
+                                  width: 2,
                                 ),
                               ),
                             ),
+                            child: const Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      'Picked Up!',
+                                      style: TextStyle(
+                                        fontFamily: "Helvetica",
+                                        color: Colors.white,
+                                        fontSize: 55,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 10),
+                                ],
+                              ),
+                            ),
                           ),
-
-                          SizedBox(height: screenHeight * 0.02)
-                        ],
-                      ),
+                        ),
+                      ],
                     )),
         ),
       ),
