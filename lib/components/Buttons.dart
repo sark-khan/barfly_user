@@ -1881,7 +1881,7 @@ class TicketQrPickupButton extends StatelessWidget {
                         ),
                         // Button placed on top of the translucent content
                         Positioned(
-                          top: 210,
+                          top: 215,
                           left: 72,
                           child: ElevatedButton(
                             onPressed: () {},
