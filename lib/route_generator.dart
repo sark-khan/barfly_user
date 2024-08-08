@@ -19,10 +19,8 @@ import 'package:barfly_user/screens/PastYearTicket.dart';
 import 'package:barfly_user/screens/PersonalDataScreen.dart';
 import 'package:barfly_user/screens/PersonalScreen.dart';
 import 'package:barfly_user/screens/PickUpScreen.dart';
-import 'package:barfly_user/screens/PickUpOrTakeAway.dart';
 import 'package:barfly_user/screens/TicketScreen.dart';
 import 'package:barfly_user/screens/TokenScreen.dart';
-import 'package:barfly_user/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class RouteGenerator {
@@ -145,8 +143,11 @@ class RouteGenerator {
           page: const Feedbackscreen(),
         );
       case '/qr-screen':
+        print("${args!["entityId"]}dsadsa");
         return FadeRoute(
-          page: const MenuQrScreen(),
+          page: MenuQrScreen(
+            entityId: args!["entityId"],
+          ),
         );
       case '/qr-pickup-screen':
         return FadeRoute(

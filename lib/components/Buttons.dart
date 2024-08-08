@@ -1,5 +1,6 @@
 import 'package:barfly_user/appConstants.dart';
 import 'package:barfly_user/commonFunctions.dart';
+import 'package:barfly_user/models/EntityLiveOrders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -169,7 +170,9 @@ class FavorotiesButton extends StatelessWidget {
                               child: Text(
                                 entityName,
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 30),
+                                    fontFamily: "Helvetica",
+                                    color: Colors.white,
+                                    fontSize: 30),
                               ),
                             ),
                           ),
@@ -269,7 +272,7 @@ class InsiderButton extends StatelessWidget {
                             imagePath,
                             color: Colors.white,
                             fit: BoxFit.contain,
-                            scale: 5,
+                            // scale: 5,
                           ),
                   ),
                 ),
@@ -564,6 +567,7 @@ class CustomButtonStroked extends StatelessWidget {
                 text,
                 textAlign: TextAlign.center,
                 style: TextStyle(
+                  fontFamily: "Helvetica",
                   color: Colors.white,
                   fontSize: fontSize,
                   fontWeight: FontWeight.w300,
@@ -837,6 +841,7 @@ class TicketButton extends StatelessWidget {
                               child: Text(
                                 text,
                                 style: TextStyle(
+                                    fontFamily: "Helvetica",
                                     color: Colors.white,
                                     fontSize: getResponsiveFontSize(
                                         screenWidth, screenHeight, 30)),
@@ -1014,67 +1019,67 @@ class TicketDateButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(borderRadius),
           ),
           child: ElevatedButton(
-              onPressed: onPressed,
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(10),
-                backgroundColor: Colors.transparent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(borderRadius),
-                ),
+            onPressed: onPressed,
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.all(10),
+              backgroundColor: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(borderRadius),
               ),
-              child: isLoading
-                  ? Shimmer.fromColors(
-                      baseColor: Color(0xFF623E87),
-                      highlightColor: Color(0xFF473F88),
-                      child: Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(borderRadius),
-                        ),
+            ),
+            child: isLoading
+                ? Shimmer.fromColors(
+                    baseColor: Color(0xFF623E87),
+                    highlightColor: Color(0xFF473F88),
+                    child: Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(borderRadius),
                       ),
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: Text(
-                                  text1,
-                                  maxLines: null,
-                                  style: const TextStyle(
-                                    fontFamily: "Helvetica",
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  softWrap: true,
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                "ifyyjhfhfjhvgh jkhgukhjklhl ,mnbjklhlhlk ,.nljhlhil",
+                                style: const TextStyle(
+                                  fontFamily: "Helvetica",
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
                                 ),
+                                softWrap: true,
                               ),
-                              FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: Text(
-                                  text2,
-                                  style: const TextStyle(
-                                    fontFamily: "Helvetica",
-                                    color: Colors.white,
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w200,
-                                  ),
-                                  softWrap: true,
+                            ),
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                text2,
+                                style: const TextStyle(
+                                  fontFamily: "Helvetica",
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w200,
                                 ),
+                                softWrap: true,
                               ),
-                            ],
-                          ),
-                          Text(
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 8), // Optional spacing between texts
+                        Flexible(
+                          child: Text(
                             text3,
                             style: TextStyle(
                               fontFamily: "Helvetica",
@@ -1083,9 +1088,11 @@ class TicketDateButton extends StatelessWidget {
                               fontWeight: FontWeight.w200,
                             ),
                           ),
-                        ],
-                      ),
-                    )),
+                        ),
+                      ],
+                    ),
+                  ),
+          ),
         ),
       ),
     );
@@ -1187,6 +1194,7 @@ class _FeedBackButtonState extends State<FeedBackButton> {
                         Text(
                           widget.text,
                           style: TextStyle(
+                            fontFamily: "Helvetica",
                             color: Colors.white,
                             fontSize: getResponsiveFontSize(
                                 screenWidth, screenHeight, 30),
@@ -1199,6 +1207,7 @@ class _FeedBackButtonState extends State<FeedBackButton> {
                               child: Text(
                                 '0',
                                 style: TextStyle(
+                                  fontFamily: "Helvetica",
                                   color: Colors.white,
                                   fontSize: 20, // Adjust fontSize as needed
                                 ),
@@ -1361,60 +1370,67 @@ class _FeedBackTextButtonState extends State<FeedBackTextButton> {
 }
 
 class TicketQrButton extends StatelessWidget {
-  final String text1;
-  final String text2;
-  final String text3;
-  final String text4;
-  final String text5;
-  final String text6;
-  final String imagePath;
-  final double fontSize;
+  final LiveOrderEntity order;
   final VoidCallback onPressed;
-  final Color textColor;
-  final Color buttonBackgroundColor;
-  final double heightofButton;
-  final double widthofButton;
-  final double borderRadius;
-  final FontWeight fontWeight;
-  final double verticalPadding;
-  final double horizontalPadding;
-  final Gradient gradient;
   final bool isLoading;
 
   const TicketQrButton({
     Key? key,
-    required this.text1,
-    required this.text2,
-    required this.text3,
-    required this.text4,
-    required this.text5,
-    required this.text6,
+    required this.order,
     required this.onPressed,
-    required this.imagePath,
-    this.isLoading = true,
-    this.heightofButton = 70,
-    this.widthofButton = 240,
-    this.fontSize = 28,
-    this.textColor = Colors.white,
-    this.borderRadius = 8.0,
-    this.fontWeight = FontWeight.w300,
-    this.verticalPadding = 15.0,
-    this.horizontalPadding = 25.0,
-    this.buttonBackgroundColor = AppColors.backgroundColor,
-    this.gradient = const LinearGradient(
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
-      colors: [
-        Color.fromARGB(255, 100, 87, 180), // Dark Blue
-        Color.fromARGB(255, 134, 82, 202), // Blue/Purple
-      ],
-    ),
+    this.isLoading = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+
+    // Create a list of item widgets to display
+    final itemWidgets = order.items.map((item) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 8.0),
+        child: Row(
+          children: [
+            Container(
+              padding: EdgeInsets.all(3.0), // Adjust padding as needed
+              decoration: BoxDecoration(
+                color: Colors.transparent, // Background color of the box
+                borderRadius: BorderRadius.circular(8.0), // Rounded corners
+                border: Border.all(
+                  color: Colors.white, // Border color
+                  width: 2.0, // Border width
+                ),
+              ),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
+                child: Text(
+                  "${item.quantity.toString()}x",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize:
+                          getResponsiveFontSize(screenWidth, screenHeight, 25),
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Helvetica'),
+                ),
+              ),
+            ),
+            SizedBox(width: 8.0),
+            Text(
+              item.itemId.itemName,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: getResponsiveFontSize(screenWidth, screenHeight, 25),
+                fontWeight: FontWeight.w400,
+                fontFamily: 'Helvetica',
+              ),
+            ),
+          ],
+        ),
+      );
+    }).toList();
+
     return ConstrainedBox(
       constraints: BoxConstraints(
         minWidth: 350,
@@ -1423,220 +1439,145 @@ class TicketQrButton extends StatelessWidget {
       child: IntrinsicHeight(
         child: DecoratedBox(
           decoration: BoxDecoration(
-            gradient: gradient,
-            borderRadius: BorderRadius.circular(borderRadius),
+            gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [
+                Color.fromARGB(255, 100, 87, 180), // Dark Blue
+                Color.fromARGB(255, 134, 82, 202), // Blue/Purple
+              ],
+            ),
+            borderRadius: BorderRadius.circular(20),
           ),
           child: ElevatedButton(
-              onPressed: onPressed,
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(2),
-                backgroundColor: Colors.transparent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(borderRadius),
-                ),
+            onPressed: onPressed,
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.all(2),
+              backgroundColor: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
               ),
-              child: isLoading
-                  ? Shimmer.fromColors(
-                      baseColor: Color(0xFF623E87),
-                      highlightColor: Color(0xFF473F88),
-                      child: Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(borderRadius),
-                        ),
+            ),
+            child: isLoading
+                ? Shimmer.fromColors(
+                    baseColor: Color(0xFF623E87),
+                    highlightColor: Color(0xFF473F88),
+                    child: Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.only(
-                        top: 20.0, // Padding on the top side
-                        bottom: 80.0, // Padding on the bottom side
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment
-                            .center, // Aligns all children to the start
-                        children: [
-                          // Column directly for vertical stacking
-                          SizedBox(height: screenHeight * 0.02),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 30.0),
-                            child: Container(
-                              padding: EdgeInsets.all(
-                                  5.0), // Adjust padding as needed
-                              decoration: BoxDecoration(
-                                color: Color(
-                                    0xFFD800FF), // Background color of the box
-                                borderRadius: BorderRadius.circular(
-                                    8.0), // Rounded corners, adjust radius as needed
-                                border: Border.all(
-                                  color: Color(0xFFD800FF), // Border color
-                                  width: 2.0, // Border width
-                                ),
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(
+                      top: 30.0, // Padding on the top side
+                      bottom: 20.0,
+                      //Padding on the bottom side
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 30.0,
+                            vertical: 0,
+                          ),
+                          child: Container(
+                            // padding: EdgeInsets.all(5.0),
+                            decoration: BoxDecoration(
+                              color: Color(0xFFD800FF),
+                              borderRadius: BorderRadius.circular(8.0),
+                              border: Border.all(
+                                color: Color(0xFFD800FF),
+                                width: 2.0,
                               ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10.0, vertical: 0),
                               child: Text(
-                                text1,
+                                '${order.tokenNumber}',
                                 style: TextStyle(
-                                    color: Colors.white, // Text color
-                                    fontSize: getResponsiveFontSize(
-                                        screenWidth, screenHeight, 30),
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Helvetica Neue, Medium'),
+                                  color: Colors.white,
+                                  fontSize: getResponsiveFontSize(
+                                      screenWidth, screenHeight, 30),
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Helvetica',
+                                ),
                               ),
                             ),
                           ),
-                          SizedBox(height: screenHeight * 0.02),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 30.0),
+                        ),
+                        SizedBox(height: screenHeight * 0.02),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: itemWidgets,
+                          ),
+                        ),
+                        SizedBox(height: screenHeight * 0.02),
+                        Center(
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(vertical: 10.0),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Container(
-                                  padding: EdgeInsets.all(
-                                      3.0), // Adjust padding as needed
-                                  decoration: BoxDecoration(
-                                    color: Colors
-                                        .transparent, // Background color of the box
-                                    borderRadius: BorderRadius.circular(
-                                        8.0), // Rounded corners
-                                    border: Border.all(
-                                      color: Colors.white, // Border color
-                                      width: 2.0, // Border width
-                                    ),
-                                  ),
-                                  child: Text(
-                                    text2,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: getResponsiveFontSize(
-                                            screenWidth, screenHeight, 35),
-                                        fontWeight: FontWeight.w100,
-                                        fontFamily: 'Helvetica Neue, Regular'),
+                                  child: Icon(
+                                    Icons.circle,
+                                    size: 24,
+                                    color: Colors.yellow,
                                   ),
                                 ),
-                                const SizedBox(
-                                    width: 8), // Space between text2 and text3
-                                Flexible(
-                                  child: Text(
-                                    text3,
-                                    softWrap: true,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: getResponsiveFontSize(
-                                            screenWidth, screenHeight, 30),
-                                        fontWeight: FontWeight.w100,
-                                        fontFamily: 'Helvetica Neue, Regular'),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          SizedBox(height: screenHeight * 0.02),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 30.0),
-                            child: Row(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.all(
-                                      3.0), // Adjust padding as needed
-                                  decoration: BoxDecoration(
-                                    color: Colors
-                                        .transparent, // Background color of the box
-                                    borderRadius: BorderRadius.circular(
-                                        8.0), // Rounded corners
-                                    border: Border.all(
-                                      color: Colors.white, // Border color
-                                      width: 2.0, // Border width
-                                    ),
-                                  ),
-                                  child: Text(
-                                    text4,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: getResponsiveFontSize(
-                                            screenWidth, screenHeight, 35),
-                                        fontWeight: FontWeight.w100,
-                                        fontFamily: 'Helvetica Neue, Regular'),
-                                  ),
-                                ),
-                                const SizedBox(
-                                    width: 8), // Space between text2 and text3
-                                Flexible(
-                                  child: Text(
-                                    text5,
-                                    softWrap: true,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: getResponsiveFontSize(
-                                            screenWidth, screenHeight, 30),
-                                        fontWeight: FontWeight.w100,
-                                        fontFamily: 'Helvetica Neue, Regular'),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: screenHeight * 0.02),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment
-                                .center, // Center the Row content horizontally
-                            crossAxisAlignment: CrossAxisAlignment
-                                .center, // Center the Row content vertically
-                            children: [
-                              // Yellow dot
-                              Container(
-                                width: 20,
-                                height: 20,
-                                decoration: const BoxDecoration(
-                                  color: Colors.yellow,
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                              const SizedBox(
-                                  width: 8), // Space between the dot and text
-                              // Text widget
-                              Text(
-                                text6,
-                                style: TextStyle(
+                                SizedBox(width: 5),
+                                Text(
+                                  "In Process",
+                                  style: TextStyle(
+                                    fontFamily: "Helvetica",
+                                    fontWeight: FontWeight.w300,
                                     color: Colors.white,
-                                    fontSize: getResponsiveFontSize(
-                                        screenWidth, screenHeight, 20),
-                                    fontWeight: FontWeight.w100,
-                                    fontFamily: 'Helvetica Neue, Regular'),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: screenHeight * 0.02),
-                          Center(
-                            child: Container(
-                              width: 150,
-                              height: 150,
-                              decoration: BoxDecoration(
-                                color: Colors.white, // Background color
-                                border: Border.all(
-                                  color: Colors.white, // Border color
-                                  width: 2, // Border width
-                                ),
-                              ),
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Container(
-                                  width: 150,
-                                  height: 150,
-                                  child: Image.asset(
-                                    imagePath,
-                                    fit: BoxFit.contain,
+                                    fontSize: 15,
                                   ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: screenHeight * 0.02),
+                        Center(
+                          child: Container(
+                            width: 150,
+                            height: 150,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                color: Colors.white,
+                                width: 2,
+                              ),
+                            ),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                width: 150,
+                                height: 150,
+                                child: Image.asset(
+                                  'qr-code.png', // Replace with your QR code image
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
                           ),
-
-                          SizedBox(height: screenHeight * 0.02),
-                        ],
-                      ),
-                    )),
+                        ),
+                      ],
+                    ),
+                  ),
+          ),
         ),
       ),
     );
@@ -1895,6 +1836,7 @@ class TicketQrPickupButton extends StatelessWidget {
                                 'Picked up at ${text4}',
                                 softWrap: true,
                                 style: TextStyle(
+                                  fontFamily: "Helvetica",
                                   color: Colors.white,
                                   fontSize: 20,
                                   fontWeight: FontWeight.w100,

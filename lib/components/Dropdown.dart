@@ -24,7 +24,8 @@ class _DropdownMenuState extends State<DropdownMenuCustom> {
             iconSize: 24,
             dropdownColor: Colors.blueGrey[900],
             underline: SizedBox(),
-            style: TextStyle(color: Colors.white, fontSize: 16),
+            style: TextStyle(
+                fontFamily: "Helvetica", color: Colors.white, fontSize: 16),
             onChanged: (String? newValue) {
               setState(() {
                 selectedValue = newValue!;

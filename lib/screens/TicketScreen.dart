@@ -86,7 +86,12 @@ class TicketScreen extends StatelessWidget {
                                           .replaceAll("-", ".")
                                       : 'No Date',
                                   text3: '${order.orderCount} active tickets',
-                                  onPressed: () => {},
+                                  onPressed: () => {
+                                    Navigator.pushNamed(context, "/qr-screen",
+                                        arguments: {
+                                          "entityId": order.entityDetails.id
+                                        })
+                                  },
                                   widthofButton: screenWidth * 0.834,
                                   heightofButton: 0.123 * screenHeight,
                                   borderRadius: 20,

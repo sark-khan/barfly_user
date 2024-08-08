@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:barfly_user/Storage.dart';
 import 'package:barfly_user/components/OrderDetails.dart';
 import 'package:barfly_user/models/CounterListResponse.dart';
+import 'package:barfly_user/models/EntityLiveOrders.dart';
 import 'package:barfly_user/models/MenuCategory.dart';
 import 'package:barfly_user/models/getEntities.dart';
 import 'package:barfly_user/models/getLiveOrders.dart';
@@ -259,6 +260,38 @@ class Apiservice {
             status: true,
             message: response.data["message"],
             data: previosuOrdersResponse.previosuOrdersList);
+      }
+      print("reachde hrerere");
+      return ReturnObj(message: response.data["message"], status: false);
+    } on DioException catch (e) {
+      print("Error in Login $e");
+      return ReturnObj(status: false, message: e.response!.data["message"]);
+    } catch (error) {
+      print("Error in Login $error");
+      return ReturnObj(status: false, message: "Error in Login $error");
+    }
+  }
+
+  Future<ReturnObj<List<LiveOrderEntity>>> getLiveOrdersEntity(entityId) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      headers['token'] = Storage.getJwtToken();
+      var data = {"entityId": entityId};
+      var response =
+          await dio.request('$APIURL/api/orders/get-live-order-details',
+              options: Options(
+                method: 'GET',
+                headers: headers,
+              ),
+              queryParameters: data);
+
+      if (response.statusCode == 200) {
+        EntityLiveOrderResponse previosuOrdersResponse =
+            EntityLiveOrderResponse.fromJson(response.data);
+        return ReturnObj<List<LiveOrderEntity>>(
+            status: true,
+            message: response.data["message"],
+            data: previosuOrdersResponse.liveOrders);
       }
       print("reachde hrerere");
       return ReturnObj(message: response.data["message"], status: false);

@@ -89,7 +89,7 @@ class _PastTicketNameScreenState extends State<PastTicketNameScreen> {
                           getResponsiveFontSize(screenWidth, screenHeight, 30)),
                   children: [
                     const TextSpan(
-                      text: "Kaufleuten  ",
+                      text: "Your entity name ",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -156,7 +156,7 @@ class _PastTicketNameScreenState extends State<PastTicketNameScreen> {
                                   return Flexible(
                                     child: TicketYearButton(
                                       text1: entityName,
-                                      text2: orderDate,
+                                      text2: "2024.08.06",
                                       onPressed: () {
                                         // Handle button press
                                       },

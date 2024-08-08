@@ -150,6 +150,19 @@ class Menuscreen extends StatelessWidget {
                                 useSvg: menu.icon.endsWith(".svg"),
                               );
                             }).toList(),
+                            // InsiderButton(
+                            //   widthofButton: screenWidth < 393
+                            //       ? screenWidth * 0.3857
+                            //       : 152,
+                            //   heightofButton: screenHeight < 852
+                            //       ? 168
+                            //       : screenHeight * 0.2171,
+                            //   borderRadius: 20,
+                            //   text: "Feedback",
+                            //   onPressed: () {},
+                            //   imagePath: "Feedback.png", // Example path
+                            //   useSvg: false, // Flag to use SVG
+                            // ),
                             InsiderButton(
                               widthofButton: screenWidth < 393
                                   ? screenWidth * 0.3857
@@ -158,9 +171,9 @@ class Menuscreen extends StatelessWidget {
                                   ? 168
                                   : screenHeight * 0.2171,
                               borderRadius: 20,
-                              text: "Feedback",
+                              text: "Favorites",
                               onPressed: () {},
-                              imagePath: "Feedback.png", // Example path
+                              imagePath: "favorites.png", // Example path
                               useSvg: false, // Flag to use SVG
                             ),
                           ],

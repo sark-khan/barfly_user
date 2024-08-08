@@ -1,21 +1,37 @@
 import 'package:barfly_user/appConstants.dart';
 import 'package:barfly_user/commonFunctions.dart';
 import 'package:barfly_user/components/Buttons.dart';
+import 'package:barfly_user/models/EntityLiveOrders.dart';
+import 'package:barfly_user/return_obj.dart';
+import 'package:barfly_user/services/ApiService.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-class MenuQrScreen extends StatelessWidget {
-  const MenuQrScreen({Key? key}) : super(key: key);
+class MenuQrScreen extends StatefulWidget {
+  final String entityId; // Pass entityId from the previous screen
+  const MenuQrScreen({Key? key, required this.entityId}) : super(key: key);
+
+  @override
+  _MenuQrScreenState createState() => _MenuQrScreenState();
+}
+
+class _MenuQrScreenState extends State<MenuQrScreen> {
+  late Future<ReturnObj<List<LiveOrderEntity>>> futureLiveOrders;
+
+  @override
+  void initState() {
+    super.initState();
+    futureLiveOrders = Apiservice().getLiveOrdersEntity(widget.entityId);
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Obtain the screen dimensions
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: screenWidth * 0.05, // Responsive horizontal padding
+          horizontal: screenWidth * 0.1, // Responsive horizontal padding
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,7 +41,7 @@ class MenuQrScreen extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, "/account-details-screen");
+                    Navigator.pop(context);
                   },
                   child: Container(
                     width: 34,
@@ -39,8 +55,7 @@ class MenuQrScreen extends StatelessWidget {
                       child: IconButton(
                         padding: const EdgeInsets.all(0),
                         onPressed: () {
-                          Navigator.pushNamed(
-                              context, "/account-details-screen");
+                          Navigator.pop(context);
                         },
                         icon: const Icon(
                           Icons.chevron_left,
@@ -54,7 +69,6 @@ class MenuQrScreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: 30),
-
             Center(
               child: Container(
                 margin: EdgeInsets.only(left: 0),
@@ -68,7 +82,7 @@ class MenuQrScreen extends StatelessWidget {
                         ),
                         children: [
                           TextSpan(
-                            text: "XTRA ",
+                            text: "Your entity ",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'Helvetica',
@@ -86,15 +100,18 @@ class MenuQrScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Positioned(
                       bottom: 0, // Adjust position as needed
                       child: Text(
-                        "17.10.2024",
+                        "2024.08.06",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: getResponsiveFontSize(
                               screenWidth, screenHeight, 25),
-                          fontWeight: FontWeight.w100,
+                          fontWeight: FontWeight.w200,
                           fontFamily: 'Helvetica',
                         ),
                         textAlign: TextAlign.center,
@@ -107,53 +124,47 @@ class MenuQrScreen extends StatelessWidget {
             SizedBox(
                 height: screenHeight * 0.02), // Space between title and content
             Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.only(bottom: 40),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Wrap(
-                        spacing: 20,
-                        runSpacing: 20,
+              child: FutureBuilder<ReturnObj<List<LiveOrderEntity>>>(
+                future: futureLiveOrders,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (!snapshot.hasData ||
+                      !snapshot.data!.status ||
+                      snapshot.data!.data == null ||
+                      snapshot.data!.data!.isEmpty) {
+                    return const Center(
+                        child: Text('No live orders available'));
+                  } else {
+                    final liveOrders = snapshot.data!.data!;
+                    return SingleChildScrollView(
+                      padding: const EdgeInsets.only(bottom: 40),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Flexible(
-                            child: TicketQrButton(
-                                text1: "152 ",
-                                text2: '2x ',
-                                text3: 'Gin Tonic',
-                                text4: '3x ',
-                                text5: 'Vodka',
-                                text6: 'in process',
-                                onPressed: () => {},
-                                widthofButton: screenWidth * 0.834,
-                                heightofButton: 0.123 * screenHeight,
-                                borderRadius: 20,
-                                isLoading: false,
-                                imagePath: "qr-code.png"),
-                          ),
-                          Flexible(
-                            child: TicketQrButton(
-                                text1: "152 ",
-                                text2: '2x ',
-                                text3: 'Gin Tonic',
-                                text4: '3x ',
-                                text5: 'Vodka',
-                                text6: 'in process',
-                                onPressed: () => {},
-                                widthofButton: screenWidth * 0.834,
-                                heightofButton: 0.123 * screenHeight,
-                                borderRadius: 20,
-                                isLoading: false,
-                                imagePath: "qr-code.png"),
+                          Center(
+                            child: Wrap(
+                              spacing: 20,
+                              runSpacing: 20,
+                              children: liveOrders.map((order) {
+                                return TicketQrButton(
+                                  order:
+                                      order, // Pass order directly to the button
+                                  onPressed: () {
+                                    // Handle button press
+                                  },
+                                  isLoading: false,
+                                );
+                              }).toList(),
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                    SizedBox(height: screenHeight * 0.05),
-                  ],
-                ),
+                    );
+                  }
+                },
               ),
             ),
           ],

@@ -127,8 +127,10 @@ class HomeScreen extends StatelessWidget {
                                   status: true,
                                   onPressed: () => {
                                     Navigator.pushNamed(
-                                        context, "/insider-screen",
-                                        arguments: {"entityId": entity.id})
+                                        context, "/insider-screen", arguments: {
+                                      "entityId": entity.id,
+                                      "entityName": entity.entityName
+                                    })
                                   },
                                   widthofButton: screenWidth > 650
                                       ? 328

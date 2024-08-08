@@ -41,7 +41,7 @@ class _PastTicketScreenState extends State<PastTicketScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, "/account-details-screen");
+                    Navigator.pop(context);
                   },
                   child: Container(
                     width: 34,
@@ -55,8 +55,7 @@ class _PastTicketScreenState extends State<PastTicketScreen> {
                       child: IconButton(
                         padding: const EdgeInsets.all(0),
                         onPressed: () {
-                          Navigator.pushNamed(
-                              context, "/account-details-screen");
+                          Navigator.pop(context);
                         },
                         icon: const Icon(
                           Icons.chevron_left,
@@ -157,9 +156,10 @@ class _PastTicketScreenState extends State<PastTicketScreen> {
                                   return Flexible(
                                     child: TicketYearButton(
                                       text1: entityName,
-                                      text2: orderDate,
+                                      text2: "2024",
                                       onPressed: () {
-                                        // Handle button press
+                                        Navigator.pushNamed(context,
+                                            "/past-ticket-screen-name");
                                       },
                                       widthofButton: screenWidth * 0.834,
                                       heightofButton: 0.123 * screenHeight,

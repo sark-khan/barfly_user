@@ -21,7 +21,7 @@ class LoungeList extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, "/insider-screen");
+                          Navigator.pop(context);
                         },
                         child: Container(
                           width: 34,
@@ -34,7 +34,9 @@ class LoungeList extends StatelessWidget {
                           child: Center(
                             child: IconButton(
                               padding: const EdgeInsets.all(0),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
                               icon: const Icon(
                                 Icons.chevron_left,
                                 color: AppColors.searchIconColor,

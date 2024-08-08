@@ -18,7 +18,6 @@ class MenuCategoryController extends GetxController {
 
   Future<void> fetchMenuCategory() async {
     try {
-      print("$counterId sjhdlskadklsajkldsjaldjksakdsklajdskla;d");
       var result = await Apiservice().getMenuCategory(counterId);
       if (result.status) {
         menuLists.value = result.data!;
