@@ -69,8 +69,8 @@ class InsiderScreen extends StatelessWidget {
                   height: getResponsiveSizedBoxHeight(screenHeight, 59),
                 ),
                 Container(
-                  margin: EdgeInsets.only(
-                      left: getResponsiveSizedBoxWidth(screenWidth, 32)),
+                  // margin: EdgeInsets.only(
+                  //     left: getResponsiveSizedBoxWidth(screenWidth, 32)),
                   child: FittedBox(
                     fit: BoxFit.scaleDown,
                     child: RichText(
@@ -79,14 +79,14 @@ class InsiderScreen extends StatelessWidget {
                           color: Colors.white,
                           fontFamily: 'Helvetica',
                           fontSize: getResponsiveFontSize(
-                              screenWidth, screenHeight, 40),
+                              screenWidth, screenHeight, 45),
                         ),
                         children: [
                           TextSpan(
                             text: entityName,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: "Helvetica",
-                              fontWeight: FontWeight.w800,
+                              fontWeight: FontWeight.w900,
                             ),
                           ),
                         ],
@@ -95,7 +95,7 @@ class InsiderScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: getResponsiveSizedBoxHeight(screenHeight, 13),
+                  height: getResponsiveSizedBoxHeight(screenHeight, 20),
                 ),
                 Expanded(
                   child: FutureBuilder(
@@ -106,70 +106,74 @@ class InsiderScreen extends StatelessWidget {
                       } else if (snapshot.hasError) {
                         return Center(child: Text('Error: ${snapshot.error}'));
                       } else if (controller.counterLists.isEmpty) {
-                        return Center(child: Text('No data available'));
+                        return const Center(child: Text('No data available'));
                       } else {
                         return SingleChildScrollView(
                           padding: const EdgeInsets.only(bottom: 40),
-                          child: Wrap(
-                            spacing: 24,
-                            runSpacing: 20,
-                            children: [
-                              ...controller.counterLists.map((counter) {
-                                return InsiderButton(
+                          child: Center(
+                            child: Wrap(
+                              spacing: 20,
+                              runSpacing: 22,
+                              children: [
+                                ...controller.counterLists.map((counter) {
+                                  return InsiderButton(
+                                    widthofButton: screenWidth < 393
+                                        ? screenWidth * 0.3857
+                                        : 152,
+                                    heightofButton: screenHeight < 852
+                                        ? 168
+                                        : screenHeight * 0.2171,
+                                    borderRadius: 25,
+                                    text: counter.counterName,
+                                    onPressed: () {
+                                      Navigator.pushNamed(
+                                          context, "/menu-category-screen",
+                                          arguments: {
+                                            "entityId": entityId,
+                                            "entityName": entityName,
+                                            "counterName": counter.counterName,
+                                            "counterId": counter.id
+                                          });
+                                    },
+                                    imagePath: "Icon_Counter.svg",
+                                    useSvg: true,
+                                    statusOpen: false,
+                                    statusSoon: true,
+                                  );
+                                }).toList(),
+                                InsiderButton(
                                   widthofButton: screenWidth < 393
                                       ? screenWidth * 0.3857
                                       : 152,
                                   heightofButton: screenHeight < 852
                                       ? 168
                                       : screenHeight * 0.2171,
-                                  borderRadius: 20,
-                                  text: counter.counterName,
+                                  borderRadius: 25,
+                                  text: "Feedback",
+                                  onPressed: () {},
+                                  imagePath: "Feedback.png",
+                                  useSvg: false,
+                                ),
+                                InsiderButton(
+                                  widthofButton: screenWidth < 393
+                                      ? screenWidth * 0.3857
+                                      : 152,
+                                  heightofButton: screenHeight < 852
+                                      ? 168
+                                      : screenHeight * 0.2171,
+                                  borderRadius: 25,
+                                  text: "Lounge",
+                                  imagePath: "Lounge.png",
+                                  useSvg: false,
                                   onPressed: () {
                                     Navigator.pushNamed(
-                                        context, "/menu-category-screen",
-                                        arguments: {
-                                          "entityId": entityId,
-                                          "entityName": entityName,
-                                          "counterName": counter.counterName,
-                                          "counterId": counter.id
-                                        });
+                                      context,
+                                      "/lounge-list-screen",
+                                    );
                                   },
-                                  imagePath: "Icon_Counter.svg",
-                                  useSvg: true,
-                                );
-                              }).toList(),
-                              InsiderButton(
-                                widthofButton: screenWidth < 393
-                                    ? screenWidth * 0.3857
-                                    : 152,
-                                heightofButton: screenHeight < 852
-                                    ? 168
-                                    : screenHeight * 0.2171,
-                                borderRadius: 20,
-                                text: "Feedback",
-                                onPressed: () {},
-                                imagePath: "Feedback.png",
-                                useSvg: false,
-                              ),
-                              InsiderButton(
-                                widthofButton: screenWidth < 393
-                                    ? screenWidth * 0.3857
-                                    : 152,
-                                heightofButton: screenHeight < 852
-                                    ? 168
-                                    : screenHeight * 0.2171,
-                                borderRadius: 20,
-                                text: "Lounge",
-                                imagePath: "Lounge.png",
-                                useSvg: false,
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    "/lounge-list-screen",
-                                  );
-                                },
-                              ),
-                            ],
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       }

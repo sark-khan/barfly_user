@@ -37,31 +37,29 @@ class TicketScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(height: screenHeight * 0.12),
-                Center(
-                  child: RichText(
-                    text: TextSpan(
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: getResponsiveFontSize(
-                            screenWidth, screenHeight, 35),
-                      ),
-                      children: [
-                        TextSpan(
-                          text: "Your ",
-                          style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.w800,
-                              fontFamily: "Helvetica"),
-                        ),
-                        TextSpan(
-                          text: "Tickets",
-                          style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.w800,
-                              fontFamily: "Helvetica"),
-                        ),
-                      ],
+                RichText(
+                  text: TextSpan(
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize:
+                          getResponsiveFontSize(screenWidth, screenHeight, 35),
                     ),
+                    children: [
+                      TextSpan(
+                        text: "Your ",
+                        style: TextStyle(
+                            fontSize: 50,
+                            fontWeight: FontWeight.w900,
+                            fontFamily: "Helvetica"),
+                      ),
+                      TextSpan(
+                        text: "Tickets",
+                        style: TextStyle(
+                            fontSize: 50,
+                            fontWeight: FontWeight.w900,
+                            fontFamily: "Helvetica"),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(height: screenHeight * 0.02),
@@ -121,13 +119,13 @@ class TicketScreen extends StatelessWidget {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20),
                                       side: const BorderSide(
-                                          color: Colors.white, width: 0.8),
+                                          color: Colors.white, width: 1),
                                     ),
                                   ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 15, vertical: 10),
-                                    child: FittedBox(
+                                  child: Container(
+                                    width: 160,
+                                    height: 57,
+                                    child: const FittedBox(
                                       fit: BoxFit.scaleDown,
                                       child: Center(
                                         child: Text(
@@ -136,7 +134,7 @@ class TicketScreen extends StatelessWidget {
                                             fontFamily: "Helvetica",
                                             color: Colors.white,
                                             fontSize: 23,
-                                            fontWeight: FontWeight.w300,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                         ),
                                       ),
