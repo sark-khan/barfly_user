@@ -67,15 +67,11 @@ class BottomNavigator extends StatelessWidget {
                 padding: const EdgeInsets.all(0),
                 backgroundColor: Color(0xFF34396e),
               ),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                child: Image.asset(
-                  "ticket.png",
-                  color: Colors.white,
-                  width: 30,
-                  height: 30,
-                ),
+              child: Image.asset(
+                "ticket.png",
+                color: Colors.white,
+                width: 30,
+                height: 30,
               ),
             ),
             ElevatedButton(
@@ -85,15 +81,11 @@ class BottomNavigator extends StatelessWidget {
                 padding: const EdgeInsets.all(0),
                 backgroundColor: Color(0xFF34396e),
               ),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                child: Image.asset(
-                  "Home.png",
-                  color: Colors.white,
-                  width: 30,
-                  height: 30,
-                ),
+              child: Image.asset(
+                "Home.png",
+                color: Colors.white,
+                width: 30,
+                height: 30,
               ),
             ),
             ElevatedButton(
@@ -104,15 +96,11 @@ class BottomNavigator extends StatelessWidget {
                 padding: const EdgeInsets.all(0),
                 backgroundColor: Color(0xFF34396e),
               ),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                child: Image.asset(
-                  "person.png",
-                  color: Colors.white,
-                  width: 30,
-                  height: 30,
-                ),
+              child: Image.asset(
+                "person.png",
+                color: Colors.white,
+                width: 30,
+                height: 30,
               ),
             ),
           ],

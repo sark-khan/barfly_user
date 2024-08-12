@@ -13,7 +13,7 @@ class SearchComponent extends StatelessWidget {
     required this.onPressed,
     this.backgroundColor = AppColors.searchButtonBackgroundColor,
     this.iconColor = AppColors.searchIconColor,
-    this.iconSize = 30.0,
+    this.iconSize = 25.0,
     required this.routeName,
   }) : super(key: key);
 
