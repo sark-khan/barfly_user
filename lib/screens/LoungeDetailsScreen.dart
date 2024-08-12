@@ -216,6 +216,7 @@ class LoungeDetailsScreen extends StatelessWidget {
                                   context, "/order-overview-screen");
                             },
                             style: ElevatedButton.styleFrom(
+                              elevation: 0,
                               padding: EdgeInsets.symmetric(vertical: 16),
                               backgroundColor: AppColors
                                   .buttonColor, // Change this to your desired color

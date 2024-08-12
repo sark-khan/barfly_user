@@ -43,11 +43,11 @@ class FavorotiesButton extends StatelessWidget {
     this.horizontalPadding = 25.0,
     this.buttonBackgroundColor = AppColors.backgroundColor,
     this.gradient = const LinearGradient(
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
+      begin: Alignment.centerRight,
+      end: Alignment.centerLeft,
       colors: [
-        Color.fromARGB(255, 100, 87, 180), // Dark Blue
-        Color.fromARGB(255, 134, 82, 202), // Blue/Purple
+        Color(0xFF623E87), // Dark Blue
+        Color(0xFF473F88), // Blue/Purple
       ],
     ),
   }) : super(key: key);
@@ -69,6 +69,7 @@ class FavorotiesButton extends StatelessWidget {
           child: ElevatedButton(
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
+              elevation: 0,
               padding: EdgeInsets.all(0),
               backgroundColor: Colors.transparent,
               shape: RoundedRectangleBorder(
@@ -234,11 +235,11 @@ class InsiderButton extends StatelessWidget {
     this.horizontalPadding = 25.0,
     this.buttonBackgroundColor = AppColors.backgroundColor,
     this.gradient = const LinearGradient(
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
+      begin: Alignment.centerRight,
+      end: Alignment.centerLeft,
       colors: [
-        Color.fromARGB(255, 100, 87, 180), // Dark Blue
-        Color.fromARGB(255, 134, 82, 202), // Blue/Purple
+        Color(0xFF623E87), // Dark Blue
+        Color(0xFF473F88), // Blue/Purple
       ],
     ),
   }) : super(key: key);
@@ -257,6 +258,7 @@ class InsiderButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
+            elevation: 0,
             padding: const EdgeInsets.all(0),
             backgroundColor: Colors.transparent,
             shape: RoundedRectangleBorder(
@@ -398,7 +400,7 @@ class MenuItemsButton extends StatefulWidget {
     this.isLoading = true,
     this.minHeight = 70,
     this.minWidth = 240,
-    this.fontSize = 28,
+    this.fontSize = 30,
     this.textColor = Colors.white,
     this.borderRadius = 8.0,
     this.fontWeight = FontWeight.w300,
@@ -406,11 +408,11 @@ class MenuItemsButton extends StatefulWidget {
     this.horizontalPadding = 25.0,
     this.buttonBackgroundColor = AppColors.backgroundColor,
     this.gradient = const LinearGradient(
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
+      begin: Alignment.centerRight,
+      end: Alignment.centerLeft,
       colors: [
-        Color.fromARGB(255, 100, 87, 180), // Dark Blue
-        Color.fromARGB(255, 134, 82, 202), // Blue/Purple
+        Color(0xFF623E87), // Dark Blue
+        Color(0xFF473F88), // Blue/Purple
       ],
     ),
     required this.updateTotalQuantity, // Add this
@@ -459,8 +461,10 @@ class _MenuItemsButtonState extends State<MenuItemsButton> {
           child: ElevatedButton(
             onPressed: widget.onPressed,
             style: ElevatedButton.styleFrom(
+              elevation: 0,
               padding: const EdgeInsets.all(0),
               backgroundColor: Colors.transparent,
+              foregroundColor: Colors.black26,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(widget.borderRadius),
               ),
@@ -473,6 +477,14 @@ class _MenuItemsButtonState extends State<MenuItemsButton> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      const Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 4),
+                          child:
+                              Icon(Icons.star, color: Colors.amber, size: 24),
+                        ),
+                      ),
                       Image.asset(
                         widget.imagePath,
                         width: 73.57,
@@ -484,12 +496,11 @@ class _MenuItemsButtonState extends State<MenuItemsButton> {
                       Text(
                         widget.itemName,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: "Helvetica",
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w500,
                           color: Colors.white,
-                          fontSize: getResponsiveFontSize(
-                              widget.minWidth, widget.minHeight, 30),
+                          fontSize: 30,
                         ),
                       ),
                       FittedBox(
@@ -497,12 +508,11 @@ class _MenuItemsButtonState extends State<MenuItemsButton> {
                         child: Text(
                           "${widget.currency} ${widget.price} / ${widget.weightOrVolume}",
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: "Helvetica",
                             fontWeight: FontWeight.w300,
                             color: Colors.white,
-                            fontSize: getResponsiveFontSize(
-                                widget.minWidth, widget.minHeight, 21),
+                            fontSize: 21,
                           ),
                         ),
                       ),
@@ -516,7 +526,7 @@ class _MenuItemsButtonState extends State<MenuItemsButton> {
                           CustomButtonStroked(
                             borderRadius: 5,
                             text: "+",
-                            fontSize: 22,
+                            fontSize: 30,
                             onPressed: _addSelectedQuantity,
                             widthofButton: 58,
                             heightofButton: 33,
@@ -528,7 +538,7 @@ class _MenuItemsButtonState extends State<MenuItemsButton> {
                           CustomButtonStroked(
                             borderRadius: 5,
                             text: "-",
-                            fontSize: 22,
+                            fontSize: 30,
                             onPressed: _subtractSelectedQuantity,
                             widthofButton: 58,
                             heightofButton: 33,
@@ -592,7 +602,7 @@ class CustomButtonStroked extends StatelessWidget {
     required this.onPressed,
     this.heightofButton = 70,
     this.widthofButton = 240,
-    this.fontSize = 24,
+    this.fontSize = 30,
     this.textColor = Colors.white,
     this.borderRadius = 8.0,
     this.fontWeight = FontWeight.w300,
@@ -601,11 +611,11 @@ class CustomButtonStroked extends StatelessWidget {
     this.backgroundColor = Colors.transparent,
     this.buttonBackgroundColor = AppColors.buttonColor,
     gradient = const LinearGradient(
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
+      begin: Alignment.centerRight,
+      end: Alignment.centerLeft,
       colors: [
-        Color.fromARGB(255, 100, 87, 180), // Dark Blue
-        Color.fromARGB(255, 134, 82, 202), // Blue/Purple
+        Color(0xFF623E87), // Dark Blue
+        Color(0xFF473F88), // Blue/Purple
       ],
     ),
   }) : super(key: key);
@@ -619,6 +629,7 @@ class CustomButtonStroked extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
             padding: EdgeInsets.zero,
+            elevation: 0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius),
             ),
@@ -640,7 +651,7 @@ class CustomButtonStroked extends StatelessWidget {
                   fontFamily: "Helvetica",
                   color: Colors.white,
                   fontSize: fontSize,
-                  fontWeight: FontWeight.w300,
+                  fontWeight: FontWeight.w900,
 
                   // backgroundColor: Color(0xFF2ac4aa)
                 ),
@@ -691,11 +702,11 @@ class LoungeListButton extends StatelessWidget {
     this.horizontalPadding = 25.0,
     this.buttonBackgroundColor = Colors.white,
     this.gradient = const LinearGradient(
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
+      begin: Alignment.centerRight,
+      end: Alignment.centerLeft,
       colors: [
-        Color.fromARGB(255, 100, 87, 180), // Dark Blue
-        Color.fromARGB(255, 134, 82, 202), // Blue/Purple
+        Color(0xFF623E87), // Dark Blue
+        Color(0xFF473F88), // Blue/Purple
       ],
     ),
   }) : super(key: key);
@@ -716,6 +727,7 @@ class LoungeListButton extends StatelessWidget {
           child: ElevatedButton(
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
+              elevation: 0,
               padding: EdgeInsets.zero,
               backgroundColor: Colors.transparent,
               shape: RoundedRectangleBorder(
@@ -849,11 +861,11 @@ class TicketButton extends StatelessWidget {
     this.horizontalPadding = 25.0,
     this.buttonBackgroundColor = AppColors.backgroundColor,
     this.gradient = const LinearGradient(
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
+      begin: Alignment.centerRight,
+      end: Alignment.centerLeft,
       colors: [
-        Color.fromARGB(255, 100, 87, 180), // Dark Blue
-        Color.fromARGB(255, 134, 82, 202), // Blue/Purple
+        Color(0xFF623E87), // Dark Blue
+        Color(0xFF473F88), // Blue/Purple
       ],
     ),
   }) : super(key: key);
@@ -876,6 +888,7 @@ class TicketButton extends StatelessWidget {
           child: ElevatedButton(
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
+              elevation: 0,
               padding: EdgeInsets.all(0),
               backgroundColor: Colors.transparent,
               shape: RoundedRectangleBorder(
@@ -948,11 +961,11 @@ class TicketYearButton extends StatelessWidget {
     this.horizontalPadding = 25.0,
     this.buttonBackgroundColor = AppColors.backgroundColor,
     this.gradient = const LinearGradient(
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
+      begin: Alignment.centerRight,
+      end: Alignment.centerLeft,
       colors: [
-        Color.fromARGB(255, 100, 87, 180), // Dark Blue
-        Color.fromARGB(255, 134, 82, 202), // Blue/Purple
+        Color(0xFF623E87), // Dark Blue
+        Color(0xFF473F88), // Blue/Purple
       ],
     ),
   }) : super(key: key);
@@ -975,6 +988,7 @@ class TicketYearButton extends StatelessWidget {
           child: ElevatedButton(
               onPressed: onPressed,
               style: ElevatedButton.styleFrom(
+                elevation: 0,
                 padding: EdgeInsets.zero,
                 backgroundColor: Colors.transparent,
                 shape: RoundedRectangleBorder(
@@ -1051,11 +1065,11 @@ class TicketDateButton extends StatelessWidget {
     this.horizontalPadding = 25.0,
     this.buttonBackgroundColor = AppColors.backgroundColor,
     this.gradient = const LinearGradient(
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
+      begin: Alignment.centerRight,
+      end: Alignment.centerLeft,
       colors: [
-        Color.fromARGB(255, 100, 87, 180), // Dark Blue
-        Color.fromARGB(255, 134, 82, 202), // Blue/Purple
+        Color(0xFF623E87), // Dark Blue
+        Color(0xFF473F88), // Blue/Purple
       ],
     ),
   }) : super(key: key);
@@ -1078,6 +1092,7 @@ class TicketDateButton extends StatelessWidget {
           child: ElevatedButton(
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
+              elevation: 0,
               padding: EdgeInsets.all(10),
               backgroundColor: Colors.transparent,
               shape: RoundedRectangleBorder(
@@ -1221,6 +1236,7 @@ class _FeedBackButtonState extends State<FeedBackButton> {
           child: ElevatedButton(
             onPressed: widget.onPressed,
             style: ElevatedButton.styleFrom(
+              elevation: 0,
               padding: EdgeInsets.all(2),
               backgroundColor: Colors.transparent,
               shape: RoundedRectangleBorder(
@@ -1385,6 +1401,7 @@ class _FeedBackTextButtonState extends State<FeedBackTextButton> {
           child: ElevatedButton(
               onPressed: widget.onPressed,
               style: ElevatedButton.styleFrom(
+                elevation: 0,
                 padding: EdgeInsets.all(2),
                 backgroundColor: Color(0xFF091952),
                 shape: RoundedRectangleBorder(
@@ -1474,30 +1491,31 @@ class TicketQrButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8.0), // Rounded corners
                 border: Border.all(
                   color: Colors.white, // Border color
-                  width: 2.0, // Border width
+                  width: 1.0, // Border width
                 ),
               ),
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
-                child: Text(
-                  "${item.quantity.toString()}x",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize:
-                          getResponsiveFontSize(screenWidth, screenHeight, 25),
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'Helvetica'),
+                child: Center(
+                  child: Text(
+                    "${item.quantity.toString()}x",
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w300,
+                        fontFamily: 'Helvetica'),
+                  ),
                 ),
               ),
             ),
-            SizedBox(width: 8.0),
+            const SizedBox(width: 9.0),
             Text(
               item.itemId.itemName,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
-                fontSize: getResponsiveFontSize(screenWidth, screenHeight, 25),
-                fontWeight: FontWeight.w400,
+                fontSize: 30,
+                fontWeight: FontWeight.w300,
                 fontFamily: 'Helvetica',
               ),
             ),
@@ -1507,14 +1525,14 @@ class TicketQrButton extends StatelessWidget {
     }).toList();
 
     return ConstrainedBox(
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         minWidth: 350,
         maxWidth: 350,
       ),
       child: IntrinsicHeight(
         child: DecoratedBox(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
+            gradient: const LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
               colors: [
@@ -1527,7 +1545,8 @@ class TicketQrButton extends StatelessWidget {
           child: ElevatedButton(
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.all(2),
+              elevation: 0,
+              padding: const EdgeInsets.all(2),
               backgroundColor: Colors.transparent,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
@@ -1570,17 +1589,18 @@ class TicketQrButton extends StatelessWidget {
                                 width: 2.0,
                               ),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10.0, vertical: 0),
-                              child: Text(
-                                '${order.tokenNumber}',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: getResponsiveFontSize(
-                                      screenWidth, screenHeight, 30),
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Helvetica',
+                            child: SizedBox(
+                              height: 48,
+                              width: 96,
+                              child: Center(
+                                child: Text(
+                                  '${order.tokenNumber}',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 40,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'Helvetica',
+                                  ),
                                 ),
                               ),
                             ),
@@ -1594,7 +1614,6 @@ class TicketQrButton extends StatelessWidget {
                             children: itemWidgets,
                           ),
                         ),
-                        SizedBox(height: screenHeight * 0.02),
                         Center(
                           child: Container(
                             margin: const EdgeInsets.symmetric(vertical: 10.0),
@@ -1603,20 +1622,20 @@ class TicketQrButton extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Container(
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.circle,
                                     size: 24,
-                                    color: Colors.yellow,
+                                    color: Color(0xFFF4AA05),
                                   ),
                                 ),
                                 SizedBox(width: 5),
-                                Text(
+                                const Text(
                                   "In Process",
                                   style: TextStyle(
                                     fontFamily: "Helvetica",
                                     fontWeight: FontWeight.w300,
                                     color: Colors.white,
-                                    fontSize: 15,
+                                    fontSize: 17,
                                   ),
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -1624,7 +1643,6 @@ class TicketQrButton extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: screenHeight * 0.02),
                         Center(
                           child: Container(
                             width: 150,
@@ -1649,6 +1667,7 @@ class TicketQrButton extends StatelessWidget {
                             ),
                           ),
                         ),
+                        SizedBox(height: screenHeight * 0.06),
                       ],
                     ),
                   ),
@@ -1699,11 +1718,11 @@ class TicketQrPickupButton extends StatelessWidget {
     this.horizontalPadding = 25.0,
     this.buttonBackgroundColor = AppColors.backgroundColor,
     this.gradient = const LinearGradient(
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
+      begin: Alignment.centerRight,
+      end: Alignment.centerLeft,
       colors: [
-        Color.fromARGB(255, 100, 87, 180), // Dark Blue
-        Color.fromARGB(255, 134, 82, 202), // Blue/Purple
+        Color(0xFF623E87), // Dark Blue
+        Color(0xFF473F88), // Blue/Purple
       ],
     ),
   }) : super(key: key);
@@ -1726,6 +1745,7 @@ class TicketQrPickupButton extends StatelessWidget {
           child: ElevatedButton(
               onPressed: onPressed,
               style: ElevatedButton.styleFrom(
+                elevation: 0,
                 padding: EdgeInsets.all(2),
                 backgroundColor: Colors.transparent,
                 shape: RoundedRectangleBorder(
@@ -1882,6 +1902,7 @@ class TicketQrPickupButton extends StatelessWidget {
                           child: ElevatedButton(
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
+                              elevation: 0,
                               fixedSize: Size(193, 70),
                               padding: EdgeInsets.symmetric(
                                 vertical:

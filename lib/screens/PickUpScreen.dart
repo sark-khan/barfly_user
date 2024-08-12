@@ -137,6 +137,7 @@ class PickUpScreen extends StatelessWidget {
                                     child: ElevatedButton(
                                       onPressed: () {},
                                       style: ElevatedButton.styleFrom(
+                                        elevation: 0,
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 16),
                                         backgroundColor: Color(0xFF623E87),
