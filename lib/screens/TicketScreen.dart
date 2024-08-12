@@ -45,7 +45,7 @@ class TicketScreen extends StatelessWidget {
                   child: FittedBox(
                     fit: BoxFit.fill,
                     child: RichText(
-                      text: TextSpan(
+                      text: const TextSpan(
                         style: TextStyle(
                           color: Colors.white,
                         ),
@@ -71,7 +71,7 @@ class TicketScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 13,
                 ),
                 Expanded(
@@ -87,7 +87,7 @@ class TicketScreen extends StatelessWidget {
                             children: [
                               Center(
                                 child: TicketDateButton(
-                                  text1: "XTRA",
+                                  text1: "${order.entityDetails.entityName} ",
                                   text2: order.orders.isNotEmpty
                                       ? order.orders.first.updatedAt
                                           .toString()
@@ -107,7 +107,7 @@ class TicketScreen extends StatelessWidget {
                                   isLoading: false,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                   height: 20), // Adjust the height as needed
                             ],
                           );
