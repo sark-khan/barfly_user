@@ -114,8 +114,22 @@ class MenuPickupQrScreen extends StatelessWidget {
                         spacing: 20,
                         runSpacing: 20,
                         children: [
-                          Flexible(
-                            child: TicketQrPickupButton(
+                          TicketQrPickupButton(
+                            text1: "40 ",
+                            text2: '1x ',
+                            text3: 'Red Bull',
+                            text4: '22:06:32 ',
+                            onPressed: () => {},
+                            widthofButton: screenWidth * 0.834 < 550
+                                ? screenWidth * 0.834
+                                : 312,
+                            heightofButton: 496,
+                            borderRadius: 20,
+                            isLoading: false,
+                            imagePath: "qr-code.png",
+                            isVisible: true,
+                          ),
+                          TicketQrPickupButton(
                               text1: "40 ",
                               text2: '1x ',
                               text3: 'Red Bull',
@@ -126,23 +140,7 @@ class MenuPickupQrScreen extends StatelessWidget {
                               borderRadius: 20,
                               isLoading: false,
                               imagePath: "qr-code.png",
-                              isVisible: true,
-                            ),
-                          ),
-                          Flexible(
-                            child: TicketQrPickupButton(
-                                text1: "40 ",
-                                text2: '1x ',
-                                text3: 'Red Bull',
-                                text4: '22:06:32 ',
-                                onPressed: () => {},
-                                widthofButton: screenWidth * 0.834,
-                                heightofButton: 0.123 * screenHeight,
-                                borderRadius: 20,
-                                isLoading: false,
-                                imagePath: "qr-code.png",
-                                isVisible: true),
-                          ),
+                              isVisible: true),
                         ],
                       ),
                     ),
