@@ -187,6 +187,7 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
                             return;
                           },
                           style: ElevatedButton.styleFrom(
+                            elevation: 0,
                             padding: EdgeInsets.symmetric(vertical: 16),
                             backgroundColor: AppColors
                                 .buttonColor, // Change this to your desired color

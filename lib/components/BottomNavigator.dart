@@ -36,11 +36,11 @@ class BottomNavigator extends StatelessWidget {
     this.horizontalPadding = 25.0,
     this.buttonBackgroundColor = AppColors.backgroundColor,
     this.gradient = const LinearGradient(
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
+      begin: Alignment.centerRight,
+      end: Alignment.centerLeft,
       colors: [
-        Color.fromARGB(255, 100, 87, 180), // Dark Blue
-        Color.fromARGB(255, 134, 82, 202), // Blue/Purple
+        Color(0xFF623E87), // Dark Blue
+        Color(0xFF473F88), // Blue/Purple
       ],
     ),
   }) : super(key: key);
