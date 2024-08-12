@@ -1110,7 +1110,7 @@ class TicketButton extends StatelessWidget {
                             fontFamily: "Helvetica",
                             color: Colors.white,
                             fontSize: 45,
-                            fontWeight: FontWeight.w700),
+                            fontWeight: FontWeight.w800),
                       ),
                     ),
                   ),
@@ -1272,91 +1272,89 @@ class TicketDateButton extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     return ConstrainedBox(
       constraints: BoxConstraints(
-        minWidth: 350,
-        maxWidth: 350,
-      ),
-      child: IntrinsicHeight(
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            gradient: gradient,
-            borderRadius: BorderRadius.circular(borderRadius),
-          ),
-          child: ElevatedButton(
-            onPressed: onPressed,
-            style: ElevatedButton.styleFrom(
-              elevation: 0,
-              padding: EdgeInsets.all(10),
-              backgroundColor: Colors.transparent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(borderRadius),
-              ),
+          minWidth: 350,
+          maxWidth: 350,
+          minHeight: heightofButton,
+          maxHeight: heightofButton),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: gradient,
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+        child: ElevatedButton(
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+            elevation: 0,
+            padding: EdgeInsets.all(10),
+            backgroundColor: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius),
             ),
-            child: isLoading
-                ? Shimmer.fromColors(
-                    baseColor: Color(0xFF623E87),
-                    highlightColor: Color(0xFF473F88),
-                    child: Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(borderRadius),
-                      ),
+          ),
+          child: isLoading
+              ? Shimmer.fromColors(
+                  baseColor: Color(0xFF623E87),
+                  highlightColor: Color(0xFF473F88),
+                  child: Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(borderRadius),
                     ),
-                  )
-                : Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Flexible(
-                              child: Text(
-                                text1,
-                                style: const TextStyle(
-                                  fontFamily: "Helvetica",
-                                  color: Colors.white,
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                                softWrap: true,
-                              ),
-                            ),
-                            FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                text2,
-                                style: const TextStyle(
-                                  fontFamily: "Helvetica",
-                                  color: Colors.white,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w200,
-                                ),
-                                softWrap: true,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 8), // Optional spacing between texts
-                        Flexible(
-                          child: Text(
-                            text3,
+                  ),
+                )
+              : Container(
+                  width: widthofButton,
+                  height: heightofButton,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            text1,
                             style: const TextStyle(
                               fontFamily: "Helvetica",
                               color: Colors.white,
-                              fontSize: 25,
+                              height: 1,
+                              fontSize: 30,
+                              fontWeight: FontWeight.w800,
+                            ),
+                            softWrap: true,
+                          ),
+                          Text(
+                            text2,
+                            style: const TextStyle(
+                              fontFamily: "Helvetica",
+                              color: Colors.white,
+                              fontSize: 24,
+                              height: 1,
                               fontWeight: FontWeight.w200,
                             ),
+                            softWrap: true,
                           ),
+                        ],
+                      ),
+                      Text(
+                        text3,
+                        style: const TextStyle(
+                          fontFamily: "Helvetica",
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w200,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-          ),
+                ),
         ),
       ),
     );
