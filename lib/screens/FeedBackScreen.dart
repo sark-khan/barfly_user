@@ -237,6 +237,7 @@ class Feedbackscreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
+                      elevation: 0,
                       padding: EdgeInsets.symmetric(
                           vertical: screenHeight * 0.02), // Responsive padding
                       backgroundColor: Color(0xFF35D1D1),

@@ -208,6 +208,7 @@ class _PickUpState extends State<PickUp> {
                                   context, "/order-overview-screen");
                             },
                             style: ElevatedButton.styleFrom(
+                              elevation: 0,
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               backgroundColor: AppColors
                                   .buttonColor, // Change this to your desired color

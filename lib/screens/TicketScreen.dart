@@ -113,6 +113,7 @@ class TicketScreen extends StatelessWidget {
                                         context, "/ticket-year-screen");
                                   },
                                   style: ElevatedButton.styleFrom(
+                                    elevation: 0,
                                     padding: EdgeInsets.symmetric(
                                         vertical: 5), // Responsive padding
                                     backgroundColor: const Color(0xFF5a5664),

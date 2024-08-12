@@ -1,5 +1,6 @@
 import 'package:barfly_user/appConstants.dart';
 import 'package:barfly_user/commonFunctions.dart';
+import 'package:barfly_user/components/BottomNavigator.dart';
 import 'package:barfly_user/components/Buttons.dart';
 import 'package:barfly_user/models/EntityLiveOrders.dart';
 import 'package:barfly_user/return_obj.dart';
@@ -84,7 +85,7 @@ class _MenuQrScreenState extends State<MenuQrScreen> {
                           TextSpan(
                             text: "Your entity ",
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w900,
                                 fontFamily: 'Helvetica',
                                 fontSize: getResponsiveFontSize(
                                     screenWidth, screenHeight, 30)),
@@ -92,7 +93,7 @@ class _MenuQrScreenState extends State<MenuQrScreen> {
                           TextSpan(
                             text: "Tickets \n",
                             style: TextStyle(
-                                fontWeight: FontWeight.w200,
+                                fontWeight: FontWeight.w400,
                                 fontFamily: 'Helvetica',
                                 fontSize: getResponsiveFontSize(
                                     screenWidth, screenHeight, 30)),
@@ -110,8 +111,8 @@ class _MenuQrScreenState extends State<MenuQrScreen> {
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: getResponsiveFontSize(
-                              screenWidth, screenHeight, 25),
-                          fontWeight: FontWeight.w200,
+                              screenWidth, screenHeight, 20),
+                          fontWeight: FontWeight.w300,
                           fontFamily: 'Helvetica',
                         ),
                         textAlign: TextAlign.center,
@@ -165,6 +166,18 @@ class _MenuQrScreenState extends State<MenuQrScreen> {
                     );
                   }
                 },
+              ),
+            ),
+            Container(
+              alignment: Alignment.bottomCenter,
+              margin: const EdgeInsets.only(bottom: 30),
+              child: BottomNavigator(
+                onPressed: () => {},
+                text: "dsds",
+                imagePath: "sdsdsd",
+                widthofButton: 200,
+                heightofButton: 56,
+                borderRadius: 30,
               ),
             ),
           ],
