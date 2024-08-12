@@ -33,69 +33,39 @@ class InsiderScreen extends StatelessWidget {
                 SizedBox(
                   height: screenHeight * 0.04812,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Storage.removeOrderDetails();
-                    Storage.removeTotalOrderPrice();
-                    Navigator.pushNamed(context, "/home-screen");
-                  },
-                  child: Container(
-                    width: 34,
-                    height: 32,
-                    margin: const EdgeInsets.only(left: 16),
-                    decoration: BoxDecoration(
-                      color: AppColors.searchButtonBackgroundColor,
-                      borderRadius: BorderRadius.circular(
-                          12.0), // Adjust the radius as needed
-                    ),
-                    child: Center(
-                      child: IconButton(
-                        padding: const EdgeInsets.all(0),
-                        onPressed: () {
-                          Storage.removeOrderDetails();
-                          Storage.removeTotalOrderPrice();
-                          Navigator.pushNamed(context, "/home-screen");
-                        },
-                        icon: const Icon(
-                          Icons.chevron_left,
-                          color: AppColors.searchIconColor,
-                          size: 30,
-                        ),
-                      ),
-                    ),
+                Container(
+                  margin:
+                      EdgeInsets.symmetric(horizontal: screenWidth * 0.0407),
+                  child: GestureDetector(
+                    onTap: () {
+                      Storage.removeOrderDetails();
+                      Storage.removeTotalOrderPrice();
+                      Navigator.pushNamed(context, "/home-screen");
+                    },
+                    child: Container(
+                        width: 34,
+                        height: 32,
+                        child: Image.asset("back_button.png")),
                   ),
                 ),
                 SizedBox(
-                  height: getResponsiveSizedBoxHeight(screenHeight, 59),
+                  height: 39,
                 ),
                 Container(
-                  // margin: EdgeInsets.only(
-                  //     left: getResponsiveSizedBoxWidth(screenWidth, 32)),
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: RichText(
-                      text: TextSpan(
-                        style: TextStyle(
+                    margin:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.0407),
+                    child: const Text(
+                      "XTRA",
+                      style: TextStyle(
+                          fontFamily: "Helvetica",
                           color: Colors.white,
-                          fontFamily: 'Helvetica',
-                          fontSize: getResponsiveFontSize(
-                              screenWidth, screenHeight, 45),
-                        ),
-                        children: [
-                          TextSpan(
-                            text: entityName,
-                            style: const TextStyle(
-                              fontFamily: "Helvetica",
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                          fontSize: 45,
+                          height: 0.9,
+                          fontWeight: FontWeight.w800),
+                    )),
+
                 SizedBox(
-                  height: getResponsiveSizedBoxHeight(screenHeight, 20),
+                  height: 19,
                 ),
                 Expanded(
                   child: FutureBuilder(
@@ -108,71 +78,82 @@ class InsiderScreen extends StatelessWidget {
                       } else if (controller.counterLists.isEmpty) {
                         return const Center(child: Text('No data available'));
                       } else {
-                        return SingleChildScrollView(
-                          padding: const EdgeInsets.only(bottom: 40),
-                          child: Center(
-                            child: Wrap(
-                              spacing: 20,
-                              runSpacing: 22,
-                              children: [
-                                ...controller.counterLists.map((counter) {
-                                  return InsiderButton(
+                        return Expanded(
+                          child: SingleChildScrollView(
+                            padding: const EdgeInsets.only(bottom: 100),
+                            child: Align(
+                              alignment: screenWidth > 603
+                                  ? Alignment.centerLeft
+                                  : Alignment.center,
+                              child: Wrap(
+                                spacing: screenWidth < 393
+                                    ? screenWidth * 0.0610
+                                    : 24,
+                                runSpacing: 24,
+                                children: [
+                                  ...controller.counterLists.map((counter) {
+                                    return InsiderButton(
+                                      isCounter: true,
+                                      widthofButton: screenWidth < 393
+                                          ? screenWidth * 0.3867
+                                          : 152,
+                                      heightofButton: screenHeight < 852
+                                          ? 168
+                                          : screenHeight * 0.1971,
+                                      borderRadius: 20,
+                                      text: counter.counterName,
+                                      onPressed: () {
+                                        Navigator.pushNamed(
+                                            context, "/menu-category-screen",
+                                            arguments: {
+                                              "entityId": entityId,
+                                              "entityName": entityName,
+                                              "counterName":
+                                                  counter.counterName,
+                                              "counterId": counter.id
+                                            });
+                                      },
+                                      imagePath: "Icon_Counter.svg",
+                                      useSvg: true,
+                                      statusOpen: false,
+                                      statusSoon: true,
+                                    );
+                                  }).toList(),
+                                  InsiderButton(
+                                    isCounter: false,
                                     widthofButton: screenWidth < 393
-                                        ? screenWidth * 0.3857
+                                        ? screenWidth * 0.3867
                                         : 152,
                                     heightofButton: screenHeight < 852
                                         ? 168
-                                        : screenHeight * 0.2171,
-                                    borderRadius: 25,
-                                    text: counter.counterName,
+                                        : screenHeight * 0.1971,
+                                    borderRadius: 20,
+                                    text: "Feedback",
+                                    onPressed: () {},
+                                    imagePath: "Feedback.png",
+                                    useSvg: false,
+                                  ),
+                                  InsiderButton(
+                                    isCounter: false,
+                                    widthofButton: screenWidth < 393
+                                        ? screenWidth * 0.3867
+                                        : 152,
+                                    heightofButton: screenHeight < 852
+                                        ? 168
+                                        : screenHeight * 0.1971,
+                                    borderRadius: 20,
+                                    text: "Lounge",
+                                    imagePath: "Lounge.png",
+                                    useSvg: false,
                                     onPressed: () {
                                       Navigator.pushNamed(
-                                          context, "/menu-category-screen",
-                                          arguments: {
-                                            "entityId": entityId,
-                                            "entityName": entityName,
-                                            "counterName": counter.counterName,
-                                            "counterId": counter.id
-                                          });
+                                        context,
+                                        "/lounge-list-screen",
+                                      );
                                     },
-                                    imagePath: "Icon_Counter.svg",
-                                    useSvg: true,
-                                    statusOpen: false,
-                                    statusSoon: true,
-                                  );
-                                }).toList(),
-                                InsiderButton(
-                                  widthofButton: screenWidth < 393
-                                      ? screenWidth * 0.3857
-                                      : 152,
-                                  heightofButton: screenHeight < 852
-                                      ? 168
-                                      : screenHeight * 0.2171,
-                                  borderRadius: 25,
-                                  text: "Feedback",
-                                  onPressed: () {},
-                                  imagePath: "Feedback.png",
-                                  useSvg: false,
-                                ),
-                                InsiderButton(
-                                  widthofButton: screenWidth < 393
-                                      ? screenWidth * 0.3857
-                                      : 152,
-                                  heightofButton: screenHeight < 852
-                                      ? 168
-                                      : screenHeight * 0.2171,
-                                  borderRadius: 25,
-                                  text: "Lounge",
-                                  imagePath: "Lounge.png",
-                                  useSvg: false,
-                                  onPressed: () {
-                                    Navigator.pushNamed(
-                                      context,
-                                      "/lounge-list-screen",
-                                    );
-                                  },
-                                ),
-                              ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         );
@@ -202,7 +183,7 @@ class InsiderScreen extends StatelessWidget {
                 imagePath: "sdsdsd",
                 widthofButton: 200,
                 heightofButton: 56,
-                borderRadius: 30,
+                borderRadius: 20,
               ),
             ),
           ]),

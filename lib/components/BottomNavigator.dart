@@ -49,61 +49,59 @@ class BottomNavigator extends StatelessWidget {
   Widget build(BuildContext context) {
     print("$imagePath imsssssssss $useSvg");
     return SizedBox(
-      width: widthofButton,
-      height: heightofButton,
+      width: 196,
+      height: 56,
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: Color(0xFF34396e),
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(25),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () => {Navigator.pushNamed(context, "/ticket-screen")},
-              style: ElevatedButton.styleFrom(
-                elevation: 0,
-                padding: const EdgeInsets.all(0),
-                backgroundColor: Color(0xFF34396e),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () => {Navigator.pushNamed(context, "/ticket-screen")},
+                child: Container(
+                  // padding: EdgeInsets.symmetric(horizontal: 5),
+                  width: 40,
+                  height: 38,
+                  child: Image.asset(
+                    "ticket.png",
+                    color: Colors.white,
+                    fit: BoxFit.contain,
+                  ),
+                ),
               ),
-              child: Image.asset(
-                "ticket.png",
-                color: Colors.white,
-                width: 30,
-                height: 30,
+              GestureDetector(
+                onTap: () => {Navigator.pushNamed(context, "/home-screen")},
+                child: Container(
+                  // padding: EdgeInsets.symmetric(horizontal: 5),
+                  child: Image.asset(
+                    "Home.png",
+                    color: Colors.white,
+                    width: 30,
+                    height: 30,
+                  ),
+                ),
               ),
-            ),
-            ElevatedButton(
-              onPressed: () => {Navigator.pushNamed(context, "/home-screen")},
-              style: ElevatedButton.styleFrom(
-                elevation: 0,
-                padding: const EdgeInsets.all(0),
-                backgroundColor: Color(0xFF34396e),
+              GestureDetector(
+                onTap: () =>
+                    {Navigator.pushNamed(context, "/account-details-screen")},
+                child: Container(
+                  // padding: EdgeInsets.symmetric(horizontal: 5),
+                  child: Image.asset(
+                    "person.png",
+                    color: Colors.white,
+                    width: 30,
+                    height: 30,
+                  ),
+                ),
               ),
-              child: Image.asset(
-                "Home.png",
-                color: Colors.white,
-                width: 30,
-                height: 30,
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () =>
-                  {Navigator.pushNamed(context, "/account-details-screen")},
-              style: ElevatedButton.styleFrom(
-                elevation: 0,
-                padding: const EdgeInsets.all(0),
-                backgroundColor: Color(0xFF34396e),
-              ),
-              child: Image.asset(
-                "person.png",
-                color: Colors.white,
-                width: 30,
-                height: 30,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

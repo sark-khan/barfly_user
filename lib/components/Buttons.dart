@@ -214,6 +214,7 @@ class InsiderButton extends StatelessWidget {
   final bool useSvg;
   final bool statusOpen;
   final bool statusSoon;
+  final bool isCounter;
 
   const InsiderButton({
     Key? key,
@@ -232,6 +233,187 @@ class InsiderButton extends StatelessWidget {
     this.fontWeight = FontWeight.w300,
     this.verticalPadding = 15.0,
     this.horizontalPadding = 25.0,
+    this.isCounter = false,
+    this.buttonBackgroundColor = AppColors.backgroundColor,
+    this.gradient = const LinearGradient(
+      begin: Alignment.centerRight,
+      end: Alignment.centerLeft,
+      colors: [
+        Color(0xFF623E87), // Dark Blue
+        Color(0xFF473F88), // Blue/Purple
+      ],
+    ),
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    print("$imagePath imsssssssss $useSvg");
+    return SizedBox(
+      width: widthofButton,
+      height: heightofButton,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: gradient,
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+        child: ElevatedButton(
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.zero,
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius),
+            ),
+          ),
+          child: Container(
+            width: widthofButton,
+            padding: isCounter
+                ? EdgeInsets.only(left: 4)
+                : EdgeInsets.only(top: 16, left: 16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Positioned(
+                  top: -2,
+                  child: useSvg
+                      ? SvgPicture.asset(
+                          imagePath,
+                          color: Colors.white,
+                          fit: BoxFit.fill,
+                          height: 95,
+                          // scale: 5,
+                        )
+                      : Container(
+                          width: 66,
+                          height: 66,
+                          child: useSvg
+                              ? SvgPicture.asset(
+                                  imagePath,
+                                  color: Colors.white,
+                                  fit: BoxFit.fill,
+                                  // scale: 5,
+                                )
+                              : Image.asset(
+                                  imagePath,
+                                  color: Colors.white,
+                                  fit: BoxFit.contain,
+                                  // scale: 5,
+                                ),
+                        ),
+                ),
+                SizedBox(
+                  height: isCounter ? 25 : 56,
+                ),
+                Padding(
+                  padding: isCounter
+                      ? const EdgeInsets.symmetric(horizontal: 10)
+                      : EdgeInsets.zero,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Visibility(
+                        visible: statusOpen || statusSoon,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Align(
+                              alignment: Alignment.center,
+                              child: Icon(
+                                Icons.circle,
+                                color: statusOpen
+                                    ? Color(0xFF2CCB10)
+                                    : Color(0xFF696969),
+                                size: 6,
+                              ),
+                            ),
+                            const SizedBox(width: 3),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                margin: EdgeInsets.only(top: 2.5),
+                                child: Text(
+                                  statusOpen ? "open" : "open soon",
+                                  style: const TextStyle(
+                                    fontFamily: "Helvetica",
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 10,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: isCounter
+                      ? const EdgeInsets.only(left: 10.0)
+                      : EdgeInsets.zero,
+                  child: Text(
+                    text,
+                    // textAlign: TextAlign.end,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        // letterSpacing: 1.1,
+                        fontFamily: 'Helvetica',
+                        fontWeight: FontWeight.w600),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class InsiderButtonCounter extends StatelessWidget {
+  final String text;
+  final double fontSize;
+  final String imagePath;
+  final VoidCallback onPressed;
+  final Color textColor;
+  final Color buttonBackgroundColor;
+  final double heightofButton;
+  final double widthofButton;
+  final double borderRadius;
+  final FontWeight fontWeight;
+  final double verticalPadding;
+  final double horizontalPadding;
+  final Gradient gradient;
+  final bool isLoading;
+  final bool useSvg;
+  final bool statusOpen;
+  final bool statusSoon;
+  final bool isCounter;
+
+  const InsiderButtonCounter({
+    Key? key,
+    required this.text,
+    required this.onPressed,
+    required this.imagePath,
+    this.useSvg = false,
+    this.statusOpen = false,
+    this.statusSoon = false,
+    this.isLoading = true,
+    this.heightofButton = 70,
+    this.widthofButton = 240,
+    this.fontSize = 28,
+    this.textColor = Colors.white,
+    this.borderRadius = 8.0,
+    this.fontWeight = FontWeight.w300,
+    this.verticalPadding = 15.0,
+    this.horizontalPadding = 25.0,
+    this.isCounter = false,
     this.buttonBackgroundColor = AppColors.backgroundColor,
     this.gradient = const LinearGradient(
       begin: Alignment.centerLeft,
@@ -264,30 +446,40 @@ class InsiderButton extends StatelessWidget {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            padding: isCounter
+                ? EdgeInsets.zero
+                : const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Align(
                   alignment: Alignment.topLeft,
-                  child: Container(
-                    width: 66,
-                    height: 66,
-                    child: useSvg
-                        ? SvgPicture.asset(
-                            imagePath,
-                            color: Colors.white,
-                            fit: BoxFit.contain,
-                            // scale: 5,
-                          )
-                        : Image.asset(
-                            imagePath,
-                            color: Colors.white,
-                            fit: BoxFit.contain,
-                            // scale: 5,
-                          ),
-                  ),
+                  child: useSvg
+                      ? SvgPicture.asset(
+                          imagePath,
+                          color: Colors.white,
+                          fit: BoxFit.fill,
+                          height: 90,
+                          // scale: 5,
+                        )
+                      : Container(
+                          width: 66,
+                          height: 66,
+                          child: useSvg
+                              ? SvgPicture.asset(
+                                  imagePath,
+                                  color: Colors.white,
+                                  fit: BoxFit.fill,
+                                  // scale: 5,
+                                )
+                              : Image.asset(
+                                  imagePath,
+                                  color: Colors.white,
+                                  fit: BoxFit.contain,
+                                  // scale: 5,
+                                ),
+                        ),
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,

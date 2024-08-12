@@ -96,6 +96,8 @@ flutter:
         - asset: assets/fonts/HelveticaNeueMedium.otf
           weight: 500
         - asset: assets/fonts/HelveticaNeueBold.otf
+          weight: 600
+        - asset: assets/fonts/HelveticaNeue-CondensedBlack.ttf
           weight: 700
         - asset: assets/fonts/HelveticaNeueHeavy.otf
           weight: 800
