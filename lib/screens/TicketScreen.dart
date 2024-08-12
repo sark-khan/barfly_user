@@ -31,38 +31,49 @@ class TicketScreen extends StatelessWidget {
           final liveOrders = snapshot.data!.data;
 
           return Padding(
-            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.0814),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(height: screenHeight * 0.12),
-                RichText(
-                  text: TextSpan(
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize:
-                          getResponsiveFontSize(screenWidth, screenHeight, 35),
+                Container(
+                  width: 270,
+                  height: 55,
+                  padding:
+                      EdgeInsets.symmetric(horizontal: screenWidth * 0.035),
+                  child: FittedBox(
+                    fit: BoxFit.fill,
+                    child: RichText(
+                      text: const TextSpan(
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: "Your ",
+                            style: TextStyle(
+                                fontSize: 50,
+                                letterSpacing: -3,
+                                fontWeight: FontWeight.w800,
+                                fontFamily: "Helvetica"),
+                          ),
+                          TextSpan(
+                            text: "Tickets",
+                            style: TextStyle(
+                                fontSize: 50,
+                                letterSpacing: -3,
+                                fontWeight: FontWeight.w800,
+                                fontFamily: "Helvetica"),
+                          ),
+                        ],
+                      ),
                     ),
-                    children: [
-                      TextSpan(
-                        text: "Your ",
-                        style: TextStyle(
-                            fontSize: 50,
-                            fontWeight: FontWeight.w900,
-                            fontFamily: "Helvetica"),
-                      ),
-                      TextSpan(
-                        text: "Tickets",
-                        style: TextStyle(
-                            fontSize: 50,
-                            fontWeight: FontWeight.w900,
-                            fontFamily: "Helvetica"),
-                      ),
-                    ],
                   ),
                 ),
-                SizedBox(height: screenHeight * 0.02),
+                const SizedBox(
+                  height: 13,
+                ),
                 Expanded(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.only(bottom: 40),
@@ -83,62 +94,53 @@ class TicketScreen extends StatelessWidget {
                                           .split(" ")[0]
                                           .replaceAll("-", ".")
                                       : 'No Date',
-                                  text3: '${order.orderCount} active tickets',
+                                  text3: '${order.orderCount} active ticket',
                                   onPressed: () => {
                                     Navigator.pushNamed(context, "/qr-screen",
                                         arguments: {
                                           "entityId": order.entityDetails.id
                                         })
                                   },
-                                  widthofButton: screenWidth * 0.834,
-                                  heightofButton: 0.123 * screenHeight,
+                                  widthofButton: 328,
+                                  heightofButton: 88,
                                   borderRadius: 20,
                                   isLoading: false,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                   height: 20), // Adjust the height as needed
                             ],
                           );
                         }).toList(),
                         Center(
-                          child: IntrinsicHeight(
-                            child: SizedBox(
-                              width:
-                                  screenWidth * 0.5, // Adjust width as needed
-                              child: Center(
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.pushNamed(
-                                        context, "/ticket-year-screen");
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    elevation: 0,
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 5), // Responsive padding
-                                    backgroundColor: const Color(0xFF5a5664),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      side: const BorderSide(
-                                          color: Colors.white, width: 1),
-                                    ),
-                                  ),
-                                  child: Container(
-                                    width: 160,
-                                    height: 57,
-                                    child: const FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      child: Center(
-                                        child: Text(
-                                          'Past Tickets',
-                                          style: TextStyle(
-                                            fontFamily: "Helvetica",
-                                            color: Colors.white,
-                                            fontSize: 23,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, "/ticket-year-screen");
+                            },
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              padding: EdgeInsets.zero, // Responsive padding
+                              backgroundColor: const Color(0xFF5a5664),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25),
+                                side: const BorderSide(
+                                    color: Colors.white, width: 1),
+                              ),
+                            ),
+                            child: Container(
+                              width: 160,
+                              height: 57,
+                              child: const FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Center(
+                                  child: Text(
+                                    'Past Tickets',
+                                    style: TextStyle(
+                                      fontFamily: "Helvetica",
+                                      color: Colors.white,
+                                      fontSize: 23,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ),

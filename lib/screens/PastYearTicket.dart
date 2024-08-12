@@ -64,34 +64,30 @@ class PastYearTicketScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 40),
-            Center(
-              child: RichText(
-                textAlign: TextAlign.center,
-                text: const TextSpan(
+            const SizedBox(height: 40),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Past ",
                   style: TextStyle(
-                    color: Colors.white,
-                  ),
-                  children: [
-                    const TextSpan(
-                      text: "Past  ",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w800,
-                          fontSize: 30,
-                          fontFamily: 'Helvetica'),
-                    ),
-                    const TextSpan(
-                      text: "Tickets\n",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w300,
-                          fontSize: 30,
-                          fontFamily: 'Helvetica'),
-                    ),
-                  ],
+                      fontWeight: FontWeight.w800,
+                      fontSize: 30,
+                      fontFamily: 'Helvetica',
+                      color: Colors.white),
                 ),
-              ),
+                Text(
+                  "Tickets",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 30,
+                      fontFamily: 'Helvetica',
+                      color: Colors.white),
+                )
+              ],
             ),
-            SizedBox(height: screenHeight * 0.02),
+            const SizedBox(height: 43),
             Expanded(
               child: FutureBuilder<ReturnObj<List<PreviosuOrdersList>>>(
                 future: Apiservice()
@@ -124,8 +120,8 @@ class PastYearTicketScreen extends StatelessWidget {
                                     context, "/past-ticket-screen");
                                 // Navigate to another screen or perform an action for the year
                               },
-                              widthofButton: screenWidth * 0.834,
-                              heightofButton: 0.123 * screenHeight,
+                              widthofButton: 328,
+                              heightofButton: 88,
                               borderRadius: 20,
                               isLoading: false,
                             ),
