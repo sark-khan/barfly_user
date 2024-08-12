@@ -89,40 +89,24 @@ class _MenuItemsScreenState extends State<MenuItemsScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(height: screenHeight * 0.04812),
+              SizedBox(height: screenHeight * 0.06912),
               GestureDetector(
                 onTap: () {
                   Get.delete<MenuItemsController>();
+                  Storage.removeOrderDetails();
+                  Storage.removeTotalOrderPrice();
                   Navigator.pop(context);
                 },
                 child: Container(
-                  width: 34,
-                  height: 32,
-                  decoration: BoxDecoration(
-                    color: AppColors.searchButtonBackgroundColor,
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: Center(
-                    child: IconButton(
-                      padding: const EdgeInsets.all(0),
-                      onPressed: () {
-                        Get.delete<MenuItemsController>();
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(
-                        Icons.chevron_left,
-                        color: AppColors.searchIconColor,
-                        size: 30,
-                      ),
-                    ),
-                  ),
-                ),
+                    width: 34,
+                    height: 32,
+                    child: Image.asset("back_button.png")),
               ),
               SizedBox(height: getResponsiveSizedBoxHeight(screenHeight, 59)),
               Container(
-                margin: EdgeInsets.only(
-                    left: getResponsiveSizedBoxWidth(screenWidth, 32)),
+                margin: EdgeInsets.only(left: screenWidth * 0.0814),
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(
@@ -137,7 +121,7 @@ class _MenuItemsScreenState extends State<MenuItemsScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: getResponsiveSizedBoxHeight(screenHeight, 18)),
+              SizedBox(height: 10),
               Expanded(
                 child: Obx(() {
                   if (controller.isLoading.value) {

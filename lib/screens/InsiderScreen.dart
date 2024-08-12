@@ -54,8 +54,8 @@ class InsiderScreen extends StatelessWidget {
                 Container(
                     margin:
                         EdgeInsets.symmetric(horizontal: screenWidth * 0.0407),
-                    child: const Text(
-                      "XTRA",
+                    child: Text(
+                      entityName,
                       style: TextStyle(
                           fontFamily: "Helvetica",
                           color: Colors.white,

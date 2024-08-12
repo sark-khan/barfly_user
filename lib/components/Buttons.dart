@@ -300,6 +300,7 @@ class InsiderButton extends StatelessWidget {
                                   imagePath,
                                   color: Colors.white,
                                   fit: BoxFit.contain,
+                                  height: 95,
                                   // scale: 5,
                                 ),
                         ),
@@ -674,7 +675,7 @@ class _MenuItemsButtonState extends State<MenuItemsButton> {
                         child: Padding(
                           padding: EdgeInsets.only(left: 4),
                           child:
-                              Icon(Icons.star, color: Colors.amber, size: 24),
+                              Icon(Icons.star, color: Colors.black, size: 24),
                         ),
                       ),
                       Image.asset(
@@ -698,7 +699,7 @@ class _MenuItemsButtonState extends State<MenuItemsButton> {
                       FittedBox(
                         fit: BoxFit.scaleDown,
                         child: Text(
-                          "${widget.currency} ${widget.price} / ${widget.weightOrVolume}",
+                          "${widget.currency} ${widget.price}.00 / ${widget.weightOrVolume}",
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             fontFamily: "Helvetica",
@@ -716,9 +717,9 @@ class _MenuItemsButtonState extends State<MenuItemsButton> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           CustomButtonStroked(
-                            borderRadius: 5,
+                            borderRadius: 3,
                             text: "+",
-                            fontSize: 30,
+                            fontSize: 25,
                             onPressed: _addSelectedQuantity,
                             widthofButton: 58,
                             heightofButton: 33,
@@ -730,7 +731,7 @@ class _MenuItemsButtonState extends State<MenuItemsButton> {
                           CustomButtonStroked(
                             borderRadius: 5,
                             text: "-",
-                            fontSize: 30,
+                            fontSize: 40,
                             onPressed: _subtractSelectedQuantity,
                             widthofButton: 58,
                             heightofButton: 33,
@@ -830,25 +831,17 @@ class CustomButtonStroked extends StatelessWidget {
               color: Colors.white,
             ),
             backgroundColor: backgroundColor),
-        child: Container(
-          alignment: Alignment.center,
-          child: Padding(
-            padding: EdgeInsets.zero,
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Text(
-                text,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: "Helvetica",
-                  color: Colors.white,
-                  fontSize: fontSize,
-                  fontWeight: FontWeight.w900,
+        child: Text(
+          text,
+          // textAlign: TextAlign.center,
+          style: TextStyle(
+            height: -20,
+            fontFamily: "Helvetica",
+            color: Colors.white,
+            fontSize: 33,
+            fontWeight: FontWeight.w500,
 
-                  // backgroundColor: Color(0xFF2ac4aa)
-                ),
-              ),
-            ),
+            // backgroundColor: Color(0xFF2ac4aa)
           ),
         ),
       ),
@@ -1316,11 +1309,12 @@ class TicketDateButton extends StatelessWidget {
                           children: [
                             Flexible(
                               child: Text(
-                                text1,
+                                "XTRA",
                                 style: const TextStyle(
                                   fontFamily: "Helvetica",
                                   color: Colors.white,
                                   fontSize: 30,
+                                  letterSpacing: 1,
                                   fontWeight: FontWeight.w700,
                                 ),
                                 softWrap: true,
@@ -1674,42 +1668,51 @@ class TicketQrButton extends StatelessWidget {
     final itemWidgets = order.items.map((item) {
       return Padding(
         padding: const EdgeInsets.only(bottom: 8.0),
-        child: Row(
+        child: Column(
           children: [
-            Container(
-              padding: EdgeInsets.all(3.0), // Adjust padding as needed
-              decoration: BoxDecoration(
-                color: Colors.transparent, // Background color of the box
-                borderRadius: BorderRadius.circular(8.0), // Rounded corners
-                border: Border.all(
-                  color: Colors.white, // Border color
-                  width: 1.0, // Border width
-                ),
-              ),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
-                child: Center(
-                  child: Text(
-                    "${item.quantity.toString()}x",
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.w300,
-                        fontFamily: 'Helvetica'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(0.0), // Adjust padding as needed
+                  decoration: BoxDecoration(
+                    color: Colors.transparent, // Background color of the box
+                    borderRadius: BorderRadius.circular(8.0), // Rounded corners
+                    border: Border.all(
+                      color: Colors.white, // Border color
+                      width: 1.5, // Border width
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 3, right: 7, left: 7),
+                    child: Text(
+                      "${item.quantity.toString()}x",
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w300,
+                          fontFamily: 'Helvetica'),
+                    ),
                   ),
                 ),
-              ),
+                const SizedBox(width: 9.0),
+                Container(
+                  margin: EdgeInsets.only(top: 10),
+                  child: Text(
+                    item.itemId.itemName,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Helvetica',
+                    ),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(width: 9.0),
-            Text(
-              item.itemId.itemName,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 30,
-                fontWeight: FontWeight.w300,
-                fontFamily: 'Helvetica',
-              ),
+            SizedBox(
+              height: 0,
             ),
           ],
         ),
@@ -1816,20 +1819,24 @@ class TicketQrButton extends StatelessWidget {
                                 Container(
                                   child: const Icon(
                                     Icons.circle,
-                                    size: 24,
+                                    size: 19,
                                     color: Color(0xFFF4AA05),
                                   ),
                                 ),
                                 SizedBox(width: 5),
-                                const Text(
-                                  "In Process",
-                                  style: TextStyle(
-                                    fontFamily: "Helvetica",
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.white,
-                                    fontSize: 17,
+                                Container(
+                                  padding: EdgeInsets.only(top: 4.5),
+                                  child: const Text(
+                                    "In process",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontFamily: "Helvetica",
+                                      fontWeight: FontWeight.w300,
+                                      color: Colors.white,
+                                      fontSize: 17,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ],
                             ),

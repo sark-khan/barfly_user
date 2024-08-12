@@ -39,75 +39,36 @@ class Menuscreen extends StatelessWidget {
               SizedBox(
                 height: screenHeight * 0.04812,
               ),
-              GestureDetector(
-                onTap: () {
-                  Get.delete<MenuCategoryController>();
-                  Storage.removeOrderDetails();
-                  Storage.removeTotalOrderPrice();
-                  Navigator.pop(context);
-                  // Navigator.pushNamed(context, "/insider-screen", arguments: {
-                  //   "entityId": entityId,
-                  //   "entityName": entityName
-                  // });
-                },
-                child: Container(
-                  width: 34,
-                  height: 32,
-                  margin: const EdgeInsets.only(left: 16),
-                  decoration: BoxDecoration(
-                    color: AppColors.searchButtonBackgroundColor,
-                    borderRadius: BorderRadius.circular(
-                        12.0), // Adjust the radius as needed
-                  ),
-                  child: Center(
-                    child: IconButton(
-                        padding: const EdgeInsets.all(0),
-                        onPressed: () {
-                          Get.delete<MenuCategoryController>();
-                          Storage.removeOrderDetails();
-                          Storage.removeTotalOrderPrice();
-                          Navigator.pop(context);
-                          // Navigator.pushNamed(context, "/insider-screen",
-                          //     arguments: {
-                          //       "entityId": entityId,
-                          //       "entityName": entityName
-                          //     });
-                        },
-                        icon: const Icon(
-                          Icons.chevron_left,
-                          color: AppColors.searchIconColor,
-                          size: 30,
-                        )),
-                  ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.0407),
+                child: GestureDetector(
+                  onTap: () {
+                    Get.delete<MenuCategoryController>();
+                    Storage.removeOrderDetails();
+                    Storage.removeTotalOrderPrice();
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                      width: 34,
+                      height: 32,
+                      child: Image.asset("back_button.png")),
                 ),
               ),
               SizedBox(
                 height: getResponsiveSizedBoxHeight(screenHeight, 59),
               ),
               Container(
-                margin: EdgeInsets.only(
-                    left: getResponsiveSizedBoxWidth(screenWidth, 32)),
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: RichText(
-                    text: TextSpan(
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Helvetica',
-                          fontSize: getResponsiveFontSize(
-                              screenWidth, screenHeight, 40)),
-                      children: [
-                        TextSpan(
-                          text: counterName,
-                          style: TextStyle(
-                              fontFamily: "Helvetica",
-                              fontWeight: FontWeight.w800),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+                  margin:
+                      EdgeInsets.symmetric(horizontal: screenWidth * 0.0407),
+                  child: Text(
+                    counterName,
+                    style: TextStyle(
+                        fontFamily: "Helvetica",
+                        color: Colors.white,
+                        fontSize: 45,
+                        height: 0.9,
+                        fontWeight: FontWeight.w800),
+                  )),
               SizedBox(
                 height: getResponsiveSizedBoxHeight(screenHeight, 13),
               ),
@@ -123,60 +84,66 @@ class Menuscreen extends StatelessWidget {
                       return Center(child: Text('No data available'));
                     } else {
                       return SingleChildScrollView(
-                        padding: const EdgeInsets.only(bottom: 40),
-                        child: Wrap(
-                          spacing: 24,
-                          runSpacing: 20,
-                          children: [
-                            ...controller.menuLists.map((menu) {
-                              return InsiderButton(
+                        padding: const EdgeInsets.only(bottom: 100),
+                        child: Align(
+                          alignment: screenWidth > 603
+                              ? Alignment.centerLeft
+                              : Alignment.center,
+                          child: Wrap(
+                            spacing:
+                                screenWidth < 393 ? screenWidth * 0.0610 : 24,
+                            runSpacing: 24,
+                            children: [
+                              ...controller.menuLists.map((menu) {
+                                return InsiderButton(
+                                  widthofButton: screenWidth < 393
+                                      ? screenWidth * 0.3867
+                                      : 152,
+                                  heightofButton: screenHeight < 852
+                                      ? 168
+                                      : screenHeight * 0.1971,
+                                  borderRadius: 20,
+                                  text: menu.name,
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                        context, "/menu-items-screen",
+                                        arguments: {
+                                          "menuId": menu.id,
+                                          "menuCategoryName": menu.name
+                                        });
+                                  },
+                                  imagePath: "SoftDrinks.png", // Example path
+                                  useSvg: menu.icon.endsWith(".svg"),
+                                );
+                              }).toList(),
+                              // InsiderButton(
+                              //   widthofButton: screenWidth < 393
+                              //       ? screenWidth * 0.3857
+                              //       : 152,
+                              //   heightofButton: screenHeight < 852
+                              //       ? 168
+                              //       : screenHeight * 0.2171,
+                              //   borderRadius: 20,
+                              //   text: "Feedback",
+                              //   onPressed: () {},
+                              //   imagePath: "Feedback.png", // Example path
+                              //   useSvg: false, // Flag to use SVG
+                              // ),
+                              InsiderButton(
                                 widthofButton: screenWidth < 393
-                                    ? screenWidth * 0.3857
+                                    ? screenWidth * 0.3867
                                     : 152,
                                 heightofButton: screenHeight < 852
                                     ? 168
-                                    : screenHeight * 0.2171,
+                                    : screenHeight * 0.1971,
                                 borderRadius: 20,
-                                text: menu.name,
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, "/menu-items-screen",
-                                      arguments: {
-                                        "menuId": menu.id,
-                                        "menuCategoryName": menu.name
-                                      });
-                                },
-                                imagePath: "resizedImage.png", // Example path
-                                useSvg: menu.icon.endsWith(".svg"),
-                              );
-                            }).toList(),
-                            // InsiderButton(
-                            //   widthofButton: screenWidth < 393
-                            //       ? screenWidth * 0.3857
-                            //       : 152,
-                            //   heightofButton: screenHeight < 852
-                            //       ? 168
-                            //       : screenHeight * 0.2171,
-                            //   borderRadius: 20,
-                            //   text: "Feedback",
-                            //   onPressed: () {},
-                            //   imagePath: "Feedback.png", // Example path
-                            //   useSvg: false, // Flag to use SVG
-                            // ),
-                            InsiderButton(
-                              widthofButton: screenWidth < 393
-                                  ? screenWidth * 0.3857
-                                  : 152,
-                              heightofButton: screenHeight < 852
-                                  ? 168
-                                  : screenHeight * 0.2171,
-                              borderRadius: 20,
-                              text: "Favorites",
-                              onPressed: () {},
-                              imagePath: "favorites.png", // Example path
-                              useSvg: false, // Flag to use SVG
-                            ),
-                          ],
+                                text: "Favorites",
+                                onPressed: () {},
+                                imagePath: "favorites.png", // Example path
+                                useSvg: false, // Flag to use SVG
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     }
