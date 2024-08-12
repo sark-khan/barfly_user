@@ -68,22 +68,24 @@ class PastYearTicketScreen extends StatelessWidget {
             Center(
               child: RichText(
                 textAlign: TextAlign.center,
-                text: TextSpan(
+                text: const TextSpan(
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize:
-                        getResponsiveFontSize(screenWidth, screenHeight, 30),
                   ),
                   children: [
                     const TextSpan(
                       text: "Past  ",
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                          fontWeight: FontWeight.w800,
+                          fontSize: 30,
+                          fontFamily: 'Helvetica'),
                     ),
                     const TextSpan(
                       text: "Tickets\n",
-                      style: TextStyle(fontWeight: FontWeight.w100),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 30,
+                          fontFamily: 'Helvetica'),
                     ),
                   ],
                 ),

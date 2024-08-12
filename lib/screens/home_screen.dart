@@ -90,16 +90,46 @@ class HomeScreen extends StatelessWidget {
                     ? const SizedBox(
                         height: 0,
                       )
-                    : Container(
-                        padding: const EdgeInsets.only(left: 16),
-                        child: const Text(AppText.Favorites,
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontFamily: "Helvetica",
-                              fontSize: 40,
-                              fontWeight: FontWeight.w900,
-                              color: Colors.white,
-                            )))),
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                              padding: const EdgeInsets.only(left: 16),
+                              child: const Text(AppText.MostPopular,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    fontFamily: "Helvetica",
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w900,
+                                    color: Colors.white,
+                                  ))),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                  padding: const EdgeInsets.only(left: 16),
+                                  child: const Text(AppText.Favorites,
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontFamily: "Helvetica",
+                                        fontSize: 40,
+                                        fontWeight: FontWeight.w900,
+                                        color: Colors.white,
+                                      ))),
+                              const Padding(
+                                padding: EdgeInsets.all(7.0),
+                                child: Icon(
+                                  Icons.star,
+                                  color: Colors.white,
+                                  size: 42,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      )),
                 const SizedBox(
                   height: 13,
                 ),
@@ -108,12 +138,12 @@ class HomeScreen extends StatelessWidget {
                     future: controller.fetchEntities(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       } else if (snapshot.hasError) {
                         return Center(child: Text('Error: ${snapshot.error}'));
                       } else if (controller.ongoingEvents.isEmpty &&
                           controller.remainingEvents.isEmpty) {
-                        return Center(child: Text('No data available'));
+                        return const Center(child: Text('No data available'));
                       } else {
                         return SingleChildScrollView(
                           child: Wrap(

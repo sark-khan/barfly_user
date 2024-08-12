@@ -91,25 +91,26 @@ class _PastTicketScreenState extends State<PastTicketScreen> {
                     const TextSpan(
                       text: "Past ",
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 30,
                       ),
                     ),
                     const TextSpan(
                       text: "Tickets\n",
-                      style: TextStyle(fontWeight: FontWeight.w100),
+                      style:
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 30),
                     ),
                     WidgetSpan(
                       child: Container(
                         width: double.infinity, // Take up full width
-                        child: Align(
+                        child: const Align(
                           alignment: Alignment.center,
                           child: Text(
                             "2024",
                             style: TextStyle(
-                                fontWeight: FontWeight.w100,
+                                fontWeight: FontWeight.w500,
                                 color: Colors.white,
-                                fontSize: getResponsiveFontSize(
-                                    screenWidth, screenHeight, 30)),
+                                fontSize: 20),
                           ),
                         ),
                       ),

@@ -89,7 +89,7 @@ class FavorotiesButton extends StatelessWidget {
                     ),
                   )
                 : Padding(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                         top: 16, left: 16, right: 16, bottom: 5),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -107,16 +107,16 @@ class FavorotiesButton extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.location_on,
                                       size: 24,
                                       color: Colors.black,
                                     ),
-                                    SizedBox(width: 5),
+                                    const SizedBox(width: 5),
                                     Expanded(
                                       child: Text(
                                         location,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontFamily: "Helvetica",
                                           fontWeight: FontWeight.w300,
                                           color: Colors.white,
@@ -128,15 +128,33 @@ class FavorotiesButton extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              Flexible(
-                                flex: 1,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Visibility(
+                              const SizedBox(width: 20),
+                              const Icon(Icons.star,
+                                  color: Colors.black, size: 24),
+                            ],
+                          ),
+                        ),
+                        Flexible(
+                          flex: 1,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Visibility(
+                                    visible: status,
+                                    child: const Icon(Icons.circle,
+                                        color: Colors.green, size: 16),
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Align(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Visibility(
                                       visible: status,
-                                      child: Text(
+                                      child: const Text(
                                         "Open",
                                         style: TextStyle(
                                           fontFamily: "Helvetica",
@@ -146,17 +164,8 @@ class FavorotiesButton extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(width: 5),
-                                    Visibility(
-                                      visible: status,
-                                      child: Icon(Icons.circle,
-                                          color: Colors.green, size: 16),
-                                    ),
-                                    SizedBox(width: 20),
-                                    Icon(Icons.star,
-                                        color: Colors.black, size: 24),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -169,7 +178,7 @@ class FavorotiesButton extends StatelessWidget {
                               padding: const EdgeInsets.only(left: 4),
                               child: Text(
                                 entityName,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontFamily: "Helvetica",
                                     color: Colors.white,
                                     fontSize: 30),
@@ -203,6 +212,8 @@ class InsiderButton extends StatelessWidget {
   final Gradient gradient;
   final bool isLoading;
   final bool useSvg;
+  final bool statusOpen;
+  final bool statusSoon;
 
   const InsiderButton({
     Key? key,
@@ -210,6 +221,8 @@ class InsiderButton extends StatelessWidget {
     required this.onPressed,
     required this.imagePath,
     this.useSvg = false,
+    this.statusOpen = false,
+    this.statusSoon = false,
     this.isLoading = true,
     this.heightofButton = 70,
     this.widthofButton = 240,
@@ -276,11 +289,68 @@ class InsiderButton extends StatelessWidget {
                           ),
                   ),
                 ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Visibility(
+                          visible: statusOpen,
+                          child: const Icon(Icons.circle,
+                              color: Colors.green, size: 14),
+                        ),
+                        Visibility(
+                          visible: statusSoon,
+                          child: const Icon(Icons.circle,
+                              color: Color(0xFF696969), size: 14),
+                        ),
+                        const SizedBox(width: 5),
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Visibility(
+                            visible: statusOpen,
+                            child: const Text(
+                              "open",
+                              style: TextStyle(
+                                fontFamily: "Helvetica",
+                                fontWeight: FontWeight.w300,
+                                fontSize: 14,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Visibility(
+                            visible: statusSoon,
+                            child: const Text(
+                              "open soon",
+                              style: TextStyle(
+                                fontFamily: "Helvetica",
+                                fontWeight: FontWeight.w300,
+                                fontSize: 14,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
                 Align(
                   alignment: Alignment.bottomLeft,
                   child: Text(
                     text,
-                    style: const TextStyle(color: Colors.white, fontSize: 15),
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontFamily: 'Helvetica',
+                        fontWeight: FontWeight.w700),
                   ),
                 )
               ],
@@ -828,28 +898,15 @@ class TicketButton extends StatelessWidget {
                 : Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 16, horizontal: 16),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                text,
-                                style: TextStyle(
-                                    fontFamily: "Helvetica",
-                                    color: Colors.white,
-                                    fontSize: getResponsiveFontSize(
-                                        screenWidth, screenHeight, 30)),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                    child: Center(
+                      child: Text(
+                        text,
+                        style: const TextStyle(
+                            fontFamily: "Helvetica",
+                            color: Colors.white,
+                            fontSize: 45,
+                            fontWeight: FontWeight.w700),
+                      ),
                     ),
                   ),
           ),
@@ -927,7 +984,7 @@ class TicketYearButton extends StatelessWidget {
               child: Container(
                 width: widthofButton,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(15.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment
@@ -936,18 +993,18 @@ class TicketYearButton extends StatelessWidget {
                       // Column directly for vertical stacking
                       Text(
                         text1,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w700,
+                            fontSize: 30,
+                            fontWeight: FontWeight.w800,
                             fontFamily: 'Helvetica'),
                       ),
                       Text(
                         text2,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w200,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w300,
                             fontFamily: 'Helvetica'),
                       ),
                     ],
@@ -1052,12 +1109,12 @@ class TicketDateButton extends StatelessWidget {
                           children: [
                             Flexible(
                               child: Text(
-                                "ifyyjhfhfjhvgh jkhgukhjklhl ,mnbjklhlhlk ,.nljhlhil",
+                                text1,
                                 style: const TextStyle(
                                   fontFamily: "Helvetica",
                                   color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w700,
                                 ),
                                 softWrap: true,
                               ),
@@ -1084,7 +1141,7 @@ class TicketDateButton extends StatelessWidget {
                             style: const TextStyle(
                               fontFamily: "Helvetica",
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 25,
                               fontWeight: FontWeight.w200,
                             ),
                           ),

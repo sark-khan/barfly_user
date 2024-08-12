@@ -9,6 +9,7 @@ class AppColors {
 }
 
 class AppText {
+  static const String MostPopular = "Most Popular";
   static const String Favorites = "Favorites";
   static const String OrderOverView = "Order Overview";
   static const String login = "Login";
