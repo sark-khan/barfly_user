@@ -26,31 +26,17 @@ class PastYearTicketScreen extends StatelessWidget {
             SizedBox(height: screenHeight * 0.08),
             Row(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    width: 34,
-                    height: 32,
-                    margin: const EdgeInsets.only(left: 16),
-                    decoration: BoxDecoration(
-                      color: AppColors.searchButtonBackgroundColor,
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    child: Center(
-                      child: IconButton(
-                        padding: const EdgeInsets.all(0),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(
-                          Icons.chevron_left,
-                          color: AppColors.searchIconColor,
-                          size: 30,
-                        ),
-                      ),
-                    ),
+                Container(
+                  margin:
+                      EdgeInsets.symmetric(horizontal: screenWidth * 0.0407),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                        width: 34,
+                        height: 32,
+                        child: Image.asset("back_button.png")),
                   ),
                 ),
                 SizedBox(
@@ -64,7 +50,7 @@ class PastYearTicketScreen extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 30),
             const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

@@ -1071,57 +1071,52 @@ class TicketButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
     return ConstrainedBox(
       constraints: BoxConstraints(
-        minWidth: 350,
-        maxWidth: 350,
+        minWidth: 328,
+        maxWidth: 328,
       ),
-      child: IntrinsicHeight(
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            gradient: gradient,
-            borderRadius: BorderRadius.circular(borderRadius),
-          ),
-          child: ElevatedButton(
-            onPressed: onPressed,
-            style: ElevatedButton.styleFrom(
-              elevation: 0,
-              padding: EdgeInsets.all(0),
-              backgroundColor: Colors.transparent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(borderRadius),
-              ),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: gradient,
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+        child: ElevatedButton(
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+            elevation: 0,
+            padding: EdgeInsets.all(0),
+            backgroundColor: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius),
             ),
-            child: isLoading
-                ? Shimmer.fromColors(
-                    baseColor: Color(0xFF623E87),
-                    highlightColor: Color(0xFF473F88),
-                    child: Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(borderRadius),
-                      ),
-                    ),
-                  )
-                : Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16, horizontal: 16),
-                    child: Center(
-                      child: Text(
-                        text,
-                        style: const TextStyle(
-                            fontFamily: "Helvetica",
-                            color: Colors.white,
-                            fontSize: 45,
-                            fontWeight: FontWeight.w800),
-                      ),
+          ),
+          child: isLoading
+              ? Shimmer.fromColors(
+                  baseColor: Color(0xFF623E87),
+                  highlightColor: Color(0xFF473F88),
+                  child: Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(borderRadius),
                     ),
                   ),
-          ),
+                )
+              : Container(
+                  height: heightofButton,
+                  alignment: Alignment.center,
+                  child: Text(
+                    text,
+                    style: const TextStyle(
+                        fontFamily: "Helvetica",
+                        color: Colors.white,
+                        fontSize: 45,
+                        height: 2.14,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
         ),
       ),
     );
@@ -1337,7 +1332,7 @@ class TicketDateButton extends StatelessWidget {
                                   color: Colors.white,
                                   height: 1,
                                   fontSize: 30,
-                                  fontWeight: FontWeight.w800,
+                                  fontWeight: FontWeight.w600,
                                 ),
                                 softWrap: true,
                               ),
@@ -1346,7 +1341,7 @@ class TicketDateButton extends StatelessWidget {
                               flex: 1,
                               child: Text(
                                 textAlign: TextAlign.end,
-                                text2,
+                                "12.08.2024",
                                 style: const TextStyle(
                                   fontFamily: "Helvetica",
                                   color: Colors.white,

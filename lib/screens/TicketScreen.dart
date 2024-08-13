@@ -39,7 +39,7 @@ class TicketScreen extends StatelessWidget {
                 SizedBox(height: screenHeight * 0.12),
                 Container(
                   width: 270,
-                  height: 55,
+                  height: 53,
                   padding:
                       EdgeInsets.symmetric(horizontal: screenWidth * 0.035),
                   child: FittedBox(
@@ -87,7 +87,7 @@ class TicketScreen extends StatelessWidget {
                             children: [
                               Center(
                                 child: TicketDateButton(
-                                  text1: "${order.entityDetails.entityName} ",
+                                  text1: "XTRA",
                                   text2: order.orders.isNotEmpty
                                       ? order.orders.first.updatedAt
                                           .toString()
@@ -113,35 +113,33 @@ class TicketScreen extends StatelessWidget {
                           );
                         }).toList(),
                         Center(
-                          child: ElevatedButton(
-                            onPressed: () {
+                          child: InkWell(
+                            onTap: () {
                               Navigator.pushNamed(
                                   context, "/ticket-year-screen");
                             },
-                            style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                              padding: EdgeInsets.zero, // Responsive padding
-                              backgroundColor: const Color(0xFF5a5664),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25),
-                                side: const BorderSide(
-                                    color: Colors.white, width: 1),
-                              ),
-                            ),
                             child: Container(
                               width: 160,
                               height: 57,
-                              child: const FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: Center(
-                                  child: Text(
-                                    'Past Tickets',
-                                    style: TextStyle(
-                                      fontFamily: "Helvetica",
-                                      color: Colors.white,
-                                      fontSize: 23,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                              decoration: BoxDecoration(
+                                color:
+                                    const Color(0xFF5a5664), // Background color
+                                borderRadius: BorderRadius.circular(
+                                    20), // Rounded corners
+                                border: Border.all(
+                                    color: Colors.white,
+                                    width: 1), // Border style
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  'Past Tickets',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontFamily: "Helvetica",
+                                    color: Colors.white,
+                                    fontSize: 23,
+                                    height: 2.55,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                               ),
