@@ -58,12 +58,14 @@ class Entity {
   String city;
   String entityName;
   String entityType;
+  bool isFavourite;
 
   Entity({
     required this.id,
     required this.city,
     required this.entityName,
     required this.entityType,
+    this.isFavourite = false,
   });
 
   factory Entity.fromJson(Map<String, dynamic> json) => Entity(

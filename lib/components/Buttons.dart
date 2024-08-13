@@ -1,21 +1,25 @@
 import 'package:barfly_user/appConstants.dart';
 import 'package:barfly_user/commonFunctions.dart';
+import 'package:barfly_user/controller/home_controller.dart';
 import 'package:barfly_user/models/EntityLiveOrders.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/state_manager.dart';
 import 'package:get/utils.dart';
 import 'package:shimmer/shimmer.dart';
 
 double _currentSliderValue = 20;
 
 class FavorotiesButton extends StatelessWidget {
+  final String entityId;
   final String location;
   final String entityName;
   final bool status;
   final double fontSize;
   final VoidCallback onPressed;
+  final VoidCallback onClick;
   final Color textColor;
   final Color buttonBackgroundColor;
   final double heightofButton;
@@ -26,13 +30,17 @@ class FavorotiesButton extends StatelessWidget {
   final double horizontalPadding;
   final Gradient gradient;
   final bool isLoading;
+  final HomeController homeController;
 
   const FavorotiesButton({
     Key? key,
     required this.location,
+    required this.entityId,
     required this.entityName,
     required this.status,
     required this.onPressed,
+    required this.onClick,
+    required this.homeController,
     this.isLoading = true,
     this.heightofButton = 70,
     this.widthofButton = 240,
@@ -111,7 +119,7 @@ class FavorotiesButton extends StatelessWidget {
                                   children: [
                                     const Icon(
                                       Icons.location_on,
-                                      size: 24,
+                                      size: 26,
                                       color: Colors.black,
                                     ),
                                     const SizedBox(width: 5),
@@ -131,8 +139,23 @@ class FavorotiesButton extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(width: 20),
-                              const Icon(Icons.star,
-                                  color: Colors.black, size: 24),
+                              GestureDetector(
+                                onTap: () {
+                                  homeController.toggleStarIcon(entityId);
+                                },
+                                child: Obx(
+                                  () {
+                                    var icon = homeController
+                                            .entityStarIcons[entityId]?.value ??
+                                        Icons.star_outline_sharp;
+                                    return Icon(
+                                      icon,
+                                      color: Colors.black,
+                                      size: 24,
+                                    );
+                                  },
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -848,11 +871,11 @@ class CustomButtonStroked extends StatelessWidget {
         child: Text(
           text,
           // textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             height: -20,
             fontFamily: "Helvetica",
             color: Colors.white,
-            fontSize: 33,
+            fontSize: 25,
             fontWeight: FontWeight.w500,
 
             // backgroundColor: Color(0xFF2ac4aa)
@@ -1696,7 +1719,8 @@ class TicketQrButton extends StatelessWidget {
                   padding: EdgeInsets.all(0.0), // Adjust padding as needed
                   decoration: BoxDecoration(
                     color: Colors.transparent, // Background color of the box
-                    borderRadius: BorderRadius.circular(8.0), // Rounded corners
+                    borderRadius:
+                        BorderRadius.circular(12.0), // Rounded corners
                     border: Border.all(
                       color: Colors.white, // Border color
                       width: 1.5, // Border width
@@ -1722,7 +1746,7 @@ class TicketQrButton extends StatelessWidget {
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 30,
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.w300,
                       fontFamily: 'Helvetica',
                     ),
                   ),

@@ -53,16 +53,20 @@ class Apiservice {
     }
   }
 
-  Future<ReturnObj> getEntities() async {
+  Future<ReturnObj> getEntities(String searchTerm) async {
     try {
       var headers = {'Content-Type': 'application/json'};
       headers['token'] = Storage.getJwtToken();
+
       var response = await dio.request(
         '$APIURL/api/customer/get-entities',
         options: Options(
           method: 'GET',
           headers: headers,
         ),
+        queryParameters: {
+          'searchTerm': searchTerm, // Pass searchTerm as a map entry
+        },
       );
 
       if (response.statusCode == 200) {
@@ -75,7 +79,9 @@ class Apiservice {
       return ReturnObj(message: response.data["message"], status: false);
     } on DioException catch (e) {
       print("Error in Login $e");
-      return ReturnObj(status: false, message: e.response!.data["message"]);
+      return ReturnObj(
+          status: false,
+          message: e.response?.data["message"] ?? "Unknown error");
     } catch (error) {
       print("Error in Login $error");
       return ReturnObj(status: false, message: "Error in Login $error");
