@@ -37,7 +37,7 @@ class _MenuQrScreenState extends State<MenuQrScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: screenHeight * 0.12), // Responsive top space
+            SizedBox(height: screenHeight * 0.10), // Responsive top space
             Row(
               children: [
                 GestureDetector(

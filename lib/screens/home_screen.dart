@@ -3,18 +3,19 @@ import 'package:barfly_user/commonFunctions.dart';
 import 'package:barfly_user/components/BottomNavigator.dart';
 import 'package:barfly_user/components/Buttons.dart';
 import 'package:barfly_user/controller/home_controller.dart';
+import 'package:barfly_user/services/ApiService.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatelessWidget {
-  final HomeController controller = Get.put(HomeController());
+  HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-
+    controller.fetchEntities("");
     return PopScope(
       canPop: true,
       child: Scaffold(
@@ -40,12 +41,17 @@ class HomeScreen extends StatelessWidget {
                           decoration: InputDecoration(
                             prefixIcon: IconButton(
                               icon: const Icon(Icons.search),
-                              onPressed: () {},
+                              onPressed: () {
+                                // print("dsadsadsa");
+                              },
                               padding: const EdgeInsets.symmetric(vertical: 5),
                             ),
                             suffixIcon: IconButton(
                               icon: const Icon(Icons.close),
-                              onPressed: controller.toggleSearch,
+                              onPressed: () {
+                                controller.toggleSearch();
+                                controller.fetchEntities("");
+                              },
                               padding: const EdgeInsets.symmetric(vertical: 5),
                             ),
                             filled: true,
@@ -56,10 +62,17 @@ class HomeScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(12.0),
                             ),
                           ),
+                          onChanged: (value) {
+                            {
+                              controller.fetchEntities(value);
+                            }
+                          },
                         ),
                       )
                     : GestureDetector(
-                        onTap: controller.toggleSearch,
+                        onTap: () {
+                          controller.toggleSearch();
+                        },
                         child: Container(
                           width: 32,
                           height: 32,
@@ -94,111 +107,132 @@ class HomeScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
+                          GestureDetector(
+                            onTap: () {
+                              controller
+                                  .mostPopularButtonPressed(); // Set most popular size
+                            },
+                            child: Container(
                               padding: const EdgeInsets.only(left: 16),
-                              child: const Text(AppText.MostPopular,
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                    fontFamily: "Helvetica",
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w900,
-                                    color: Colors.white,
-                                  ))),
+                              child: Text(
+                                'Most Popular',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontFamily: "Helvetica",
+                                  fontSize:
+                                      controller.mostPopularFontSize.value,
+                                  fontWeight: FontWeight.w900,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
+                              GestureDetector(
+                                onTap: () {
+                                  controller.favouritesButtonPressed();
+                                },
+                                child: Container(
                                   padding: const EdgeInsets.only(left: 16),
-                                  child: const Text(AppText.Favorites,
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontFamily: "Helvetica",
-                                        fontSize: 40,
-                                        fontWeight: FontWeight.w900,
-                                        color: Colors.white,
-                                      ))),
-                              const Padding(
-                                padding: EdgeInsets.all(7.0),
+                                  child: Text(
+                                    'Favorites',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontFamily: "Helvetica",
+                                      fontSize:
+                                          controller.favoritesFontSize.value,
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 2.0),
                                 child: Icon(
                                   Icons.star,
                                   color: Colors.white,
-                                  size: 42,
+                                  size: controller.favoritesFontSize.value,
                                 ),
                               ),
                             ],
-                          ),
+                          )
                         ],
                       )),
                 const SizedBox(
                   height: 13,
                 ),
-                Expanded(
-                  child: FutureBuilder(
-                    future: controller.fetchEntities(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasError) {
-                        return Center(child: Text('Error: ${snapshot.error}'));
-                      } else if (controller.ongoingEvents.isEmpty &&
-                          controller.remainingEvents.isEmpty) {
-                        return const Center(child: Text('No data available'));
-                      } else {
-                        return SingleChildScrollView(
-                          child: Wrap(
-                            spacing: 16,
-                            runSpacing: 16,
-                            children: [
-                              ...controller.ongoingEvents.map((entity) {
-                                return FavorotiesButton(
-                                  location: entity.city,
-                                  entityName: entity.entityName,
-                                  status: true,
-                                  onPressed: () => {
-                                    Navigator.pushNamed(
-                                        context, "/insider-screen", arguments: {
+                Expanded(child: Obx(() {
+                  if (controller.isLoading.value) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (controller.remainingEvents.isEmpty &&
+                      controller.ongoingEvents.isEmpty) {
+                    return Center(child: Text('No data available'));
+                  } else {
+                    return SingleChildScrollView(
+                      child: Wrap(
+                        spacing: 16,
+                        runSpacing: 16,
+                        children: [
+                          ...controller.ongoingEvents.map((entity) {
+                            return FavorotiesButton(
+                              entityId: entity.id,
+                              location: entity.city,
+                              entityName: entity.entityName,
+                              status: true,
+                              homeController: controller,
+                              onPressed: () => {
+                                Navigator.pushNamed(context, "/insider-screen",
+                                    arguments: {
                                       "entityId": entity.id,
                                       "entityName": entity.entityName
                                     })
-                                  },
-                                  widthofButton: screenWidth > 650
-                                      ? 328
-                                      : screenWidth * 0.834,
-                                  heightofButton: getResponsiveSizedBoxHeight(
-                                      screenHeight, 168),
-                                  borderRadius: 20,
-                                  isLoading: controller.isSearchActive.value,
-                                );
-                              }).toList(),
-                              ...controller.remainingEvents.map((entity) {
-                                return FavorotiesButton(
-                                  location: entity.city,
-                                  entityName: entity.entityName,
-                                  status: false,
-                                  onPressed: () => {
-                                    Navigator.pushNamed(
-                                        context, "/insider-screen", arguments: {
+                              },
+                              onClick: () =>
+                                  {controller.toggleStarIcon(entity.id)},
+                              widthofButton:
+                                  screenWidth > 650 ? 328 : screenWidth * 0.834,
+                              heightofButton: getResponsiveSizedBoxHeight(
+                                  screenHeight, 168),
+                              borderRadius: 20,
+                              isLoading: controller.isLoading.value,
+                            );
+                          }).toList(),
+                          ...controller.remainingEvents.map((entity) {
+                            return FavorotiesButton(
+                              homeController: controller,
+                              location: entity.city,
+                              entityName: entity.entityName,
+                              entityId: entity.id,
+                              status: false,
+                              onPressed: () => {
+                                Navigator.pushNamed(context, "/insider-screen",
+                                    arguments: {
                                       "entityId": entity.id,
                                       "entityName": entity.entityName
                                     })
-                                  },
-                                  widthofButton: screenWidth > 650
-                                      ? 328
-                                      : screenWidth * 0.834,
-                                  heightofButton: getResponsiveSizedBoxHeight(
-                                      screenHeight, 168),
-                                  borderRadius: 20,
-                                  isLoading: controller.isSearchActive.value,
-                                );
-                              }).toList(),
-                            ],
-                          ),
-                        );
-                      }
-                    },
-                  ),
-                ),
+                              },
+                              widthofButton:
+                                  screenWidth > 650 ? 328 : screenWidth * 0.834,
+                              heightofButton: 168,
+                              borderRadius: 20,
+                              isLoading: controller.isLoading.value,
+                              onClick: () =>
+                                  {controller.toggleStarIcon(entity.id)},
+                            );
+                          }).toList(),
+                        ],
+                      ),
+                    );
+                  }
+                }))
+                //       }
+                //     },
+                //   ),
+                // )),
                 // Container(
                 //   alignment: Alignment.center,
                 //   margin: EdgeInsets.only(bottom: 30, top: 30),
