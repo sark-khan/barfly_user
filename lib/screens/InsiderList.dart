@@ -108,7 +108,7 @@ class _InsiderScreenState extends State<InsiderScreen> {
                           imagePath: "Lounge.png"),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 24,
                   ),
                   Row(
@@ -122,7 +122,7 @@ class _InsiderScreenState extends State<InsiderScreen> {
                           text: "Feedback",
                           onPressed: () {},
                           imagePath: "Feedback.png"),
-                      SizedBox(
+                      const SizedBox(
                         width: 24,
                       ),
                       InsiderButton(

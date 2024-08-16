@@ -18,9 +18,7 @@ class DeleteScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 30,
-                    ),
+                    SizedBox(height: screenHeight * 0.10),
                     GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(context, "/account-details-screen");
@@ -49,42 +47,40 @@ class DeleteScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 60,
-                    ),
+                    SizedBox(height: screenHeight * 0.08),
                     Container(
                       margin: const EdgeInsets.only(left: 16),
                       child: RichText(
                           text: const TextSpan(
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 30),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                  fontFamily: 'Helvetica'),
                               children: [
                             TextSpan(
                               children: [
                                 TextSpan(
                                   text: "Delete ",
-                                  style: TextStyle(fontWeight: FontWeight.w100),
+                                  style: TextStyle(fontWeight: FontWeight.w300),
                                 ),
                                 TextSpan(
                                   text: "Account",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontWeight: FontWeight.w800),
                                 ),
                               ],
                             )
                           ])),
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
+                    SizedBox(height: screenHeight * 0.02),
                     Expanded(
                       child: SingleChildScrollView(
                         child: IntrinsicHeight(
                           child: Center(
                             child: Container(
-                              height: getResponsiveSizedBoxHeight(
-                                  screenHeight, 472),
                               width:
-                                  getResponsiveSizedBoxWidth(screenWidth, 295),
+                                  screenWidth > 650 ? 328 : screenWidth * 0.834,
+                              height: getResponsiveSizedBoxHeight(
+                                  screenHeight, 168),
                               margin: const EdgeInsets.only(left: 0),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
@@ -103,18 +99,20 @@ class DeleteScreen extends StatelessWidget {
                                 child: RichText(
                                     text: const TextSpan(
                                         style: TextStyle(
-                                            color: Colors.white, fontSize: 15),
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontFamily: 'Helvetica'),
                                         children: [
                                       TextSpan(
                                           text: "Ohh that’s too bad\n\n",
                                           style: TextStyle(
-                                              fontWeight: FontWeight.bold,
+                                              fontWeight: FontWeight.w600,
                                               fontSize: 15)),
                                       TextSpan(
                                           text:
                                               "Ohh that’s too bad This process will permanently delete your „COUNTR“ account. All saved data will be lost and cannot be restored.\n\n",
                                           style: TextStyle(
-                                              fontWeight: FontWeight.w100,
+                                              fontWeight: FontWeight.w300,
                                               fontSize: 15)),
                                     ])),
                               ),
@@ -123,9 +121,7 @@ class DeleteScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 40,
-                    ),
+                    SizedBox(height: screenHeight * 0.02),
                     Expanded(
                       child: Center(
                         child: Container(

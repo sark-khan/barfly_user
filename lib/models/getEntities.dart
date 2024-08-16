@@ -58,14 +58,16 @@ class Entity {
   String city;
   String entityName;
   String entityType;
-  bool isFavourite;
+  bool isFavouriteEntity;
+  bool status;
 
   Entity({
     required this.id,
     required this.city,
     required this.entityName,
     required this.entityType,
-    this.isFavourite = false,
+    required this.isFavouriteEntity,
+    this.status = false,
   });
 
   factory Entity.fromJson(Map<String, dynamic> json) => Entity(
@@ -73,6 +75,7 @@ class Entity {
         city: json["city"],
         entityName: json["entityName"],
         entityType: json["entityType"],
+        isFavouriteEntity: json["isFavouriteEntity"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -80,5 +83,6 @@ class Entity {
         "city": city,
         "entityName": entityName,
         "entityType": entityType,
+        "isFavouriteEntity": isFavouriteEntity
       };
 }

@@ -53,7 +53,8 @@ class Apiservice {
     }
   }
 
-  Future<ReturnObj> getEntities(String searchTerm) async {
+  Future<ReturnObj> getEntities(
+      String searchTerm, bool isFavouriteEntities) async {
     try {
       var headers = {'Content-Type': 'application/json'};
       headers['token'] = Storage.getJwtToken();
@@ -66,6 +67,7 @@ class Apiservice {
         ),
         queryParameters: {
           'searchTerm': searchTerm, // Pass searchTerm as a map entry
+          "isFavouriteEntities": isFavouriteEntities
         },
       );
 
@@ -205,6 +207,34 @@ class Apiservice {
         return ReturnObj(status: true, message: response.data["message"]);
       }
       print("reachde hrerere");
+      return ReturnObj(message: response.data["message"], status: false);
+    } on DioException catch (e) {
+      print("Error in Login $e");
+      return ReturnObj(status: false, message: e.response!.data["message"]);
+    } catch (error) {
+      print("Error in Login $error");
+      return ReturnObj(status: false, message: "Error in Login $error");
+    }
+  }
+
+  Future<ReturnObj> addFavourite(String entityId, bool isFavourite) async {
+    try {
+      var headers = {'Content-Type': 'application/json'};
+      headers['token'] = Storage.getJwtToken();
+      var data =
+          json.encode({"entityId": entityId, "isFavourite": isFavourite});
+      var response =
+          await dio.request('$APIURL/api/customer/add-favourite-entity',
+              options: Options(
+                method: 'POST',
+                headers: headers,
+              ),
+              data: data);
+
+      if (response.statusCode == 200) {
+        return ReturnObj(status: true, message: response.data["message"]);
+      }
+
       return ReturnObj(message: response.data["message"], status: false);
     } on DioException catch (e) {
       print("Error in Login $e");

@@ -6,7 +6,6 @@ import 'package:barfly_user/controller/home_controller.dart';
 import 'package:barfly_user/services/ApiService.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeController controller = Get.put(HomeController());
@@ -15,7 +14,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    controller.fetchEntities("");
+    controller.fetchEntities("", controller.isFavourite.value);
+
     return PopScope(
       canPop: true,
       child: Scaffold(
@@ -50,7 +50,8 @@ class HomeScreen extends StatelessWidget {
                               icon: const Icon(Icons.close),
                               onPressed: () {
                                 controller.toggleSearch();
-                                controller.fetchEntities("");
+                                controller.fetchEntities(
+                                    "", controller.isFavourite.value);
                               },
                               padding: const EdgeInsets.symmetric(vertical: 5),
                             ),
@@ -64,7 +65,8 @@ class HomeScreen extends StatelessWidget {
                           ),
                           onChanged: (value) {
                             {
-                              controller.fetchEntities(value);
+                              controller.fetchEntities(
+                                  value, controller.isFavourite.value);
                             }
                           },
                         ),
@@ -167,10 +169,10 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Expanded(child: Obx(() {
                   if (controller.isLoading.value) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   } else if (controller.remainingEvents.isEmpty &&
                       controller.ongoingEvents.isEmpty) {
-                    return Center(child: Text('No data available'));
+                    return const Center(child: Text('No data available'));
                   } else {
                     return SingleChildScrollView(
                       child: Wrap(
@@ -184,12 +186,15 @@ class HomeScreen extends StatelessWidget {
                               entityName: entity.entityName,
                               status: true,
                               homeController: controller,
-                              onPressed: () => {
+                              onPressed: () {
+                                // When navigating away
+                                Get.delete<HomeController>();
+
                                 Navigator.pushNamed(context, "/insider-screen",
                                     arguments: {
                                       "entityId": entity.id,
                                       "entityName": entity.entityName
-                                    })
+                                    });
                               },
                               onClick: () =>
                                   {controller.toggleStarIcon(entity.id)},
@@ -198,27 +203,30 @@ class HomeScreen extends StatelessWidget {
                               heightofButton: getResponsiveSizedBoxHeight(
                                   screenHeight, 168),
                               borderRadius: 20,
+                              isFavouriteEntity: entity.isFavouriteEntity,
                               isLoading: controller.isLoading.value,
                             );
                           }).toList(),
                           ...controller.remainingEvents.map((entity) {
                             return FavorotiesButton(
+                              status: false,
                               homeController: controller,
                               location: entity.city,
                               entityName: entity.entityName,
                               entityId: entity.id,
-                              status: false,
-                              onPressed: () => {
+                              onPressed: () {
+                                Get.delete<HomeController>();
                                 Navigator.pushNamed(context, "/insider-screen",
                                     arguments: {
                                       "entityId": entity.id,
                                       "entityName": entity.entityName
-                                    })
+                                    });
                               },
                               widthofButton:
                                   screenWidth > 650 ? 328 : screenWidth * 0.834,
                               heightofButton: 168,
                               borderRadius: 20,
+                              isFavouriteEntity: entity.isFavouriteEntity,
                               isLoading: controller.isLoading.value,
                               onClick: () =>
                                   {controller.toggleStarIcon(entity.id)},
