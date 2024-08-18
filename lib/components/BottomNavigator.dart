@@ -1,6 +1,5 @@
 import 'package:barfly_user/appConstants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class BottomNavigator extends StatelessWidget {
   final String text;
@@ -47,7 +46,6 @@ class BottomNavigator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("$imagePath imsssssssss $useSvg");
     return SizedBox(
       width: 196,
       height: 56,

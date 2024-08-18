@@ -1,16 +1,10 @@
 import 'package:barfly_user/appConstants.dart';
-import 'package:barfly_user/commonFunctions.dart';
 import 'package:barfly_user/controller/home_controller.dart';
 import 'package:barfly_user/models/EntityLiveOrders.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/state_manager.dart';
-import 'package:get/utils.dart';
 import 'package:shimmer/shimmer.dart';
-
-double _currentSliderValue = 20;
 
 class FavorotiesButton extends StatelessWidget {
   final String entityId;
@@ -30,10 +24,11 @@ class FavorotiesButton extends StatelessWidget {
   final double horizontalPadding;
   final Gradient gradient;
   final bool isLoading;
+  final bool isFavouriteEntity;
   final HomeController homeController;
 
   const FavorotiesButton({
-    Key? key,
+    super.key,
     required this.location,
     required this.entityId,
     required this.entityName,
@@ -41,6 +36,7 @@ class FavorotiesButton extends StatelessWidget {
     required this.onPressed,
     required this.onClick,
     required this.homeController,
+    required this.isFavouriteEntity,
     this.isLoading = true,
     this.heightofButton = 70,
     this.widthofButton = 240,
@@ -59,7 +55,7 @@ class FavorotiesButton extends StatelessWidget {
         Color(0xFF473F88), // Blue/Purple
       ],
     ),
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +75,7 @@ class FavorotiesButton extends StatelessWidget {
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
               elevation: 0,
-              padding: EdgeInsets.all(0),
+              padding: EdgeInsets.zero,
               backgroundColor: Colors.transparent,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
@@ -87,8 +83,8 @@ class FavorotiesButton extends StatelessWidget {
             ),
             child: isLoading
                 ? Shimmer.fromColors(
-                    baseColor: Color(0xFF623E87),
-                    highlightColor: Color(0xFF473F88),
+                    baseColor: const Color(0xFF623E87),
+                    highlightColor: const Color(0xFF473F88),
                     child: Container(
                       width: double.infinity,
                       height: heightofButton,
@@ -141,7 +137,9 @@ class FavorotiesButton extends StatelessWidget {
                               const SizedBox(width: 20),
                               GestureDetector(
                                 onTap: () {
-                                  homeController.toggleStarIcon(entityId);
+                                  homeController.toggleStarIcon(
+                                    entityId,
+                                  );
                                 },
                                 child: Obx(
                                   () {
@@ -159,28 +157,28 @@ class FavorotiesButton extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Flexible(
-                          flex: 1,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Visibility(
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Visibility(
+                                  visible: status,
+                                  child: const Icon(Icons.circle,
+                                      color: Colors.green, size: 12),
+                                ),
+                                const SizedBox(width: 5),
+                                Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Visibility(
                                     visible: status,
-                                    child: const Icon(Icons.circle,
-                                        color: Colors.green, size: 16),
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Align(
-                                    alignment: Alignment.bottomLeft,
-                                    child: Visibility(
-                                      visible: status,
-                                      child: const Text(
-                                        "Open",
+                                    child: const Padding(
+                                      padding: EdgeInsets.only(top: 1.0),
+                                      child: Text(
+                                        "open",
                                         style: TextStyle(
                                           fontFamily: "Helvetica",
                                           fontWeight: FontWeight.w300,
@@ -190,26 +188,17 @@ class FavorotiesButton extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        Flexible(
-                          flex: 5,
-                          child: Align(
-                            alignment: Alignment.bottomLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 4),
-                              child: Text(
-                                entityName,
-                                style: const TextStyle(
-                                    fontFamily: "Helvetica",
-                                    color: Colors.white,
-                                    fontSize: 30),
-                              ),
+                                ),
+                              ],
                             ),
-                          ),
+                            Text(
+                              entityName,
+                              style: const TextStyle(
+                                  fontFamily: "Helvetica",
+                                  color: Colors.white,
+                                  fontSize: 30),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -2012,36 +2001,46 @@ class TicketQrPickupButton extends StatelessWidget {
                         Opacity(
                           opacity: 0.5,
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: widthofButton * 0.102,
-                                vertical: heightofButton * 0.0645),
+                            padding: const EdgeInsets.only(
+                              top: 30.0, // Padding on the top side
+                              bottom: 20.0,
+                              //Padding on the bottom side
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment
                                   .start, // Aligns all children to the start
                               children: [
                                 // SizedBox(height: heightofButton * 0.0645),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20,
-                                      vertical: 2), // Adjust padding as needed
-                                  decoration: BoxDecoration(
-                                    color: Color(
-                                        0xFFD800FF), // Background color of the box
-                                    borderRadius: BorderRadius.circular(
-                                        8.0), // Rounded corners, adjust radius as needed
-                                    border: Border.all(
-                                      color: Color(0xFFD800FF), // Border color
-                                      width: 2.0, // Border width
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 32),
+                                  child: Container(
+                                    padding: const EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                      color: const Color(
+                                          0xFFD800FF), // Background color of the box
+                                      borderRadius: BorderRadius.circular(
+                                          8.0), // Rounded corners, adjust radius as needed
+                                      border: Border.all(
+                                        color: const Color(
+                                            0xFFD800FF), // Border color
+                                        width: 2.0, // Border width
+                                      ),
                                     ),
-                                  ),
-                                  child: Text(
-                                    text1,
-                                    style: const TextStyle(
-                                        color: Colors.white, // Text color
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Helvetica'),
+                                    child: SizedBox(
+                                      width: 96,
+                                      height: 48,
+                                      child: Center(
+                                        child: Text(
+                                          text1,
+                                          style: const TextStyle(
+                                              color: Colors.white, // Text color
+                                              fontSize: 40,
+                                              fontWeight: FontWeight.w800,
+                                              fontFamily: 'Helvetica'),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                                 SizedBox(height: heightofButton * 0.0322),
@@ -2049,45 +2048,49 @@ class TicketQrPickupButton extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Container(
-                                      width: widthofButton * 0.1666,
-                                      height: heightofButton * 0.098,
-                                      padding: EdgeInsets.all(
-                                          0), // Adjust padding as needed
-                                      decoration: BoxDecoration(
-                                        color: Colors
-                                            .transparent, // Background color of the box
-                                        borderRadius: BorderRadius.circular(
-                                            8.0), // Rounded corners
-                                        border: Border.all(
-                                          color: Colors.white, // Border color
-                                          width: 2.0, // Border width
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 32),
+                                      child: Container(
+                                        padding: const EdgeInsets.all(
+                                            5), // Adjust padding as needed
+                                        decoration: BoxDecoration(
+                                          color: Colors
+                                              .transparent, // Background color of the box
+                                          borderRadius: BorderRadius.circular(
+                                              8.0), // Rounded corners
+                                          border: Border.all(
+                                            color: Colors.white, // Border color
+                                            width: 2.0, // Border width
+                                          ),
                                         ),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          text2,
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 30,
-                                              fontWeight: FontWeight.w300,
-                                              fontFamily: 'Helvetica'),
+                                        child: SizedBox(
+                                          height: 35,
+                                          width: 32,
+                                          child: Center(
+                                            child: Text(
+                                              text2,
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 30,
+                                                  fontWeight: FontWeight.w300,
+                                                  fontFamily: 'Helvetica'),
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
                                     const SizedBox(
-                                        width:
-                                            8), // Space between text2 and text3
-                                    Flexible(
-                                      child: Text(
-                                        text3,
-                                        softWrap: true,
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.w100,
-                                            fontFamily: 'Helvetica'),
-                                      ),
+                                      width: 12,
+                                    ),
+                                    // Space between text2 and text3
+                                    Text(
+                                      text3,
+                                      softWrap: true,
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w300,
+                                          fontFamily: 'Helvetica'),
                                     ),
                                   ],
                                 ),
@@ -2121,108 +2124,97 @@ class TicketQrPickupButton extends StatelessWidget {
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 20,
-                                        fontWeight: FontWeight.w100,
+                                        fontWeight: FontWeight.w300,
                                       ),
                                     ),
                                   ),
                                 ),
+                                SizedBox(height: screenHeight * 0.10),
                               ],
                             ),
                           ),
                         ),
                         // Button placed on top of the translucent content
                         Positioned(
-                          top: heightofButton * 0.5,
-                          left: widthofButton * 0.189,
+                          top: heightofButton * 0.44,
+                          left: widthofButton * 0.185,
                           child: ElevatedButton(
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
-                              fixedSize: Size(193, 70),
-                              padding: EdgeInsets.symmetric(
-                                vertical:
-                                    screenHeight * 0.02, // Responsive padding
-                              ),
-                              backgroundColor: Color.fromARGB(
+                              fixedSize: const Size(193, 57),
+                              padding:
+                                  const EdgeInsets.all(2 // Responsive padding
+                                      ),
+                              backgroundColor: const Color.fromARGB(
                                   255, 59, 198, 233), // Fully opaque
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(25),
                                 side: const BorderSide(
                                   color: Color.fromARGB(255, 243, 244, 245),
                                   width: 2,
                                 ),
                               ),
                             ),
-                            child: const Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: Text(
-                                      'Picked Up!',
-                                      style: TextStyle(
-                                        fontFamily: "Helvetica",
-                                        color: Colors.white,
-                                        fontSize: 55,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(width: 10),
-                                ],
+                            child: const Center(
+                              child: Text(
+                                'Picked Up!',
+                                style: TextStyle(
+                                  fontFamily: "Helvetica",
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
                           ),
                         ),
                         // Button placed on top of the translucent content
-                        Positioned(
-                          top: 215,
-                          left: 72,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                              fixedSize: Size(193, 70),
-                              padding: EdgeInsets.symmetric(
-                                vertical:
-                                    screenHeight * 0.02, // Responsive padding
-                              ),
-                              backgroundColor: Color.fromARGB(
-                                  255, 59, 198, 233), // Fully opaque
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                side: const BorderSide(
-                                  color: Color.fromARGB(255, 243, 244, 245),
-                                  width: 2,
-                                ),
-                              ),
-                            ),
-                            child: const Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: Text(
-                                      'Picked Up!',
-                                      style: TextStyle(
-                                        fontFamily: "Helvetica",
-                                        color: Colors.white,
-                                        fontSize: 55,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(width: 10),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+                        // Positioned(
+                        //   top: 215,
+                        //   left: 72,
+                        //   child: ElevatedButton(
+                        //     onPressed: () {},
+                        //     style: ElevatedButton.styleFrom(
+                        //       elevation: 0,
+                        //       fixedSize: Size(193, 70),
+                        //       padding: EdgeInsets.symmetric(
+                        //         vertical:
+                        //             screenHeight * 0.02, // Responsive padding
+                        //       ),
+                        //       backgroundColor: Color.fromARGB(
+                        //           255, 59, 198, 233), // Fully opaque
+                        //       shape: RoundedRectangleBorder(
+                        //         borderRadius: BorderRadius.circular(20),
+                        //         side: const BorderSide(
+                        //           color: Color.fromARGB(255, 243, 244, 245),
+                        //           width: 2,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     child: const Padding(
+                        //       padding: const EdgeInsets.all(2.0),
+                        //       child: const Row(
+                        //         mainAxisAlignment: MainAxisAlignment.center,
+                        //         crossAxisAlignment: CrossAxisAlignment.center,
+                        //         children: [
+                        //           FittedBox(
+                        //             fit: BoxFit.scaleDown,
+                        //             child: Text(
+                        //               'Picked Up!',
+                        //               style: TextStyle(
+                        //                 fontFamily: "Helvetica",
+                        //                 color: Colors.white,
+                        //                 fontSize: 55,
+                        //                 fontWeight: FontWeight.w500,
+                        //               ),
+                        //             ),
+                        //           ),
+                        //           SizedBox(width: 10),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     )),
         ),

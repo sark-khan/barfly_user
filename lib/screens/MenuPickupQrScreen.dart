@@ -53,10 +53,10 @@ class MenuPickupQrScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             Center(
               child: Container(
-                margin: EdgeInsets.only(left: 0),
+                margin: const EdgeInsets.only(left: 0),
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
@@ -70,13 +70,13 @@ class MenuPickupQrScreen extends StatelessWidget {
                           TextSpan(
                             text: "Kaufleuten ",
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w800,
                                 fontFamily: 'Helvetica'),
                           ),
                           TextSpan(
                             text: "Tickets \n",
                             style: TextStyle(
-                                fontWeight: FontWeight.w100,
+                                fontWeight: FontWeight.w300,
                                 fontFamily: 'Helvetica'),
                           ),
                         ],
@@ -90,7 +90,7 @@ class MenuPickupQrScreen extends StatelessWidget {
                             color: Colors.white,
                             fontSize: getResponsiveFontSize(
                                 screenWidth, screenHeight, 30),
-                            fontWeight: FontWeight.w100,
+                            fontWeight: FontWeight.w300,
                             fontFamily: 'Helvetica'),
                         textAlign: TextAlign.center,
                       ),
@@ -130,17 +130,20 @@ class MenuPickupQrScreen extends StatelessWidget {
                             isVisible: true,
                           ),
                           TicketQrPickupButton(
-                              text1: "40 ",
-                              text2: '1x ',
-                              text3: 'Red Bull',
-                              text4: '22:06:32 ',
-                              onPressed: () => {},
-                              widthofButton: screenWidth * 0.834,
-                              heightofButton: 0.123 * screenHeight,
-                              borderRadius: 20,
-                              isLoading: false,
-                              imagePath: "qr-code.png",
-                              isVisible: true),
+                            text1: "40 ",
+                            text2: '1x ',
+                            text3: 'Red Bull',
+                            text4: '22:06:32 ',
+                            onPressed: () => {},
+                            widthofButton: screenWidth * 0.834 < 550
+                                ? screenWidth * 0.834
+                                : 312,
+                            heightofButton: 496,
+                            borderRadius: 20,
+                            isLoading: false,
+                            imagePath: "qr-code.png",
+                            isVisible: true,
+                          ),
                         ],
                       ),
                     ),

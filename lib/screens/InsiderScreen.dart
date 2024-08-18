@@ -40,6 +40,7 @@ class InsiderScreen extends StatelessWidget {
                     onTap: () {
                       Storage.removeOrderDetails();
                       Storage.removeTotalOrderPrice();
+                      // Navigator.pop(context);
                       Navigator.pushNamed(context, "/home-screen");
                     },
                     child: Container(
