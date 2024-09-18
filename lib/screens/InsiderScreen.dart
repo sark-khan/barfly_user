@@ -1,6 +1,4 @@
 import 'package:barfly_user/Storage.dart';
-import 'package:barfly_user/appConstants.dart';
-import 'package:barfly_user/commonFunctions.dart';
 import 'package:barfly_user/components/BottomNavigator.dart';
 import 'package:barfly_user/components/Buttons.dart';
 import 'package:barfly_user/controller/counter_controller.dart';
